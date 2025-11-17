@@ -14,7 +14,7 @@ Un MVP que permite cargar un portafolio en Excel, analizar su estructura, visual
 
 ---
 
-# 📂 Estructura del proyecto
+# 📂 Estructura General del proyecto
 
 ```
 PortfolioAnalyzer/
@@ -96,6 +96,17 @@ http://localhost:5173/
 El usuario sube un archivo Excel.  
 El frontend lo procesa y lo envía al backend.
 
+### 📁 Ejemplo de archivo de portafolio a subir
+
+La aplicación acepta archivos en formato **CSV** o **Excel (.xlsx)**.  
+El archivo debe contener las columnas básicas del portafolio, como:
+
+- **symbol** → símbolo del activo (AAPL, MSFT, NVDA, VOO, etc.)
+- **shares** → cantidad de acciones o unidades
+- **price** → precio promedio de compra
+- **sector** → sector del activo (opcional)
+- **roi** → retorno del capital invertido (opcional)
+  
 ### 2. Análisis en backend
 El backend:
 - Valida columnas
