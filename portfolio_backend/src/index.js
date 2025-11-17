@@ -28,7 +28,6 @@ app.post("/api/chat", async (req, res) => {
   try {
     const { message, analysis, positions = [] } = req.body;
 
-    // --- construir datos tipo scatter (riesgo vs retorno) ---
     const totalValue = positions.reduce((sum, p) => sum + (p.value || 0), 0);
 
     const scatterData =
