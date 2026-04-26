@@ -1,48 +1,94 @@
 import express from "express";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import { analyzePortfolio } from "./services/portfolioAnalyzer.js";
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
-app.use(express.json());
+// ── CORS ────────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL, // e.g. https://your-app.vercel.app
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      // Allow server-to-server or same-origin requests (no Origin header)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origin ${origin} not allowed`));
+      }
+    },
     credentials: true,
   })
 );
 
+app.use(express.json({ limit: "1mb" }));
+
+// ── RATE LIMITING ────────────────────────────────────────────────────────────
+// General API limiter — protects all endpoints
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many requests. Please try again in 15 minutes." },
+});
+
+// Tighter limit on /api/chat to protect Groq credits
+const chatLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 8,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Chat rate limit reached. Please wait a moment." },
+});
+
+app.use("/api/", apiLimiter);
+
+// ── ROUTES ───────────────────────────────────────────────────────────────────
 app.post("/api/analyze", (req, res) => {
   try {
     const { positions } = req.body;
     const analysis = analyzePortfolio(positions || []);
     return res.json(analysis);
   } catch (err) {
-    console.error(err);
+    console.error("[/api/analyze]", err);
     res.status(500).json({ error: "Error analyzing portfolio" });
   }
 });
 
-app.post("/api/chat", async (req, res) => {
+app.post("/api/chat", chatLimiter, async (req, res) => {
   try {
     const { message, analysis, positions = [] } = req.body;
 
-    const totalValue = positions.reduce((sum, p) => sum + (p.value || 0), 0);
+    if (!message?.trim()) {
+      return res.status(400).json({ error: "Message is required." });
+    }
 
+    if (!process.env.GROQ_API_KEY) {
+      console.error("GROQ_API_KEY is not set");
+      return res.status(503).json({ error: "LLM service not configured." });
+    }
+
+    // Build scatter data for the prompt (same logic as before)
+    const totalValue = positions.reduce((sum, p) => sum + (p.value || 0), 0);
     const scatterData =
       totalValue > 0
         ? positions.map((p) => ({
             symbol: p.symbol,
             sector: p.sector,
-            riesgo_pct: Number(((p.value / totalValue) * 100).toFixed(2)), // eje X
+            riesgo_pct: Number(((p.value / totalValue) * 100).toFixed(2)),
             retorno_pct:
-              p.roi != null ? Number((p.roi * 100).toFixed(2)) : null, // eje Y
+              p.roi != null ? Number((p.roi * 100).toFixed(2)) : null,
           }))
         : [];
 
-    const prompt = `
-Eres un asesor financiero profesional con una opinión clara sobre portafolios bien construidos.
+    // System prompt — same rules as before, now as a proper system message
+    const systemPrompt = `Eres un asesor financiero profesional con una opinión clara sobre portafolios bien construidos.
 
 Reglas:
 - Un buen portafolio suele tener 40%-60% en un ETF amplio tipo SP500.
@@ -72,38 +118,58 @@ ${JSON.stringify(positions, null, 2)}
 
 DATOS DEL GRÁFICO SCATTER
 (cada punto: symbol, sector, riesgo_pct = eje X, retorno_pct = eje Y):
-${JSON.stringify(scatterData, null, 2)}
+${JSON.stringify(scatterData, null, 2)}`;
 
-PREGUNTA DEL USUARIO:
-${message}
+    // ── Groq API call (OpenAI-compatible) ───────────────────────────────────
+    const groqRes = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "llama-3.1-70b-versatile", // free-tier model on Groq
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: message.trim() },
+          ],
+          max_tokens: 1024,
+          temperature: 0.7,
+          stream: false,
+        }),
+      }
+    );
 
-RESPUESTA:
-`.trim();
+    if (!groqRes.ok) {
+      const errBody = await groqRes.text();
+      console.error(`[Groq] HTTP ${groqRes.status}:`, errBody);
+      return res
+        .status(502)
+        .json({ error: "LLM service unavailable. Please try again." });
+    }
 
-    const ollamaResponse = await fetch("http://localhost:11434/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "llama3.1",
-        prompt,
-        stream: false,
-      }),
-    });
+    const data = await groqRes.json();
+    const raw = data.choices?.[0]?.message?.content ?? "";
 
-    const data = await ollamaResponse.json();
-
-    const clean = (data.response || "")
-      .replace(/\s+/g, " ")
-      .replace(/([a-zA-Z])\1{2,}/g, "$1")
-      .replace(/\n\s*\n\s*\n/g, "\n\n")
+    // Strip any markdown formatting the model may still emit
+    const clean = raw
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/\*(.*?)\*/g, "$1")
+      .replace(/#{1,6}\s/g, "")
+      .replace(/\n{3,}/g, "\n\n")
       .trim();
 
     return res.json({ response: clean });
   } catch (err) {
-    console.error("Error in /api/chat:", err);
-    res.status(500).json({ error: "Chat error" });
+    console.error("[/api/chat]", err);
+    res.status(500).json({ error: "Chat error. Please try again." });
   }
 });
+
+// ── HEALTH CHECK ─────────────────────────────────────────────────────────────
+app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
 app.listen(port, () => {
   console.log(`Backend running on http://localhost:${port}`);

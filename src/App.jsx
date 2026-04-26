@@ -7,6 +7,7 @@ import {
   Descriptions,
   Tag,
   Button,
+  Alert,
 } from "antd";
 import { MessageOutlined, CloseOutlined } from "@ant-design/icons";
 
@@ -18,6 +19,7 @@ import PortfolioRadar from "./components/PortfolioRadar";
 import SectorRanking from "./components/SectorRanking";
 import AssetRanking from "./components/AssetRanking";
 import ScatterRiskReturn from "./components/ScatterRiskReturn";
+import { analyzePortfolio } from "./api/chat";
 
 const { Header, Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -36,24 +38,23 @@ function App() {
   const [positions, setPositions] = useState([]);
   const [analysis, setAnalysis] = useState(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
+  const [analyzeError, setAnalyzeError] = useState(null);
   const [chatOpen, setChatOpen] = useState(true);
 
   const handlePortfolioParsed = async (parsedPositions) => {
     setPositions(parsedPositions);
     setAnalysis(null);
+    setAnalyzeError(null);
     setLoadingAnalysis(true);
 
     try {
-      const res = await fetch("http://localhost:4000/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ positions: parsedPositions }),
-      });
-
-      const data = await res.json();
+      const data = await analyzePortfolio(parsedPositions);
       setAnalysis(data);
     } catch (err) {
       console.error(err);
+      setAnalyzeError(
+        "No se pudo conectar con el servidor de análisis. Verifica que el backend esté corriendo."
+      );
     } finally {
       setLoadingAnalysis(false);
     }
@@ -96,9 +97,10 @@ function App() {
             <Card>
               <Title level={4}>1. Sube tu portafolio</Title>
               <Paragraph type="secondary">
-                Sube un archivo Excel con columnas como: <b>symbol</b>,{" "}
-                <b>shares</b>, <b>price</b>, <b>sector</b> y opcionalmente{" "}
-                <b>ROI</b>.
+                Sube un archivo <b>Excel (.xlsx)</b> o <b>CSV</b> con columnas:{" "}
+                <b>symbol/ticker</b>, <b>shares/cantidad</b>,{" "}
+                <b>price/precio</b>, y opcionalmente <b>sector</b> y{" "}
+                <b>roi/rendimiento</b>.
               </Paragraph>
 
               <FileUploader onPortfolioParsed={handlePortfolioParsed} />
@@ -107,6 +109,15 @@ function App() {
                 <div style={{ marginTop: 16 }}>
                   <Spin /> Analizando portafolio...
                 </div>
+              )}
+
+              {analyzeError && (
+                <Alert
+                  style={{ marginTop: 16 }}
+                  type="error"
+                  message={analyzeError}
+                  showIcon
+                />
               )}
 
               {analysis && (
@@ -153,11 +164,13 @@ function App() {
                 </div>
               )}
             </Card>
+
             {positions.length > 0 && (
               <div style={{ marginTop: 32, overflow: "visible" }}>
                 <PortfolioCharts data={positions} />
               </div>
             )}
+
             <div
               style={{
                 display: "flex",
@@ -171,11 +184,11 @@ function App() {
               <div style={{ flex: 1, overflow: "visible" }}>
                 <PortfolioRadar analysis={analysis} />
               </div>
-
               <div style={{ flex: 1, overflow: "visible" }}>
                 <ScatterRiskReturn positions={positions} />
               </div>
             </div>
+
             <div
               style={{
                 display: "flex",
