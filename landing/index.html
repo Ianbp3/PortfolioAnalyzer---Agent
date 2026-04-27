@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FolioSense — Free AI Portfolio Analyzer</title>
+  <meta name="description" content="Upload your stock portfolio and get instant AI-powered analysis, risk scoring, and personalized advice. Free, no account needed. Supports CSV and Excel." />
+  <meta name="keywords" content="free portfolio analyzer, stock portfolio analysis, AI investment tool, portfolio risk calculator, analyze my portfolio" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://foliosenseapp.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FolioSense — Free AI Portfolio Analyzer" />
+  <meta property="og:description" content="Upload your portfolio and get instant AI-powered analysis. Free, no sign-up required." />
+  <meta property="og:url" content="https://foliosenseapp.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://foliosenseapp.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FolioSense — Free AI Portfolio Analyzer" />
+  <meta name="twitter:description" content="Upload your portfolio and get instant AI-powered analysis. Free, no sign-up required." />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FolioSense",
+    "description": "Free AI-powered stock portfolio analyzer. Upload CSV or Excel, get instant risk analysis, charts, and AI chat advice.",
+    "url": "https://foliosenseapp.com",
+    "applicationCategory": "FinanceApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Portfolio risk scoring","AI chat advisor","Visual charts","Sector analysis","No account required"]
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+  <div class="nav-links">
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/why-invest.html">Why invest</a>
+    <a href="/glossary.html">Glossary</a>
+    <a href="/analyze" class="nav-cta">Launch app →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section style="padding-top: clamp(4rem,9vw,8rem); padding-bottom: clamp(4rem,9vw,8rem); padding-left: clamp(1.5rem,5vw,4rem); padding-right: clamp(1.5rem,5vw,4rem); background: var(--paper);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+
+      <div>
+        <div class="badge animate">✦ 100% Free — No account needed</div>
+        <h1 class="h1 animate delay-1">
+          Your portfolio,<br/>
+          <span class="text-accent">finally making sense.</span>
+        </h1>
+        <p class="animate delay-2" style="font-size: 1.15rem; color: var(--ink-soft); margin: 1.5rem 0 2rem; max-width: 480px; line-height: 1.7;">
+          Upload your stocks in seconds. FolioSense gives you AI-powered risk analysis, visual breakdowns, and a personal advisor that actually explains what your portfolio means.
+        </p>
+        <div class="animate delay-3" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="/analyze" class="btn btn-primary btn-lg">Analyze my portfolio →</a>
+          <a href="/how-it-works.html" class="btn btn-outline btn-lg">See how it works</a>
+        </div>
+        <p class="animate delay-4" style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--ink-muted);">
+          Works with CSV and Excel files &nbsp;·&nbsp; No sign-up &nbsp;·&nbsp; Free forever
+        </p>
+      </div>
+
+      <!-- Hero visual -->
+      <div class="animate delay-2" style="position: relative;">
+        <div style="background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); box-shadow: var(--shadow-lg); padding: 1.75rem; overflow: hidden;">
+
+          <!-- Mock top bar -->
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff6058;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbc2e;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #29ca42;"></div>
+            <div style="flex: 1; height: 28px; background: var(--paper); border-radius: 6px; margin-left: 8px;"></div>
+          </div>
+
+          <!-- Mock metric cards -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.25rem;">
+            <div style="background: var(--paper); border-radius: 10px; padding: 12px;">
+              <div style="font-size: 0.7rem; color: var(--ink-muted); font-weight: 500; margin-bottom: 4px;">Total Value</div>
+              <div style="font-family: var(--font-display); font-size: 1rem; font-weight: 700;">$24,830</div>
+            </div>
+            <div style="background: var(--accent-light); border-radius: 10px; padding: 12px;">
+              <div style="font-size: 0.7rem; color: var(--accent); font-weight: 500; margin-bottom: 4px;">Risk Score</div>
+              <div style="font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--accent);">Low 30</div>
+            </div>
+            <div style="background: var(--paper); border-radius: 10px; padding: 12px;">
+              <div style="font-size: 0.7rem; color: var(--ink-muted); font-weight: 500; margin-bottom: 4px;">Assets</div>
+              <div style="font-family: var(--font-display); font-size: 1rem; font-weight: 700;">10</div>
+            </div>
+          </div>
+
+          <!-- Mock bar chart -->
+          <div style="margin-bottom: 1.25rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 10px;">Portfolio distribution</div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="font-size: 0.7rem; width: 36px; color: var(--ink-muted);">NVDA</div>
+                <div style="flex: 1; height: 8px; background: var(--paper-warm); border-radius: 99px; overflow: hidden;">
+                  <div style="width: 28%; height: 100%; background: var(--accent); border-radius: 99px;"></div>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--ink-soft);">28%</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="font-size: 0.7rem; width: 36px; color: var(--ink-muted);">MSFT</div>
+                <div style="flex: 1; height: 8px; background: var(--paper-warm); border-radius: 99px; overflow: hidden;">
+                  <div style="width: 22%; height: 100%; background: var(--gold); border-radius: 99px;"></div>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--ink-soft);">22%</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="font-size: 0.7rem; width: 36px; color: var(--ink-muted);">AAPL</div>
+                <div style="flex: 1; height: 8px; background: var(--paper-warm); border-radius: 99px; overflow: hidden;">
+                  <div style="width: 18%; height: 100%; background: var(--ink-muted); border-radius: 99px;"></div>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--ink-soft);">18%</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="font-size: 0.7rem; width: 36px; color: var(--ink-muted);">Others</div>
+                <div style="flex: 1; height: 8px; background: var(--paper-warm); border-radius: 99px; overflow: hidden;">
+                  <div style="width: 32%; height: 100%; background: var(--paper-warm); border: 1px dashed var(--ink-muted); border-radius: 99px;"></div>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--ink-soft);">32%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mock AI chat bubble -->
+          <div style="background: var(--ink); border-radius: 12px; padding: 12px 14px;">
+            <div style="font-size: 0.65rem; font-weight: 600; color: var(--accent-light); margin-bottom: 5px;">AI Advisor</div>
+            <p style="font-size: 0.75rem; color: rgba(247,246,242,0.85); line-height: 1.5; margin: 0;">Your NVDA position at 28% is above the recommended 10% threshold. Consider rebalancing to reduce concentration risk.</p>
+          </div>
+        </div>
+
+        <!-- Floating badge -->
+        <div style="position: absolute; top: -16px; right: -16px; background: var(--gold-light); border: 1px solid var(--gold); border-radius: 99px; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; color: var(--gold); white-space: nowrap;">
+          ✦ AI-powered
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF BAR ── -->
+<div style="background: var(--ink); padding: 1.25rem clamp(1.5rem,5vw,4rem);">
+  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem; align-items: center;">
+    <div style="font-size: 0.85rem; color: rgba(247,246,242,0.5); font-weight: 500;">Works with stocks from</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: rgba(247,246,242,0.7);">NYSE</span>
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: rgba(247,246,242,0.7);">NASDAQ</span>
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: rgba(247,246,242,0.7);">S&amp;P 500</span>
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: rgba(247,246,242,0.7);">ETFs</span>
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: rgba(247,246,242,0.7);">Crypto</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section style="background: var(--white); padding: clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem);">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 3.5rem;">
+      <div class="badge">Features</div>
+      <h2 class="h2">Everything you need.<br/>Nothing you don't.</h2>
+      <p style="color: var(--ink-muted); margin-top: 1rem; font-size: 1.05rem;">No spreadsheets. No finance degree required. Just upload and understand.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+
+      <div class="card">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">⚡</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem;">Instant analysis</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">Upload your CSV or Excel file and get a full breakdown in seconds. Risk score, sector distribution, top and worst performers — all calculated automatically.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">🤖</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem;">AI chat advisor</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">Ask anything about your portfolio in plain language. "Am I too concentrated in tech?" "What's my biggest risk?" Get clear, specific answers based on your actual holdings.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">📊</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem;">Visual breakdowns</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">Pie charts, bar charts, scatter plots, and radar profiles. See exactly where your money is, which sectors dominate, and how your risk compares to your returns.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">🔒</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem;">Private by design</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">No account required. Your data is never stored on our servers. The analysis happens and disappears — no tracking, no selling your financial data.</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">📁</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem;">Any format, any broker</h3>
+        <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7;">Export from Robinhood, Fidelity, Schwab, or any broker. FolioSense reads CSV and Excel and auto-detects column names in English and Spanish.</p>
+      </div>
+
+      <div class="card" style="border: 1.5px solid var(--accent-light); background: var(--accent-light);">
+        <div style="font-size: 1.75rem; margin-bottom: 1rem;">💚</div>
+        <h3 class="h3" style="margin-bottom: 0.5rem; color: var(--accent);">Free forever</h3>
+        <p style="color: var(--accent); opacity: 0.8; font-size: 0.95rem; line-height: 1.7;">Every feature, completely free. We're supported by non-intrusive ads. Want an ad-free experience? A small optional contribution keeps the lights on.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS (summary) ── -->
+<section style="background: var(--paper); padding: clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,4rem);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
+      <div>
+        <div class="badge">Simple process</div>
+        <h2 class="h2" style="margin-bottom: 1rem;">Ready in three steps.</h2>
+        <p style="color: var(--ink-muted); margin-bottom: 2.5rem;">No tutorials. No onboarding. You'll understand your portfolio before you finish your coffee.</p>
+        <a href="/how-it-works.html" class="btn btn-outline">Full walkthrough →</a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">1</div>
+          <div>
+            <h3 class="h3" style="margin-bottom: 0.25rem;">Export from your broker</h3>
+            <p style="color: var(--ink-muted); font-size: 0.95rem;">Download a CSV or Excel from Robinhood, Fidelity, Schwab, or any platform. Or use our sample template to get started.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">2</div>
+          <div>
+            <h3 class="h3" style="margin-bottom: 0.25rem;">Upload to FolioSense</h3>
+            <p style="color: var(--ink-muted); font-size: 0.95rem;">Drag and drop your file. No account, no email, no password. Your data goes straight to analysis.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; flex-shrink: 0;">3</div>
+          <div>
+            <h3 class="h3" style="margin-bottom: 0.25rem;">Understand and act</h3>
+            <p style="color: var(--ink-muted); font-size: 0.95rem;">Read your risk score, explore the charts, and chat with the AI advisor to get specific recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section style="background: var(--ink); padding: clamp(4rem,8vw,6rem) clamp(1.5rem,5vw,4rem); text-align: center;">
+  <div class="container-sm">
+    <div class="badge" style="background: rgba(255,255,255,0.08); color: rgba(247,246,242,0.8);">Start now — it's free</div>
+    <h2 class="h2" style="color: var(--paper); margin-bottom: 1rem;">Stop guessing about your investments.</h2>
+    <p style="color: rgba(247,246,242,0.6); font-size: 1.05rem; margin-bottom: 2.5rem;">It takes 30 seconds. No sign-up. No credit card. Just real answers about your real portfolio.</p>
+    <a href="/analyze" class="btn btn-primary btn-lg">Analyze my portfolio →</a>
+    <p style="margin-top: 1.25rem; font-size: 0.85rem; color: rgba(247,246,242,0.35);">Free · Private · AI-powered</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">FolioSense</a>
+    <div class="footer-links">
+      <a href="/how-it-works.html">How it works</a>
+      <a href="/why-invest.html">Why invest</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/privacy.html">Privacy policy</a>
+      <a href="/analyze">Launch app</a>
+    </div>
+    <div class="footer-copy">© 2026 FolioSense. Not financial advice.</div>
+  </div>
+</footer>
+
+</body>
+</html>

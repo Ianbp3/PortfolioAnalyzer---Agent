@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investment Glossary — Terms Explained Simply | FolioSense</title>
+  <meta name="description" content="Plain-language definitions of the most important investing terms. ROI, ETF, diversification, P/E ratio, market cap, rebalancing and more — no jargon, no fluff." />
+  <meta name="keywords" content="investment terms explained, stock market glossary, what is ROI, what is an ETF, diversification meaning, P/E ratio explained, portfolio rebalancing, beginner investing terms" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://foliosenseapp.com/glossary.html" />
+  <meta property="og:title" content="Investment Glossary — Every Term Explained Simply" />
+  <meta property="og:description" content="ROI, ETF, diversification, P/E ratio — every investing term explained in plain language. No jargon." />
+  <meta property="og:url" content="https://foliosenseapp.com/glossary.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "Investment Glossary",
+    "description": "Plain-language definitions of common investing and portfolio terms",
+    "url": "https://foliosenseapp.com/glossary.html"
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .term-card {
+      background: var(--white);
+      border: 1px solid var(--paper-warm);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .term-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-light);
+    }
+    .term-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .term-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .term-def {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .term-example {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      border-left: 2px solid var(--paper-warm);
+      padding-left: 10px;
+      line-height: 1.6;
+    }
+    .letter-anchor {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--paper-warm);
+    }
+    .alpha-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2rem;
+    }
+    .alpha-nav a {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      background: var(--white);
+      border: 1px solid var(--paper-warm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .alpha-nav a:hover {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+    .search-bar {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1.5px solid var(--paper-warm);
+      border-radius: 99px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 2rem;
+    }
+    .search-bar:focus { border-color: var(--accent); }
+    .term-card.hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+  <div class="nav-links">
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/why-invest.html">Why invest</a>
+    <a href="/glossary.html" style="color: var(--accent);">Glossary</a>
+    <a href="/analyze" class="nav-cta">Launch app →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container-sm">
+    <div class="badge">Reference</div>
+    <h1 class="h1" style="color: var(--paper); margin-bottom: 1rem;">Investment terms, finally explained.</h1>
+    <p style="color: rgba(247,246,242,0.65); font-size: 1.05rem;">Every term you'll encounter when managing a portfolio — defined in plain language with real examples. No finance degree required.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <input
+      class="search-bar"
+      type="text"
+      placeholder="Search a term... (e.g. ETF, ROI, diversification)"
+      id="glossarySearch"
+      oninput="filterGlossary(this.value)"
+    />
+
+    <div class="alpha-nav">
+      <a href="#A">A</a><a href="#B">B</a><a href="#C">C</a>
+      <a href="#D">D</a><a href="#E">E</a><a href="#F">F</a>
+      <a href="#I">I</a><a href="#L">L</a><a href="#M">M</a>
+      <a href="#P">P</a><a href="#R">R</a><a href="#S">S</a>
+      <a href="#V">V</a><a href="#Y">Y</a>
+    </div>
+
+    <!-- A -->
+    <div class="letter-anchor" id="A">A</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="asset allocation">
+        <div class="term-name">Asset Allocation <span class="term-tag">Strategy</span></div>
+        <p class="term-def">How you divide your portfolio among different types of investments — stocks, bonds, cash, real estate. Getting this right is the single most important decision in investing, accounting for over 90% of portfolio returns over time.</p>
+        <p class="term-example">Example: A 70/30 allocation means 70% in stocks and 30% in bonds — a common mix for investors 10–20 years from retirement.</p>
+      </div>
+      <div class="term-card" data-term="annual return">
+        <div class="term-name">Annual Return</div>
+        <p class="term-def">How much your investment grew (or shrank) over one year, expressed as a percentage. Includes both price changes and any dividends received.</p>
+        <p class="term-example">Example: If you invested $10,000 and it's worth $10,800 a year later, your annual return is 8%.</p>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="letter-anchor" id="B">B</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="bear market">
+        <div class="term-name">Bear Market <span class="term-tag">Market condition</span></div>
+        <p class="term-def">A prolonged period where stock prices fall 20% or more from their recent peak. Bear markets are normal — there have been dozens in history, and the market has recovered from every single one.</p>
+        <p class="term-example">Example: The 2020 COVID crash was a bear market — the S&P 500 fell 34% in 33 days, then recovered fully within 5 months.</p>
+      </div>
+      <div class="term-card" data-term="blue chip stock">
+        <div class="term-name">Blue Chip Stock</div>
+        <p class="term-def">Shares of a large, well-established, financially stable company with a long track record. Generally considered safer than smaller companies, though not risk-free.</p>
+        <p class="term-example">Example: Apple, Microsoft, Johnson &amp; Johnson, and Coca-Cola are classic blue chip stocks.</p>
+      </div>
+      <div class="term-card" data-term="bond">
+        <div class="term-name">Bond <span class="term-tag">Asset class</span></div>
+        <p class="term-def">A loan you make to a company or government in exchange for regular interest payments and the return of your money at maturity. Generally less risky than stocks but lower long-term returns.</p>
+        <p class="term-example">Example: A 10-year US Treasury bond pays a fixed interest rate every 6 months until the bond matures.</p>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="letter-anchor" id="C">C</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="compound interest compounding">
+        <div class="term-name">Compound Interest <span class="term-tag">Core concept</span></div>
+        <p class="term-def">Earning returns on your returns, not just on your original investment. Over long periods this creates exponential growth. It's the reason starting early matters far more than starting with a large amount.</p>
+        <p class="term-example">Example: $10,000 at 7% annual return becomes $19,671 in 10 years and $76,122 in 30 years — without adding a single dollar.</p>
+      </div>
+      <div class="term-card" data-term="concentration risk">
+        <div class="term-name">Concentration Risk <span class="term-tag">Risk</span></div>
+        <p class="term-def">The danger of having too much of your portfolio in one stock, sector, or geography. If that one holding drops sharply, it can devastate your entire portfolio.</p>
+        <p class="term-example">Example: Having 40% of your portfolio in NVIDIA means a bad earnings report can wipe out a significant portion of your wealth in a day. FolioSense flags positions above 10%.</p>
+      </div>
+      <div class="term-card" data-term="capital gains">
+        <div class="term-name">Capital Gains</div>
+        <p class="term-def">The profit you make when you sell an investment for more than you paid. Short-term gains (held under 1 year) are taxed as regular income. Long-term gains (held over 1 year) get a lower tax rate.</p>
+        <p class="term-example">Example: You bought Apple at $150 and sold at $200. Your capital gain is $50 per share.</p>
+      </div>
+    </div>
+
+    <!-- D -->
+    <div class="letter-anchor" id="D">D</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="diversification diversified portfolio">
+        <div class="term-name">Diversification <span class="term-tag">Core concept</span></div>
+        <p class="term-def">Spreading your investments across many different assets, sectors, and geographies to reduce risk. Often called "the only free lunch in investing" — it reduces risk without necessarily reducing expected returns.</p>
+        <p class="term-example">Example: Owning 30 stocks across 8 sectors is far safer than owning 3 stocks in one sector, even if the expected return is similar.</p>
+      </div>
+      <div class="term-card" data-term="dividend">
+        <div class="term-name">Dividend</div>
+        <p class="term-def">A portion of a company's profits paid out directly to shareholders, usually quarterly. Not all stocks pay dividends — growth companies often reinvest profits instead.</p>
+        <p class="term-example">Example: If you own 100 shares of Coca-Cola and it pays a $0.46 quarterly dividend, you receive $46 every three months without selling anything.</p>
+      </div>
+    </div>
+
+    <!-- E -->
+    <div class="letter-anchor" id="E">E</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="etf exchange traded fund">
+        <div class="term-name">ETF (Exchange-Traded Fund) <span class="term-tag">Asset class</span></div>
+        <p class="term-def">A basket of many stocks or bonds bundled into one investment that trades on an exchange like a regular stock. ETFs let you buy tiny pieces of hundreds of companies at once, providing instant diversification at very low cost.</p>
+        <p class="term-example">Example: VOO is an ETF that tracks the S&P 500 — buying one share gives you exposure to 500 of the largest US companies simultaneously.</p>
+      </div>
+      <div class="term-card" data-term="expense ratio">
+        <div class="term-name">Expense Ratio</div>
+        <p class="term-def">The annual fee a fund charges to manage your investment, expressed as a percentage of assets. Even small differences in expense ratios compound dramatically over time.</p>
+        <p class="term-example">Example: A 1% expense ratio on a $100,000 portfolio costs $1,000/year. A 0.03% ratio (like VOO) costs just $30. The difference over 30 years can be tens of thousands of dollars.</p>
+      </div>
+    </div>
+
+    <!-- F -->
+    <div class="letter-anchor" id="F">F</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="fundamental analysis">
+        <div class="term-name">Fundamental Analysis</div>
+        <p class="term-def">Evaluating a company's financial health and intrinsic value by studying its revenue, earnings, debt, management, and competitive position — rather than just its stock price history.</p>
+        <p class="term-example">Example: Checking a company's P/E ratio, debt-to-equity ratio, and revenue growth before buying the stock.</p>
+      </div>
+    </div>
+
+    <!-- I -->
+    <div class="letter-anchor" id="I">I</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="index fund index">
+        <div class="term-name">Index Fund <span class="term-tag">Asset class</span></div>
+        <p class="term-def">A fund that passively tracks a market index (like the S&P 500) rather than trying to beat it. Index funds have consistently outperformed the majority of actively managed funds over the long term, at a fraction of the cost.</p>
+        <p class="term-example">Example: VTI tracks the entire US stock market — over 3,500 companies — in a single fund with a 0.03% annual fee.</p>
+      </div>
+      <div class="term-card" data-term="inflation">
+        <div class="term-name">Inflation <span class="term-tag">Core concept</span></div>
+        <p class="term-def">The gradual increase in prices over time, which erodes the purchasing power of money. Historically around 3% per year. Investing in assets that grow faster than inflation is the primary way to maintain and build wealth.</p>
+        <p class="term-example">Example: $100 in 1990 had the same purchasing power as roughly $237 in 2024 — meaning money that sat in cash lost more than half its real value.</p>
+      </div>
+    </div>
+
+    <!-- L -->
+    <div class="letter-anchor" id="L">L</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="liquidity liquid">
+        <div class="term-name">Liquidity</div>
+        <p class="term-def">How quickly and easily an asset can be converted to cash without significantly affecting its price. Stocks are highly liquid — you can sell them in seconds. Real estate is illiquid — it can take months to sell.</p>
+        <p class="term-example">Example: Your S&P 500 ETF is extremely liquid. A rental property in a slow market is not — you can't sell half of it when you need cash quickly.</p>
+      </div>
+    </div>
+
+    <!-- M -->
+    <div class="letter-anchor" id="M">M</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="market cap market capitalization">
+        <div class="term-name">Market Cap (Market Capitalization)</div>
+        <p class="term-def">The total value of a company's outstanding shares. Calculated by multiplying the stock price by the number of shares. Used to categorize companies as large-cap (over $10B), mid-cap ($2B–$10B), or small-cap (under $2B).</p>
+        <p class="term-example">Example: Apple's market cap has exceeded $3 trillion, making it one of the most valuable companies ever.</p>
+      </div>
+      <div class="term-card" data-term="mutual fund">
+        <div class="term-name">Mutual Fund</div>
+        <p class="term-def">A pool of money from many investors managed by a professional to buy a collection of stocks, bonds, or other assets. Unlike ETFs, mutual funds don't trade on exchanges throughout the day — they're priced once daily at market close.</p>
+        <p class="term-example">Example: Vanguard's VFIAX is a mutual fund version of the S&P 500 index, requiring a $3,000 minimum investment.</p>
+      </div>
+    </div>
+
+    <!-- P -->
+    <div class="letter-anchor" id="P">P</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="pe ratio price to earnings">
+        <div class="term-name">P/E Ratio (Price-to-Earnings) <span class="term-tag">Valuation</span></div>
+        <p class="term-def">A measure of how expensive a stock is relative to its earnings. A high P/E suggests investors expect strong future growth; a low P/E may indicate the stock is undervalued or the business is struggling.</p>
+        <p class="term-example">Example: A stock trading at $100 with earnings of $5 per share has a P/E of 20. The S&P 500 historically averages around 15–20 P/E.</p>
+      </div>
+      <div class="term-card" data-term="portfolio">
+        <div class="term-name">Portfolio</div>
+        <p class="term-def">The complete collection of all your investments — stocks, bonds, ETFs, cash, real estate, crypto — viewed as a single unit. Managing a portfolio means looking at how all your assets interact, not just picking individual winners.</p>
+        <p class="term-example">Example: Your portfolio might include Amazon stock, a bond ETF, some Bitcoin, and cash in a money market account — all working together.</p>
+      </div>
+      <div class="term-card" data-term="portfolio rebalancing rebalance">
+        <div class="term-name">Portfolio Rebalancing <span class="term-tag">Strategy</span></div>
+        <p class="term-def">The process of buying and selling assets to bring your portfolio back to your intended allocation after market movements have shifted the weights. Prevents you from accidentally becoming overexposed to one asset that grew quickly.</p>
+        <p class="term-example">Example: If tech stocks grew and now represent 70% of your portfolio instead of 40%, rebalancing means selling some tech and buying other assets to restore balance.</p>
+      </div>
+    </div>
+
+    <!-- R -->
+    <div class="letter-anchor" id="R">R</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="risk score risk tolerance">
+        <div class="term-name">Risk Score / Risk Tolerance</div>
+        <p class="term-def">A measure of how much portfolio volatility you can handle — both financially and emotionally. Higher risk tolerance allows for more stocks and fewer bonds, potentially higher long-term returns. FolioSense calculates your portfolio's risk score from 0 to 100 based on concentration and diversification.</p>
+        <p class="term-example">Example: A 25-year-old with stable income and decades until retirement can tolerate more risk than a 60-year-old approaching retirement who needs capital preservation.</p>
+      </div>
+      <div class="term-card" data-term="roi return on investment">
+        <div class="term-name">ROI (Return on Investment) <span class="term-tag">Core metric</span></div>
+        <p class="term-def">How much profit you made on an investment relative to what you put in, expressed as a percentage. The fundamental measure of whether an investment was worth making.</p>
+        <p class="term-example">Example: You invested $5,000 in a stock that's now worth $6,500. Your ROI is 30% (the $1,500 gain divided by the $5,000 invested).</p>
+      </div>
+      <div class="term-card" data-term="rebalancing">
+        <div class="term-name">Risk-Adjusted Return</div>
+        <p class="term-def">A measure of investment performance that accounts for the risk taken to achieve it. Two investments with the same return aren't equally good if one required twice the risk to get there.</p>
+        <p class="term-example">Example: A 10% return from government bonds is far more impressive than a 10% return from a speculative small-cap stock that could have easily lost 50%.</p>
+      </div>
+    </div>
+
+    <!-- S -->
+    <div class="letter-anchor" id="S">S</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="sector">
+        <div class="term-name">Sector <span class="term-tag">Classification</span></div>
+        <p class="term-def">A category of companies that share a similar type of business. The 11 main stock market sectors include Technology, Healthcare, Finance, Energy, Consumer Staples, and others. Sector diversification ensures one industry's bad news doesn't devastate your whole portfolio.</p>
+        <p class="term-example">Example: Apple, Microsoft, and NVIDIA are all in the Technology sector. If you only own tech stocks, a regulatory change or interest rate hike targeting tech hits your entire portfolio at once.</p>
+      </div>
+      <div class="term-card" data-term="short selling short">
+        <div class="term-name">Short Selling</div>
+        <p class="term-def">Borrowing shares and selling them with the plan to buy them back later at a lower price, profiting from the decline. Extremely risky — losses are theoretically unlimited if the stock price rises instead.</p>
+        <p class="term-example">Example: You borrow and sell 10 shares at $100. If the price drops to $60, you buy back the 10 shares for $600, returning them and keeping $400 profit.</p>
+      </div>
+      <div class="term-card" data-term="sp500 s&p 500 index">
+        <div class="term-name">S&P 500 <span class="term-tag">Index</span></div>
+        <p class="term-def">An index tracking the 500 largest publicly traded US companies by market cap. It's the most widely used benchmark for the US stock market. Historically returns about 10% annually before inflation, or 7% after.</p>
+        <p class="term-example">Example: When someone says "the market was up 1.5% today," they usually mean the S&P 500 rose 1.5%. VOO and SPY are the most popular ETFs that track it.</p>
+      </div>
+    </div>
+
+    <!-- V -->
+    <div class="letter-anchor" id="V">V</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="volatility volatile">
+        <div class="term-name">Volatility <span class="term-tag">Risk measure</span></div>
+        <p class="term-def">How much and how quickly an investment's price moves up and down. High volatility means larger price swings — more potential gain but also more potential loss. Volatility is not the same as risk of permanent loss, but it's the most common measure of short-term risk.</p>
+        <p class="term-example">Example: Bitcoin is highly volatile — it regularly moves 5–10% in a single day. US Treasury bonds have very low volatility.</p>
+      </div>
+    </div>
+
+    <!-- Y -->
+    <div class="letter-anchor" id="Y">Y</div>
+    <div class="glossary-grid">
+      <div class="term-card" data-term="yield dividend yield">
+        <div class="term-name">Yield</div>
+        <p class="term-def">The income generated by an investment as a percentage of its current price. Dividend yield is the most common type for stocks — it tells you how much income you receive annually relative to the stock price.</p>
+        <p class="term-example">Example: A stock priced at $100 that pays $4 in annual dividends has a 4% dividend yield. A 10-year Treasury bond with a 4.5% yield pays $45 per year on a $1,000 bond.</p>
+      </div>
+      <div class="term-card" data-term="ytd year to date return">
+        <div class="term-name">YTD (Year to Date)</div>
+        <p class="term-def">Performance measured from January 1st of the current year to today. A common benchmark for evaluating how your portfolio has performed relative to the market in the current year.</p>
+        <p class="term-example">Example: If your portfolio is up 12% YTD and the S&P 500 is up 8% YTD, you've outperformed the benchmark for the year.</p>
+      </div>
+    </div>
+
+    <!-- CTA card -->
+    <div class="card" style="margin-top: 4rem; background: var(--ink); border-color: transparent; text-align: center; padding: 3rem 2rem;">
+      <h2 class="h2" style="color: var(--paper); margin-bottom: 1rem;">Put these terms to work.</h2>
+      <p style="color: rgba(247,246,242,0.6); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto;">Upload your portfolio and FolioSense will show you your actual concentration risk, ROI, sector exposure, and more — using your real numbers.</p>
+      <a href="/analyze" class="btn btn-primary btn-lg">Analyze my portfolio →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">FolioSense</a>
+    <div class="footer-links">
+      <a href="/how-it-works.html">How it works</a>
+      <a href="/why-invest.html">Why invest</a>
+      <a href="/glossary.html">Glossary</a>
+      <a href="/privacy.html">Privacy policy</a>
+    </div>
+    <div class="footer-copy">© 2026 FolioSense. Not financial advice.</div>
+  </div>
+</footer>
+
+<script>
+function filterGlossary(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.term-card').forEach(card => {
+    const text = (card.dataset.term + ' ' + card.innerText).toLowerCase();
+    card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+  });
+  // Hide empty letter sections
+  document.querySelectorAll('.letter-anchor').forEach(anchor => {
+    const grid = anchor.nextElementSibling;
+    if (!grid) return;
+    const visible = grid.querySelectorAll('.term-card:not(.hidden)').length;
+    anchor.style.display = visible === 0 && q.length > 0 ? 'none' : '';
+    grid.style.display = visible === 0 && q.length > 0 ? 'none' : '';
+  });
+}
+</script>
+
+</body>
+</html>
