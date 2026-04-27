@@ -9,7 +9,9 @@ const port = process.env.PORT || 4000;
 // ── CORS ────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.FRONTEND_URL, // e.g. https://your-app.vercel.app
+  "https://foliosenseapp.com",
+  "https://www.foliosenseapp.com",
+  process.env.FRONTEND_URL,
 ].filter(Boolean);
 
 app.use(
@@ -23,7 +25,7 @@ app.use(
       }
     },
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json({ limit: "1mb" }));
@@ -139,7 +141,7 @@ ${JSON.stringify(scatterData, null, 2)}`;
           temperature: 0.7,
           stream: false,
         }),
-      }
+      },
     );
 
     if (!groqRes.ok) {

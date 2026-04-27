@@ -886,9 +886,9 @@
     </footer>
     <script>
       // Wake up Render backend on landing load — kills cold start delay
-      fetch(
-        "https://https://portfolioanalyzer-agent.onrender.com/health",
-      ).catch(() => {});
+      fetch("https://portfolioanalyzer-agent.onrender.com/health").catch(
+        () => {},
+      );
     </script>
   </body>
 </html>
