@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/dashboard",
+      "destination": "https://portfolio-analyzer-agent.vercel.app/dashboard"
+    },
+    {
       "source": "/dashboard/:path*",
       "destination": "https://portfolio-analyzer-agent.vercel.app/dashboard/:path*"
     }
