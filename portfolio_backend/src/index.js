@@ -11,6 +11,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://foliosenseapp.com",
   "https://www.foliosenseapp.com",
+  "https://portfolio-analyzer-agent.vercel.app",
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
