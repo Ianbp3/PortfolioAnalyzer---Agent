@@ -4,6 +4,7 @@ import rateLimit from "express-rate-limit";
 import { analyzePortfolio } from "./services/portfolioAnalyzer.js";
 
 const app = express();
+app.set("trust proxy", 1);
 const port = process.env.PORT || 4000;
 
 // ── CORS ────────────────────────────────────────────────────────────────────
@@ -133,7 +134,7 @@ ${JSON.stringify(scatterData, null, 2)}`;
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "llama-3.1-70b-versatile", // free-tier model on Groq
+          model: "llama-3.3-70b-versatile", // free-tier model on Groq
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: message.trim() },
