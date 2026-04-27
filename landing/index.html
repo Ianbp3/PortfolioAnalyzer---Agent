@@ -884,5 +884,9 @@
         <div class="footer-copy">© 2026 FolioSense. Not financial advice.</div>
       </div>
     </footer>
+    <script>
+      // Wake up Render backend on landing load — kills cold start delay
+      fetch("https://YOUR-RENDER-URL.onrender.com/health").catch(() => {});
+    </script>
   </body>
 </html>

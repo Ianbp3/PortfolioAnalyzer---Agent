@@ -1,119 +1,301 @@
-import React, { useState } from "react";
-import { Input, Button, Card, Typography } from "antd";
+import React, { useState, useRef, useEffect } from "react";
+import { SendOutlined } from "@ant-design/icons";
 import { sendMessage } from "../api/chat";
 
-const { TextArea } = Input;
-const { Title, Paragraph } = Typography;
+const QUICK_PROMPTS = [
+  "¿Cuál es mi mayor riesgo?",
+  "¿Dónde debería diversificar?",
+  "¿Qué activo tiene mejor rendimiento?",
+  "Resume mi portafolio en 3 puntos.",
+];
 
 export default function Chat({ analysis, positions, rankings }) {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const bottomRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
 
   const handleSend = async () => {
-    if (!userInput.trim()) return;
-
-    const userMessage = {
-      role: "user",
-      content: userInput,
-    };
-
+    if (!userInput.trim() || loading) return;
+    const userMessage = { role: "user", content: userInput };
     setMessages((prev) => [...prev, userMessage]);
-
     const currentMessage = userInput;
     setUserInput("");
     setLoading(true);
-
     try {
       const aiAnswer = await sendMessage(
         currentMessage,
         analysis,
         positions,
         rankings,
-        messages
+        messages,
       );
-
-      const assistantMessage = {
-        role: "assistant",
-        content: aiAnswer,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: aiAnswer },
+      ]);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: err.message || "Error al conectar. Intenta de nuevo.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const handleQuickPrompt = (q) => {
+    setUserInput(q);
+    textareaRef.current?.focus();
+  };
+
   return (
-    <Card
+    <div
       style={{
-        marginTop: 16,
-        height: "100%",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
+        background: "var(--white)",
+        border: "1px solid var(--paper-warm)",
+        borderRadius: "var(--radius-lg)",
+        boxShadow: "var(--shadow)",
+        overflow: "hidden",
       }}
     >
-      <Title level={4}>Asesor IA</Title>
+      {/* ── HEADER ── */}
+      <div
+        style={{
+          padding: "18px 24px",
+          borderBottom: "1px solid var(--paper-warm)",
+          flexShrink: 0,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              background: "var(--accent-light)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 16,
+            }}
+          >
+            🤖
+          </div>
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                color: "var(--ink)",
+              }}
+            >
+              Asesor IA
+            </div>
+            <div style={{ fontSize: "0.72rem", color: "var(--ink-muted)" }}>
+              Powered by Groq
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {/* ── MESSAGES ── */}
       <div
         style={{
           flex: 1,
           overflowY: "auto",
-          border: "1px solid #eee",
-          borderRadius: 4,
-          padding: 8,
-          marginBottom: 8,
-          minHeight: 200,
-          maxHeight: "70vh",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
         }}
       >
+        {/* Empty state */}
         {messages.length === 0 && (
-          <Paragraph type="secondary">
-            Escribe una pregunta sobre tu portafolio para comenzar.
-          </Paragraph>
+          <div style={{ padding: "20px 8px" }}>
+            <p
+              style={{
+                color: "var(--ink-muted)",
+                fontSize: "0.875rem",
+                lineHeight: 1.6,
+                marginBottom: 16,
+                textAlign: "center",
+              }}
+            >
+              {analysis
+                ? "Tu portafolio está listo. ¿Qué quieres saber?"
+                : "Sube tu portafolio para empezar a chatear."}
+            </p>
+
+            {analysis && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {QUICK_PROMPTS.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => handleQuickPrompt(q)}
+                    className="prompt-chip"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         )}
 
+        {/* Message bubbles */}
         {messages.map((m, idx) => (
           <div
             key={idx}
             style={{
-              marginBottom: 6,
-              textAlign: m.role === "user" ? "right" : "left",
+              display: "flex",
+              justifyContent: m.role === "user" ? "flex-end" : "flex-start",
             }}
           >
-            <Paragraph
+            <div
               style={{
+                maxWidth: "82%",
+                padding: "10px 14px",
+                borderRadius:
+                  m.role === "user"
+                    ? "16px 16px 4px 16px"
+                    : "16px 16px 16px 4px",
+                background:
+                  m.role === "user" ? "var(--accent)" : "var(--paper)",
+                color: m.role === "user" ? "white" : "var(--ink)",
+                fontSize: "0.85rem",
+                lineHeight: 1.65,
                 whiteSpace: "pre-wrap",
-                display: "inline-block",
-                padding: 8,
-                borderRadius: 8,
-                backgroundColor:
-                  m.role === "user" ? "rgba(24,144,255,0.15)" : "#fafafa",
-                maxWidth: "80%",
+                border:
+                  m.role === "user" ? "none" : "1px solid var(--paper-warm)",
+                boxShadow:
+                  m.role === "user" ? "0 2px 8px rgba(26,107,74,0.2)" : "none",
               }}
             >
               {m.content}
-            </Paragraph>
+            </div>
           </div>
         ))}
+
+        {/* Typing indicator */}
+        {loading && (
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+            <div
+              style={{
+                padding: "12px 16px",
+                borderRadius: "16px 16px 16px 4px",
+                background: "var(--paper)",
+                border: "1px solid var(--paper-warm)",
+                display: "flex",
+                gap: 5,
+                alignItems: "center",
+              }}
+            >
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: "var(--ink-muted)",
+                    animation: `bounce 1.2s infinite ${i * 0.2}s`,
+                  }}
+                />
+              ))}
+              <style>{`
+                @keyframes bounce {
+                  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+                  30% { transform: translateY(-5px); opacity: 1; }
+                }
+              `}</style>
+            </div>
+          </div>
+        )}
+
+        <div ref={bottomRef} />
       </div>
 
-      <div style={{ display: "flex", gap: 8 }}>
-        <TextArea
+      {/* ── INPUT ── */}
+      <div
+        style={{
+          padding: "12px 16px",
+          borderTop: "1px solid var(--paper-warm)",
+          display: "flex",
+          gap: 8,
+          alignItems: "flex-end",
+          background: "var(--white)",
+          flexShrink: 0,
+        }}
+      >
+        <textarea
+          ref={textareaRef}
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          rows={2}
+          onKeyDown={handleKeyDown}
           placeholder="Haz una pregunta sobre tu portafolio..."
+          rows={2}
+          style={{
+            flex: 1,
+            resize: "none",
+            border: "1.5px solid var(--paper-warm)",
+            borderRadius: "var(--radius)",
+            padding: "10px 14px",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.875rem",
+            color: "var(--ink)",
+            background: "var(--paper)",
+            outline: "none",
+            transition: "border-color 0.2s",
+            lineHeight: 1.5,
+          }}
+          onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
+          onBlur={(e) => (e.target.style.borderColor = "var(--paper-warm)")}
         />
-        <Button
-          type="primary"
+        <button
           onClick={handleSend}
-          loading={loading}
-          style={{ alignSelf: "flex-end" }}
+          disabled={loading || !userInput.trim()}
+          style={{
+            background:
+              loading || !userInput.trim()
+                ? "var(--paper-warm)"
+                : "var(--accent)",
+            color: loading || !userInput.trim() ? "var(--ink-muted)" : "white",
+            border: "none",
+            borderRadius: "var(--radius)",
+            width: 44,
+            height: 44,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: loading || !userInput.trim() ? "not-allowed" : "pointer",
+            transition: "all 0.2s",
+            flexShrink: 0,
+            fontSize: 16,
+          }}
         >
-          Enviar
-        </Button>
+          <SendOutlined />
+        </button>
       </div>
-    </Card>
+    </div>
   );
 }
