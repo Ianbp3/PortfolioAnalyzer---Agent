@@ -1,12 +1,9 @@
 {
   "rewrites": [
     {
-      "source": "/dashboard",
-      "destination": "https://foliosense-app.vercel.app/dashboard"
-    },
-    {
       "source": "/dashboard/:path*",
-      "destination": "https://foliosense-app.vercel.app/dashboard/:path*"
+      "destination": "https://portfolio-analyzer-agent.vercel.app/dashboard/:path*"
     }
-  ]
+  ],
+  "cleanUrls": true
 }
