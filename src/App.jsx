@@ -53,7 +53,7 @@ function App() {
     } catch (err) {
       console.error(err);
       setAnalyzeError(
-        "No se pudo conectar con el servidor de análisis. Verifica que el backend esté corriendo."
+        "No se pudo conectar con el servidor de análisis. Verifica que el backend esté corriendo.",
       );
     } finally {
       setLoadingAnalysis(false);
@@ -150,7 +150,7 @@ function App() {
                         {sector}: {info.positions} pos. – $
                         {info.value.toFixed(2)}
                       </Tag>
-                    )
+                    ),
                   )}
 
                   <SectorPieChart sectors={analysis.sectors} />
