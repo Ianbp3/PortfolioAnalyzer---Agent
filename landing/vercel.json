@@ -16,10 +16,6 @@
     {
       "source": "/blog/:slug",
       "destination": "/blog/:slug.html"
-    },
-    {
-      "source": "/blog",
-      "destination": "/blog/blog-index.html"
     }
   ]
 }
