@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block the dashboard app from being indexed (it's a React SPA, not useful for SEO)
+Disallow: /dashboard
+Disallow: /dashboard/
+
+Sitemap: https://foliosenseapp.com/sitemap.xml
