@@ -1,20 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { SendOutlined } from "@ant-design/icons";
 import { sendMessage } from "../api/chat";
-
-const QUICK_PROMPTS = [
-  "¿Cuál es mi mayor riesgo?",
-  "¿Dónde debería diversificar?",
-  "¿Qué activo tiene mejor rendimiento?",
-  "Resume mi portafolio en 3 puntos.",
-];
+import { useLang } from "../hooks/useLang";
 
 export default function Chat({ analysis, positions, rankings }) {
+  const { lang, t } = useLang();
+
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
   const textareaRef = useRef(null);
+
+  // Clear chat when language switches so prompts don't mix
+  useEffect(() => {
+    setMessages([]);
+  }, [lang]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -34,6 +35,7 @@ export default function Chat({ analysis, positions, rankings }) {
         positions,
         rankings,
         messages,
+        lang, // ← new: tells the backend which language to respond in
       );
       setMessages((prev) => [
         ...prev,
@@ -42,10 +44,7 @@ export default function Chat({ analysis, positions, rankings }) {
     } catch (err) {
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content: err.message || "Error al conectar. Intenta de nuevo.",
-        },
+        { role: "assistant", content: err.message || t.chat_error },
       ]);
     } finally {
       setLoading(false);
@@ -109,10 +108,10 @@ export default function Chat({ analysis, positions, rankings }) {
                 color: "var(--ink)",
               }}
             >
-              Asesor IA
+              {t.chat_header}
             </div>
             <div style={{ fontSize: "0.72rem", color: "var(--ink-muted)" }}>
-              Powered by Groq
+              {t.chat_powered}
             </div>
           </div>
         </div>
@@ -141,14 +140,12 @@ export default function Chat({ analysis, positions, rankings }) {
                 textAlign: "center",
               }}
             >
-              {analysis
-                ? "Tu portafolio está listo. ¿Qué quieres saber?"
-                : "Sube tu portafolio para empezar a chatear."}
+              {analysis ? t.chat_ready : t.chat_upload_first}
             </p>
 
             {analysis && (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {QUICK_PROMPTS.map((q) => (
+                {t.quick_prompts.map((q) => (
                   <button
                     key={q}
                     onClick={() => handleQuickPrompt(q)}
@@ -187,8 +184,7 @@ export default function Chat({ analysis, positions, rankings }) {
                 whiteSpace: "pre-wrap",
                 border:
                   m.role === "user" ? "none" : "1px solid var(--paper-warm)",
-                boxShadow:
-                  m.role === "user" ? "0 2px 8px rgba(26,107,74,0.2)" : "none",
+                boxShadow: m.role === "user" ? "none" : "var(--shadow)",
               }}
             >
               {m.content}
@@ -196,38 +192,34 @@ export default function Chat({ analysis, positions, rankings }) {
           </div>
         ))}
 
-        {/* Typing indicator */}
+        {/* Loading bubble */}
         {loading && (
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
             <div
               style={{
-                padding: "12px 16px",
+                padding: "10px 16px",
                 borderRadius: "16px 16px 16px 4px",
                 background: "var(--paper)",
                 border: "1px solid var(--paper-warm)",
                 display: "flex",
-                gap: 5,
+                gap: 4,
                 alignItems: "center",
               }}
             >
               {[0, 1, 2].map((i) => (
-                <div
+                <span
                   key={i}
                   style={{
-                    width: 7,
-                    height: 7,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "var(--ink-muted)",
-                    animation: `bounce 1.2s infinite ${i * 0.2}s`,
+                    display: "inline-block",
+                    animation: "bounce 1.2s infinite",
+                    animationDelay: `${i * 0.2}s`,
                   }}
                 />
               ))}
-              <style>{`
-                @keyframes bounce {
-                  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-                  30% { transform: translateY(-5px); opacity: 1; }
-                }
-              `}</style>
             </div>
           </div>
         )}
@@ -240,11 +232,10 @@ export default function Chat({ analysis, positions, rankings }) {
         style={{
           padding: "12px 16px",
           borderTop: "1px solid var(--paper-warm)",
+          flexShrink: 0,
           display: "flex",
           gap: 8,
           alignItems: "flex-end",
-          background: "var(--white)",
-          flexShrink: 0,
         }}
       >
         <textarea
@@ -252,48 +243,49 @@ export default function Chat({ analysis, positions, rankings }) {
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Haz una pregunta sobre tu portafolio..."
-          rows={2}
+          placeholder={t.chat_placeholder}
+          rows={1}
           style={{
             flex: 1,
             resize: "none",
             border: "1.5px solid var(--paper-warm)",
-            borderRadius: "var(--radius)",
+            borderRadius: 12,
             padding: "10px 14px",
             fontFamily: "var(--font-body)",
             fontSize: "0.875rem",
             color: "var(--ink)",
             background: "var(--paper)",
             outline: "none",
-            transition: "border-color 0.2s",
             lineHeight: 1.5,
+            maxHeight: 120,
+            overflowY: "auto",
+            transition: "border-color 0.2s",
           }}
           onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
           onBlur={(e) => (e.target.style.borderColor = "var(--paper-warm)")}
         />
         <button
           onClick={handleSend}
-          disabled={loading || !userInput.trim()}
+          disabled={!userInput.trim() || loading}
           style={{
+            width: 38,
+            height: 38,
+            borderRadius: "50%",
             background:
-              loading || !userInput.trim()
-                ? "var(--paper-warm)"
-                : "var(--accent)",
-            color: loading || !userInput.trim() ? "var(--ink-muted)" : "white",
+              userInput.trim() && !loading
+                ? "var(--accent)"
+                : "var(--paper-warm)",
             border: "none",
-            borderRadius: "var(--radius)",
-            width: 44,
-            height: 44,
+            cursor: userInput.trim() && !loading ? "pointer" : "default",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            cursor: loading || !userInput.trim() ? "not-allowed" : "pointer",
-            transition: "all 0.2s",
+            color: userInput.trim() && !loading ? "white" : "var(--ink-muted)",
             flexShrink: 0,
-            fontSize: 16,
+            transition: "background 0.2s",
           }}
         >
-          <SendOutlined />
+          <SendOutlined style={{ fontSize: 14 }} />
         </button>
       </div>
     </div>

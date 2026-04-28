@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import "antd/dist/reset.css";
 import "./index.css";
+import { LangProvider } from "./hooks/useLang";
 
 const theme = {
   token: {
@@ -31,7 +32,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider theme={theme}>
       <BrowserRouter basename="/dashboard">
-        <App />
+        <LangProvider>
+          <App />
+        </LangProvider>
       </BrowserRouter>
     </ConfigProvider>
   </React.StrictMode>,

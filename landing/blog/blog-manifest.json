@@ -1,0 +1,59 @@
+{
+  "articles": [
+    {
+      "slug": "portfolio-concentration-risk",
+      "slugEs": "riesgo-concentracion-portafolio",
+      "titleEn": "How to Tell if Your Portfolio is Too Concentrated in One Stock",
+      "titleEs": "Cómo saber si tu portafolio está demasiado concentrado en una acción",
+      "descEn": "A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure concentration risk and what to do about it.",
+      "descEs": "Una sola acción que representa el 25% de tu portafolio es una bomba de tiempo. Así se mide el riesgo de concentración y cómo manejarlo.",
+      "published": "2026-04-28",
+      "tags": ["concentration", "risk", "diversification", "single-stock"],
+      "featured": true
+    },
+    {
+      "slug": "what-is-a-good-portfolio-risk-score",
+      "slugEs": "que-es-un-buen-puntaje-de-riesgo",
+      "titleEn": "What Is a Good Risk Score for a Stock Portfolio?",
+      "titleEs": "¿Qué es un buen puntaje de riesgo para un portafolio?",
+      "descEn": "Risk scores explained: what 0–100 means, what yours should be at different life stages, and what to change if it's too high.",
+      "descEs": "Los puntajes de riesgo explicados: qué significa 0–100, cuál debería ser el tuyo según tu etapa de vida, y qué cambiar si es demasiado alto.",
+      "published": "2026-04-29",
+      "tags": ["risk", "risk-score", "portfolio-health"],
+      "featured": true
+    },
+    {
+      "slug": "how-much-portfolio-in-tech-stocks",
+      "slugEs": "cuanto-portafolio-en-tecnologia",
+      "titleEn": "How Much of Your Portfolio Should Be in Tech Stocks?",
+      "titleEs": "¿Qué porcentaje de tu portafolio debería estar en acciones tecnológicas?",
+      "descEn": "Tech stocks have crushed the market for a decade. But how much is too much? The honest answer might surprise you.",
+      "descEs": "Las acciones tecnológicas han dominado el mercado por una década. ¿Pero cuánto es demasiado? La respuesta honesta puede sorprenderte.",
+      "published": "2026-04-30",
+      "tags": ["tech", "sector-allocation", "concentration", "diversification"],
+      "featured": false
+    },
+    {
+      "slug": "how-to-calculate-portfolio-diversification",
+      "slugEs": "como-calcular-diversificacion-portafolio",
+      "titleEn": "How to Calculate Portfolio Diversification (With Examples)",
+      "titleEs": "Cómo calcular la diversificación de tu portafolio (con ejemplos)",
+      "descEn": "Diversification isn't just 'buy different stocks.' Here's how to actually measure it — with real formulas and examples you can check yourself.",
+      "descEs": "Diversificar no es solo 'comprar acciones diferentes'. Así se mide correctamente — con fórmulas reales y ejemplos que puedes verificar tú mismo.",
+      "published": "2026-05-01",
+      "tags": ["diversification", "calculation", "tutorial"],
+      "featured": false
+    },
+    {
+      "slug": "what-happens-portfolio-sector-crash",
+      "slugEs": "que-pasa-portafolio-caida-sector",
+      "titleEn": "What Happens to Your Portfolio When One Sector Crashes?",
+      "titleEs": "¿Qué le pasa a tu portafolio cuando un sector se desploma?",
+      "descEn": "Sector crashes happen faster than you think. Here's how to stress-test your portfolio before it happens to you.",
+      "descEs": "Las caídas sectoriales ocurren más rápido de lo que crees. Así puedes hacer una prueba de estrés a tu portafolio antes de que te pase.",
+      "published": "2026-05-02",
+      "tags": ["sector-risk", "stress-test", "risk", "concentration"],
+      "featured": false
+    }
+  ]
+}

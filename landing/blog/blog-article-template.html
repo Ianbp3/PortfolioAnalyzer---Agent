@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      ══════════════════════════════════════════════
+      FILL IN FOR EACH ARTICLE:
+        - <title>
+        - meta description
+        - meta keywords
+        - canonical href
+        - og:title / og:description / og:url
+        - hreflang alternate href
+        - JSON-LD name, description, url
+      ══════════════════════════════════════════════
+    -->
+    <title>How to Tell if Your Portfolio is Too Concentrated in One Stock | FolioSense</title>
+    <meta
+      name="description"
+      content="A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure concentration risk and what to do about it."
+    />
+    <meta
+      name="keywords"
+      content="portfolio concentration risk, single stock too much, how to diversify portfolio, concentration risk calculator"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://foliosenseapp.com/blog/portfolio-concentration-risk" />
+
+    <!-- hreflang: link EN ↔ ES versions -->
+    <link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/portfolio-concentration-risk" />
+    <link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/riesgo-concentracion-portafolio" />
+    <link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/portfolio-concentration-risk" />
+
+    <meta property="og:title" content="How to Tell if Your Portfolio is Too Concentrated in One Stock" />
+    <meta property="og:description" content="A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure concentration risk and what to do about it." />
+    <meta property="og:url" content="https://foliosenseapp.com/blog/portfolio-concentration-risk" />
+    <meta property="og:type" content="article" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Tell if Your Portfolio is Too Concentrated in One Stock",
+      "description": "A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure concentration risk and what to do about it.",
+      "url": "https://foliosenseapp.com/blog/portfolio-concentration-risk",
+      "datePublished": "2026-04-28",
+      "publisher": {
+        "@type": "Organization",
+        "name": "FolioSense",
+        "url": "https://foliosenseapp.com"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Article-specific styles -->
+    <style>
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-tag {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .article-date {
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+      }
+      /* Key takeaway box */
+      .takeaway {
+        background: var(--accent-light);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        padding: 1rem 1.25rem;
+        margin: 2rem 0;
+      }
+      .takeaway strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+      }
+      /* CTA box inside article */
+      .inline-cta {
+        background: var(--ink);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        text-align: center;
+        margin: 3rem 0;
+      }
+      .inline-cta h3 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--paper);
+        margin: 0 0 0.5rem;
+      }
+      .inline-cta p {
+        color: rgba(247,246,242,0.65);
+        font-size: 0.9rem;
+        margin: 0 0 1.25rem;
+      }
+      /* FAQ accordion (native details/summary) */
+      details {
+        border: 1px solid var(--paper-warm);
+        border-radius: var(--radius);
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+      }
+      summary {
+        padding: 1rem 1.25rem;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--ink);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      summary::after { content: "+"; font-size: 1.1rem; color: var(--accent); }
+      details[open] summary::after { content: "−"; }
+      details > div {
+        padding: 0 1.25rem 1rem;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ── NAV (use the nav-snippet with lang toggle) ── -->
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="/why-invest"   data-i18n="nav_why">Why invest</a>
+        <a href="/glossary"     data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog"         data-i18n="nav_blog" style="color:var(--accent)">Blog</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Launch app →</a>
+        <button id="lang-toggle" style="background:transparent;border:1.5px solid var(--paper-warm);border-radius:99px;padding:5px 13px;font-family:var(--font-body);font-size:0.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:0.06em;transition:border-color 0.2s,color 0.2s;"
+          onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+          onmouseout="this.style.borderColor='var(--paper-warm)';this.style.color='var(--ink-soft)'">ES</button>
+      </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="page-hero">
+      <div class="container-sm">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;">
+          <span class="badge">Risk</span>
+          <span class="badge">Diversification</span>
+        </div>
+        <h1 class="h1" style="color:var(--paper);margin-bottom:1rem;" data-i18n="art_portfolio_concentration_h1">
+          How to Tell if Your Portfolio is Too Concentrated in One Stock
+        </h1>
+        <div class="article-meta">
+          <span class="article-date">April 28, 2026</span>
+          <span class="article-tag">5 min read</span>
+        </div>
+        <p style="color:rgba(247,246,242,0.65);font-size:1.05rem;max-width:600px;" data-i18n="art_portfolio_concentration_sub">
+          A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure it — and fix it.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── ARTICLE BODY ── -->
+    <section>
+      <div class="prose">
+
+        <div class="takeaway">
+          <strong>Key takeaway</strong>
+          No single stock should represent more than 10% of your portfolio. If one does, your risk is no longer diversified — it's concentrated. Here's how to check yours.
+        </div>
+
+        <h2>What is concentration risk?</h2>
+        <p>
+          Concentration risk is exactly what it sounds like: too much of your money in one place. It applies to a single stock, a single sector, or even a single country. The math is simple — if 30% of your portfolio is in one stock and that stock drops 50%, you've just lost 15% of your total wealth overnight.
+        </p>
+        <p>
+          The S&P 500 itself has this problem right now, with a handful of mega-cap tech stocks making up a disproportionate share of the index. If you own QQQ or a heavy tech ETF on top of individual tech stocks, you may be more concentrated than you realize.
+        </p>
+
+        <h2>The 10% rule</h2>
+        <p>
+          Most professional portfolio managers use a simple heuristic: no single position should exceed 10% of total portfolio value. Some conservative managers set the limit even lower, at 5%.
+        </p>
+        <p>
+          The logic: if your worst-case stock goes to zero (companies do go bankrupt), you lose at most 10% of your portfolio. That's painful but survivable. If that position was 40%, a bankruptcy is a financial catastrophe.
+        </p>
+
+        <h2>How to calculate your concentration</h2>
+        <p>For each position in your portfolio:</p>
+        <ol style="padding-left:1.5rem;color:var(--ink-soft);line-height:1.9;">
+          <li>Calculate the position value: <code style="background:var(--paper-warm);padding:1px 6px;border-radius:4px;font-size:0.85em;">shares × price</code></li>
+          <li>Calculate total portfolio value: sum of all position values</li>
+          <li>Divide position value by total: <code style="background:var(--paper-warm);padding:1px 6px;border-radius:4px;font-size:0.85em;">position / total × 100</code></li>
+          <li>If the result is above 10%, that position is concentrated</li>
+        </ol>
+
+        <!-- Inline CTA -->
+        <div class="inline-cta">
+          <h3 data-i18n="art_inline_cta_h">Check your actual concentration</h3>
+          <p data-i18n="art_inline_cta_p">FolioSense calculates weight, risk, and sector concentration automatically. Free, no account needed.</p>
+          <a href="/dashboard" class="btn btn-primary" data-i18n="art_inline_cta_btn">Analyze my portfolio →</a>
+        </div>
+
+        <h2>What to do if you're over-concentrated</h2>
+        <p>
+          The obvious answer is "sell some and diversify." But it's not always that simple — especially if you're sitting on large gains and a tax bill would eat the difference.
+        </p>
+        <p>
+          A few practical approaches: trim the position gradually over time (dollar-cost averaging out), redirect new contributions away from that stock until the weight falls naturally, or use a covered call strategy to generate income while slowly reducing exposure.
+        </p>
+
+        <h2>Frequently asked questions</h2>
+        <details>
+          <summary>What if I work at the company? Is it okay to have more?</summary>
+          <div>Working at a company and owning its stock in your portfolio is called "double exposure." Your salary, bonus, and career are already tied to that company's success. Holding more than 5% in your personal portfolio on top of that is generally considered risky — financial advisors usually recommend even lower limits in this situation.</div>
+        </details>
+        <details>
+          <summary>Does the 10% rule apply to ETFs too?</summary>
+          <div>ETFs are already diversified internally, so the standard 10% position rule applies less strictly. However, two ETFs that track similar indices (like VOO and SPY) effectively act as one position. What matters is underlying exposure, not the number of tickers.</div>
+        </details>
+        <details>
+          <summary>What about index funds? Aren't they already diversified?</summary>
+          <div>Broad index funds like VTI or VXUS are well-diversified by design. A portfolio of 80% VTI + 20% bonds is generally considered low-concentration. The risk appears when you layer individual stocks on top — especially in the same sector the index is already heavy in.</div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ── BLOG WIDGETS ── -->
+    <section style="background:var(--white);padding:0 clamp(1.5rem,5vw,4rem) 4rem;">
+      <div style="max-width:900px;margin:0 auto;">
+        <!-- Related articles (same tags as this article) -->
+        <div id="blog-related"
+             data-tags="concentration,risk,diversification"
+             data-current-slug="portfolio-concentration-risk">
+        </div>
+
+        <!-- Newest articles -->
+        <div id="blog-newest"></div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest"   data-i18n="nav_why">Why invest</a>
+          <a href="/glossary"     data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog"         data-i18n="nav_blog">Blog</a>
+          <a href="/privacy"      data-i18n="footer_privacy">Privacy policy</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">© 2026 FolioSense. Not financial advice.</div>
+      </div>
+    </footer>
+
+    <!-- ── SCRIPTS (order matters) ── -->
+    <script src="/i18n.js"></script>
+    <script src="/blog/blog-widget.js"></script>
+  </body>
+</html>

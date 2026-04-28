@@ -92,37 +92,53 @@ app.post("/api/chat", chatLimiter, async (req, res) => {
         : [];
 
     // System prompt — same rules as before, now as a proper system message
-    const systemPrompt = `Eres un asesor financiero profesional con una opinión clara sobre portafolios bien construidos.
+    const { message, analysis, positions = [], language = "en" } = req.body;
 
-Reglas:
-- Un buen portafolio suele tener 40%-60% en un ETF amplio tipo SP500.
-- Ninguna posición individual debería superar el 10% del portafolio.
-- La suma de todas las posiciones en crypto no debe exceder el 10%.
-- Cuando el portafolio cumple buenas prácticas, felicita al usuario.
-- Cuando hay concentraciones o riesgos altos, advierte con claridad.
+    const langInstruction =
+      language === "es"
+        ? "Responde SIEMPRE en español. Usa lenguaje claro y directo."
+        : "Always respond in English. Use clear, plain language.";
 
-Siempre:
-- Responde en texto simple, en español.
-- NO uses markdown, ni asteriscos, ni código.
-- Escribe párrafos claros con saltos de línea.
-- Sé directo y evita repetir frases.
-- Usa SIEMPRE los datos que se te dan sobre el portafolio, ROI, sectores y scatter.
+    const systemPromptTemplate = (
+      langInstruction,
+      analysis,
+      positions,
+      scatterData,
+    ) => `
+You are a professional financial advisor with a clear opinion on well-constructed portfolios.
+${langInstruction}
 
-Si el usuario pregunta por el portafolio o los gráficos:
-- Usa el análisis numérico.
-- Usa la lista de posiciones con ROI.
-- Usa los datos del scatter: eje X = riesgo_pct (peso %), eje Y = retorno_pct (ROI %).
-- Da ejemplos concretos de activos (por símbolo), sectores y pesos.
+Rules:
+- A good portfolio usually has 40%–60% in a broad ETF like the S&P 500.
+- No single position should exceed 10% of the portfolio.
+- Total crypto should not exceed 10%.
+- When the portfolio follows good practices, praise the user.
+- When there are concentrations or high risks, warn clearly.
 
-ANÁLISIS DEL PORTAFOLIO:
+Always:
+- Respond in plain text only — NO markdown, NO asterisks, NO code blocks.
+- Write clear paragraphs with line breaks.
+- Be direct and avoid repeating phrases.
+- ALWAYS use the data provided about the portfolio, ROI, sectors, and scatter.
+
+If the user asks about the portfolio or charts:
+- Use the numerical analysis.
+- Use the positions list with ROI.
+- Use scatter data: X axis = riesgo_pct (weight %), Y axis = retorno_pct (ROI %).
+- Give concrete examples of assets (by symbol), sectors, and weights.
+
+PORTFOLIO ANALYSIS:
 ${JSON.stringify(analysis, null, 2)}
 
-POSICIONES DETALLADAS (incluye ROI):
+DETAILED POSITIONS (includes ROI):
 ${JSON.stringify(positions, null, 2)}
 
-DATOS DEL GRÁFICO SCATTER
-(cada punto: symbol, sector, riesgo_pct = eje X, retorno_pct = eje Y):
-${JSON.stringify(scatterData, null, 2)}`;
+SCATTER CHART DATA
+(each point: symbol, sector, riesgo_pct = X axis, retorno_pct = Y axis):
+${JSON.stringify(scatterData, null, 2)}
+`;
+
+    module.exports = { systemPromptTemplate };
 
     // ── Groq API call (OpenAI-compatible) ───────────────────────────────────
     const groqRes = await fetch(

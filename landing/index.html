@@ -65,14 +65,55 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ── NAV ── -->
     <nav>
       <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
       <div class="nav-links">
-        <a href="/how-it-works.html">How it works</a>
-        <a href="/why-invest.html">Why invest</a>
-        <a href="/glossary.html">Glossary</a>
-        <a href="/dashboard" class="nav-cta">Launch app →</a>
+        <a href="/how-it-works" data-i18n="nav_how" data-i18n-href="nav_how"
+          >How it works</a
+        >
+        <a href="/why-invest" data-i18n="nav_why" data-i18n-href="nav_why"
+          >Why invest</a
+        >
+        <a
+          href="/glossary"
+          data-i18n="nav_glossary"
+          data-i18n-href="nav_glossary"
+          >Glossary</a
+        >
+        <a href="/blog" data-i18n="nav_blog" data-i18n-href="nav_blog">Blog</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta"
+          >Launch app →</a
+        >
+
+        <!-- Language toggle — styled to look like a ghost pill -->
+        <button
+          id="lang-toggle"
+          style="
+            background: transparent;
+            border: 1.5px solid var(--paper-warm);
+            border-radius: 99px;
+            padding: 5px 13px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition:
+              border-color 0.2s,
+              color 0.2s;
+          "
+          onmouseover="
+            this.style.borderColor = 'var(--accent)';
+            this.style.color = 'var(--accent)';
+          "
+          onmouseout="
+            this.style.borderColor = 'var(--paper-warm)';
+            this.style.color = 'var(--ink-soft)';
+          "
+        >
+          ES
+        </button>
       </div>
     </nav>
 
@@ -889,5 +930,6 @@
         mode: "no-cors",
       }).catch(() => {});
     </script>
+    <script src="/i18n.js"></script>
   </body>
 </html>

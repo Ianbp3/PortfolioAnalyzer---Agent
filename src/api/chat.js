@@ -18,7 +18,7 @@ export async function sendMessage(
   analysis,
   positions,
   rankings,
-  history
+  history,
 ) {
   const res = await fetch(`${API_BASE}/api/chat`, {
     method: "POST",
@@ -29,6 +29,7 @@ export async function sendMessage(
       positions,
       rankings,
       history,
+      language: lang,
     }),
   });
 

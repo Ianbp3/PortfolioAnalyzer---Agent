@@ -14,7 +14,9 @@ import PortfolioRadar from "./components/PortfolioRadar";
 import SectorRanking from "./components/SectorRanking";
 import AssetRanking from "./components/AssetRanking";
 import ScatterRiskReturn from "./components/ScatterRiskReturn";
+import ArticleWidget from "./components/ArticleWidget";
 import { analyzePortfolio } from "./api/chat";
+import { useLang } from "./hooks/useLang";
 
 const { Header, Content } = Layout;
 
@@ -22,12 +24,6 @@ function riskColor(score) {
   if (score >= 70) return "#c0392b";
   if (score >= 40) return "#c9993a";
   return "#1a6b4a";
-}
-
-function riskLabel(score) {
-  if (score >= 70) return "Alto";
-  if (score >= 40) return "Moderado";
-  return "Bajo";
 }
 
 function formatPercent(value) {
@@ -44,11 +40,19 @@ function formatCurrency(value) {
 }
 
 export default function App() {
+  const { lang, toggleLang, t } = useLang();
+
   const [positions, setPositions] = useState([]);
   const [analysis, setAnalysis] = useState(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [analyzeError, setAnalyzeError] = useState(null);
   const [chatOpen, setChatOpen] = useState(true);
+
+  function riskLabel(score) {
+    if (score >= 70) return t.sect_risk_label_high;
+    if (score >= 40) return t.sect_risk_label_mid;
+    return t.sect_risk_label_low;
+  }
 
   const handlePortfolioParsed = async (parsedPositions) => {
     setPositions(parsedPositions);
@@ -60,9 +64,7 @@ export default function App() {
       setAnalysis(data);
     } catch (err) {
       console.error(err);
-      setAnalyzeError(
-        "No se pudo conectar con el servidor de análisis. Intenta de nuevo.",
-      );
+      setAnalyzeError(t.error_connect);
     } finally {
       setLoadingAnalysis(false);
     }
@@ -107,7 +109,7 @@ export default function App() {
           }
         >
           <ArrowLeftOutlined style={{ fontSize: 12 }} />
-          foliosenseapp.com
+          {t.back_link}
         </a>
 
         {/* Brand */}
@@ -125,28 +127,59 @@ export default function App() {
           Folio<span style={{ color: "var(--accent)" }}>Sense</span>
         </a>
 
-        {/* Chat toggle */}
-        <button
-          onClick={() => setChatOpen((v) => !v)}
-          style={{
-            background: chatOpen ? "var(--ink)" : "var(--accent)",
-            color: "white",
-            border: "none",
-            borderRadius: 99,
-            padding: "9px 20px",
-            fontFamily: "var(--font-body)",
-            fontWeight: 600,
-            fontSize: "0.85rem",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            transition: "background 0.2s",
-          }}
-        >
-          {chatOpen ? <CloseOutlined /> : <MessageOutlined />}
-          {chatOpen ? "Cerrar asesor" : "Asesor IA"}
-        </button>
+        {/* Right controls */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {/* Language toggle */}
+          <button
+            onClick={toggleLang}
+            style={{
+              background: "transparent",
+              border: "1.5px solid var(--paper-warm)",
+              borderRadius: 99,
+              padding: "7px 14px",
+              fontFamily: "var(--font-body)",
+              fontWeight: 700,
+              fontSize: "0.78rem",
+              color: "var(--ink-soft)",
+              cursor: "pointer",
+              letterSpacing: "0.06em",
+              transition: "border-color 0.2s, color 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--accent)";
+              e.currentTarget.style.color = "var(--accent)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--paper-warm)";
+              e.currentTarget.style.color = "var(--ink-soft)";
+            }}
+          >
+            {t.lang_toggle}
+          </button>
+
+          {/* Chat toggle */}
+          <button
+            onClick={() => setChatOpen((v) => !v)}
+            style={{
+              background: chatOpen ? "var(--ink)" : "var(--accent)",
+              color: "white",
+              border: "none",
+              borderRadius: 99,
+              padding: "9px 20px",
+              fontFamily: "var(--font-body)",
+              fontWeight: 600,
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              transition: "background 0.2s",
+            }}
+          >
+            {chatOpen ? <CloseOutlined /> : <MessageOutlined />}
+            {chatOpen ? t.chat_close : t.chat_open}
+          </button>
+        </div>
       </Header>
 
       {/* ── CONTENT ── */}
@@ -162,7 +195,7 @@ export default function App() {
         >
           {/* ── MAIN COLUMN ── */}
           <div style={{ flex: 3, minWidth: 0 }}>
-            {/* UPLOAD CARD */}
+            {/* ── UPLOAD CARD ── */}
             <div className="section-card">
               {!analysis && !loadingAnalysis ? (
                 /* Empty state */
@@ -191,7 +224,7 @@ export default function App() {
                       margin: "0 0 8px",
                     }}
                   >
-                    Sube tu portafolio
+                    {t.upload_title}
                   </h2>
                   <p
                     style={{
@@ -202,12 +235,13 @@ export default function App() {
                       lineHeight: 1.6,
                     }}
                   >
-                    Archivo{" "}
+                    {t.upload_desc_pre}{" "}
                     <strong style={{ color: "var(--ink-soft)" }}>
                       Excel (.xlsx)
                     </strong>{" "}
-                    o <strong style={{ color: "var(--ink-soft)" }}>CSV</strong>{" "}
-                    con columnas:{" "}
+                    {t.upload_desc_or}{" "}
+                    <strong style={{ color: "var(--ink-soft)" }}>CSV</strong>{" "}
+                    {t.upload_desc_post}{" "}
                     <code
                       style={{
                         background: "var(--paper-warm)",
@@ -240,7 +274,7 @@ export default function App() {
                     >
                       price
                     </code>{" "}
-                    y opcionalmente{" "}
+                    {t.upload_opt}{" "}
                     <code
                       style={{
                         background: "var(--paper-warm)",
@@ -286,7 +320,7 @@ export default function App() {
                         color: "var(--ink)",
                       }}
                     >
-                      Portafolio cargado
+                      {t.portfolio_loaded}
                     </span>
                     <span
                       style={{
@@ -298,7 +332,7 @@ export default function App() {
                         fontWeight: 600,
                       }}
                     >
-                      {positions.length} activos
+                      {positions.length} {t.assets}
                     </span>
                   </div>
                   <FileUploader onPortfolioParsed={handlePortfolioParsed} />
@@ -322,7 +356,7 @@ export default function App() {
                       fontSize: "0.95rem",
                     }}
                   >
-                    Analizando tu portafolio...
+                    {t.analyzing}
                   </p>
                 </div>
               )}
@@ -347,31 +381,35 @@ export default function App() {
                   marginBottom: 24,
                 }}
               >
-                {/* Total value */}
                 <div className="stat-card">
-                  <div className="stat-label">Valor total</div>
+                  <div className="stat-label">
+                    {lang === "es" ? "Valor total" : "Total value"}
+                  </div>
                   <div className="stat-value">
                     {formatCurrency(analysis.totalValue)}
                   </div>
                 </div>
 
-                {/* Assets */}
                 <div className="stat-card">
-                  <div className="stat-label">Activos</div>
+                  <div className="stat-label">
+                    {lang === "es" ? "Activos" : "Assets"}
+                  </div>
                   <div className="stat-value">{analysis.diversification}</div>
                 </div>
 
-                {/* Concentration */}
                 <div className="stat-card">
-                  <div className="stat-label">Concentración máx.</div>
+                  <div className="stat-label">
+                    {lang === "es"
+                      ? "Concentración máx."
+                      : "Max. concentration"}
+                  </div>
                   <div className="stat-value">
                     {formatPercent(analysis.concentration)}
                   </div>
                 </div>
 
-                {/* Risk score */}
                 <div className="stat-card">
-                  <div className="stat-label">Riesgo</div>
+                  <div className="stat-label">{t.sect_risk}</div>
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 10 }}
                   >
@@ -391,25 +429,64 @@ export default function App() {
                       {riskLabel(analysis.riskScore)}
                     </span>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── RISK BAR ── */}
+            {analysis && (
+              <div className="section-card">
+                <h3 className="section-title">{t.sect_risk}</h3>
+                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                   <div
                     style={{
-                      marginTop: 10,
-                      height: 4,
-                      background: "var(--paper-warm)",
-                      borderRadius: 99,
-                      overflow: "hidden",
+                      fontSize: "2.5rem",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      color: riskColor(analysis.riskScore),
                     }}
                   >
-                    <div
+                    {analysis.riskScore}
+                    <span
                       style={{
-                        width: `${analysis.riskScore}%`,
-                        height: "100%",
-                        background: riskColor(analysis.riskScore),
-                        borderRadius: 99,
-                        transition: "width 0.8s cubic-bezier(0.4,0,0.2,1)",
+                        fontSize: "1rem",
+                        color: "var(--ink-muted)",
+                        fontWeight: 400,
                       }}
-                    />
+                    >
+                      /100
+                    </span>
                   </div>
+                  <span
+                    className="risk-badge"
+                    style={{
+                      background: riskColor(analysis.riskScore) + "1a",
+                      color: riskColor(analysis.riskScore),
+                      fontSize: "0.9rem",
+                      padding: "4px 14px",
+                    }}
+                  >
+                    {riskLabel(analysis.riskScore)}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    marginTop: 10,
+                    height: 4,
+                    background: "var(--paper-warm)",
+                    borderRadius: 99,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${analysis.riskScore}%`,
+                      height: "100%",
+                      background: riskColor(analysis.riskScore),
+                      borderRadius: 99,
+                      transition: "width 0.8s cubic-bezier(0.4,0,0.2,1)",
+                    }}
+                  />
                 </div>
               </div>
             )}
@@ -417,7 +494,7 @@ export default function App() {
             {/* ── SECTORS ── */}
             {analysis && (
               <div className="section-card">
-                <h3 className="section-title">Sectores</h3>
+                <h3 className="section-title">{t.sect_sectors}</h3>
                 <div
                   style={{
                     display: "flex",
@@ -471,9 +548,16 @@ export default function App() {
             {/* ── DISTRIBUTION CHARTS ── */}
             {positions.length > 0 && (
               <div className="section-card">
-                <h3 className="section-title">Distribución del portafolio</h3>
+                <h3 className="section-title">{t.sect_distribution}</h3>
                 <PortfolioCharts data={positions} />
               </div>
+            )}
+
+            {/* ── ARTICLE WIDGET (after charts, before radar) ── */}
+            {analysis && (
+              <ArticleWidget
+                tags={["risk", "concentration", "diversification"]}
+              />
             )}
 
             {/* ── RADAR + SCATTER ── */}
