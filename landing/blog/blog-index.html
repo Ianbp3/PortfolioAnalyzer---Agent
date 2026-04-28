@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — FolioSense</title>
+    <meta name="description" content="Plain-language guides on portfolio risk, diversification, and smarter investing. Learn to read your portfolio." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://foliosenseapp.com/blog" />
+    <link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog" />
+    <link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="/why-invest"   data-i18n="nav_why">Why invest</a>
+        <a href="/glossary"     data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog"         data-i18n="nav_blog" style="color: var(--accent)">Blog</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Launch app</a>
+        <button
+          id="lang-toggle"
+          style="background:transparent;border:1.5px solid var(--paper-warm);border-radius:99px;padding:5px 13px;font-family:var(--font-body);font-size:0.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:0.06em;transition:border-color 0.2s,color 0.2s;"
+          onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+          onmouseout="this.style.borderColor='var(--paper-warm)';this.style.color='var(--ink-soft)'"
+        >ES</button>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <div class="container-sm">
+        <div class="badge" data-i18n="blog_badge">Blog</div>
+        <h1 class="h1" style="color: var(--paper); margin-bottom: 1rem" data-i18n="blog_h1">
+          Learn to read your portfolio.
+        </h1>
+        <p style="color: rgba(247,246,242,0.65); font-size: 1.05rem;" data-i18n="blog_sub">
+          Plain-language guides on risk, diversification, and smarter investing.
+        </p>
+      </div>
+    </div>
+
+    <section style="background: var(--white);">
+      <div class="container">
+
+        <!-- Articles render here via JS -->
+        <div id="blog-all"></div>
+
+        <!-- CTA -->
+        <div style="margin-top: 4rem; text-align: center; padding: 3rem; background: var(--ink); border-radius: var(--radius-lg);">
+          <h2 class="h2" style="color: var(--paper); margin-bottom: 0.75rem;" data-i18n="blog_try_cta">
+            Try it with your own portfolio
+          </h2>
+          <p style="color: rgba(247,246,242,0.6); margin-bottom: 1.5rem;" data-i18n="hero_sub">
+            Upload your CSV or Excel file and get instant analysis.
+          </p>
+          <a href="/dashboard" class="btn btn-primary" data-i18n="nav_cta">Launch app</a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest"   data-i18n="nav_why">Why invest</a>
+          <a href="/glossary"     data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog"         data-i18n="nav_blog">Blog</a>
+          <a href="/privacy"      data-i18n="footer_privacy">Privacy policy</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">© 2026 FolioSense. Not financial advice.</div>
+      </div>
+    </footer>
+
+    <script src="/i18n.js"></script>
+    <script>
+      // Render all articles from manifest
+      (function() {
+        var MANIFEST = '/blog/blog-manifest.json';
+
+        function getLang() {
+          var s = localStorage.getItem('foliosense_lang');
+          return (s === 'en' || s === 'es') ? s : ((navigator.language || 'en').slice(0,2) === 'es' ? 'es' : 'en');
+        }
+
+        function articleUrl(a, lang) {
+          return lang === 'es' ? '/blog/es/' + a.slugEs : '/blog/' + a.slug;
+        }
+
+        function formatDate(d, lang) {
+          return new Date(d + 'T00:00:00').toLocaleDateString(
+            lang === 'es' ? 'es-HN' : 'en-US',
+            { year: 'numeric', month: 'long', day: 'numeric' }
+          );
+        }
+
+        function render(articles) {
+          var lang = getLang();
+          var container = document.getElementById('blog-all');
+          if (!container || !articles.length) return;
+
+          var readLabel = lang === 'es' ? 'Leer artículo' : 'Read article';
+          var newestLabel = lang === 'es' ? 'Artículos recientes' : 'Newest articles';
+
+          var sorted = articles.slice().sort(function(a,b){ return b.published.localeCompare(a.published); });
+
+          container.innerHTML =
+            '<h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--paper-warm);">' +
+            newestLabel + '</h2>' +
+            '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">' +
+            sorted.map(function(a) {
+              var title = lang === 'es' ? a.titleEs : a.titleEn;
+              var desc  = lang === 'es' ? a.descEs  : a.descEn;
+              var url   = articleUrl(a, lang);
+              return '<a href="' + url + '" style="display:block;text-decoration:none;background:var(--white);border:1px solid var(--paper-warm);border-radius:var(--radius-lg);padding:1.75rem;color:inherit;transition:box-shadow 0.2s,border-color 0.2s;" ' +
+                'onmouseover="this.style.boxShadow=\'var(--shadow-lg)\';this.style.borderColor=\'var(--accent-light)\'" ' +
+                'onmouseout="this.style.boxShadow=\'\';this.style.borderColor=\'var(--paper-warm)\'">' +
+                '<div style="font-size:0.75rem;color:var(--ink-muted);margin-bottom:0.6rem;">' + formatDate(a.published, lang) + '</div>' +
+                '<h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--ink);margin:0 0 0.6rem;line-height:1.35;">' + title + '</h3>' +
+                '<p style="color:var(--ink-soft);font-size:0.875rem;line-height:1.65;margin:0 0 1rem;">' + desc + '</p>' +
+                '<span style="color:var(--accent);font-size:0.85rem;font-weight:600;">' + readLabel + ' →</span>' +
+                '</a>';
+            }).join('') +
+            '</div>';
+        }
+
+        fetch(MANIFEST)
+          .then(function(r){ return r.json(); })
+          .then(function(data){ render(data.articles || []); })
+          .catch(function(){ console.warn('Could not load blog manifest'); });
+
+        // Re-render on language toggle
+        var _origToggle = window.FolioSenseLang && window.FolioSenseLang.toggle;
+        if (window.FolioSenseLang) {
+          window.FolioSenseLang.toggle = function() {
+            if (_origToggle) _origToggle();
+            setTimeout(function() {
+              fetch(MANIFEST)
+                .then(function(r){ return r.json(); })
+                .then(function(data){ render(data.articles || []); });
+            }, 50);
+          };
+        }
+      })();
+    </script>
+
+  </body>
+</html>
