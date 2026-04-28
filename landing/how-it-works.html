@@ -10,15 +10,16 @@
       content="Learn how FolioSense analyzes your stock portfolio in three simple steps. Upload a CSV or Excel, get AI-powered risk analysis, charts, and personalized advice."
     />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://foliosenseapp.com/how-it-works.html" />
-    <meta property="og:title" content="How FolioSense Works" />
-    <meta
-      property="og:description"
-      content="Three simple steps to understand your portfolio. No account needed."
+    <link rel="canonical" href="https://foliosenseapp.com/how-it-works" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://foliosenseapp.com/how-it-works"
     />
-    <meta
-      property="og:url"
-      content="https://foliosenseapp.com/how-it-works.html"
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://foliosenseapp.com/how-it-works"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -26,24 +27,13 @@
     <nav>
       <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
       <div class="nav-links">
-        <a href="/how-it-works" data-i18n="nav_how" data-i18n-href="nav_how"
+        <a href="/how-it-works" data-i18n="nav_how" style="color: var(--accent)"
           >How it works</a
         >
-        <a href="/why-invest" data-i18n="nav_why" data-i18n-href="nav_why"
-          >Why invest</a
-        >
-        <a
-          href="/glossary"
-          data-i18n="nav_glossary"
-          data-i18n-href="nav_glossary"
-          >Glossary</a
-        >
-        <a href="/blog" data-i18n="nav_blog" data-i18n-href="nav_blog">Blog</a>
-        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta"
-          >Launch app →</a
-        >
-
-        <!-- Language toggle — styled to look like a ghost pill -->
+        <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+        <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog" data-i18n="nav_blog">Blog</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Launch app</a>
         <button
           id="lang-toggle"
           style="
@@ -75,10 +65,15 @@
       </div>
     </nav>
 
+    <!-- HERO -->
     <div class="page-hero">
       <div class="container-sm">
-        <div class="badge">How it works</div>
-        <h1 class="h1" style="color: var(--paper); margin-bottom: 1rem">
+        <div class="badge" data-i18n="hiw_badge">How it works</div>
+        <h1
+          class="h1"
+          style="color: var(--paper); margin-bottom: 1rem"
+          data-i18n="hiw_h1"
+        >
           From spreadsheet to strategy in 30 seconds.
         </h1>
         <p
@@ -87,6 +82,7 @@
             font-size: 1.1rem;
             max-width: 560px;
           "
+          data-i18n="hiw_sub"
         >
           FolioSense is designed to be the fastest way to understand what your
           investments are actually doing — and what to do about it.
@@ -96,7 +92,7 @@
 
     <section>
       <div class="container">
-        <!-- Step 1 -->
+        <!-- ── STEP 1 ── -->
         <div
           style="
             display: grid;
@@ -106,6 +102,7 @@
             margin-bottom: 5rem;
           "
         >
+          <!-- Left: prose (data-lang blocks) -->
           <div>
             <div
               style="
@@ -132,185 +129,261 @@
               >
                 1
               </div>
-              <div class="badge" style="margin: 0">Export your holdings</div>
+              <div class="badge" style="margin: 0" data-lang="en">
+                Export your holdings
+              </div>
+              <div class="badge" style="margin: 0" data-lang="es">
+                Exporta tus posiciones
+              </div>
             </div>
-            <h2 class="h2" style="margin-bottom: 1rem">
-              Get your file from any broker.
-            </h2>
-            <div class="prose">
-              <p>
-                Most brokers let you export your holdings as a CSV or Excel
-                file. FolioSense accepts both. Here's how to export from the
-                most common platforms:
-              </p>
-              <ul>
-                <li>
-                  <strong>Robinhood</strong> — Account → Statements & History →
-                  Export
-                </li>
-                <li>
-                  <strong>Fidelity</strong> — Accounts → Portfolio → Download
-                </li>
-                <li>
-                  <strong>Charles Schwab</strong> — Accounts → Positions →
-                  Export to spreadsheet
-                </li>
-                <li>
-                  <strong>Interactive Brokers</strong> — Reports → Activity →
-                  Positions
-                </li>
-              </ul>
-              <p>
-                Your file needs at least three columns: the stock symbol
-                (ticker), the number of shares, and the price you paid. Sector
-                and ROI columns are optional but give you richer analysis.
-              </p>
-              <p>
-                Not sure about the format?
-                <a href="/dashboard">Try our sample file</a> — it loads with
-                example data so you can explore all the features before
-                uploading your own.
-              </p>
+
+            <div data-lang="en">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Get your file from any broker.
+              </h2>
+              <div class="prose">
+                <p>
+                  Most brokers let you export your holdings as a CSV or Excel
+                  file. FolioSense accepts both. Here's how to export from the
+                  most common platforms:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Robinhood</strong> — Account → Statements &amp;
+                    History → Export
+                  </li>
+                  <li>
+                    <strong>Fidelity</strong> — Accounts → Portfolio → Download
+                  </li>
+                  <li>
+                    <strong>Charles Schwab</strong> — Accounts → Positions →
+                    Export to spreadsheet
+                  </li>
+                  <li>
+                    <strong>Interactive Brokers</strong> — Reports → Activity →
+                    Positions
+                  </li>
+                </ul>
+                <p>
+                  Your file needs at least three columns: the stock symbol
+                  (ticker), the number of shares, and the price you paid. Sector
+                  and ROI columns are optional but give you richer analysis.
+                </p>
+                <p>
+                  Not sure about the format?
+                  <a href="/dashboard">Try our sample file</a> — it loads with
+                  example data so you can explore all the features before
+                  uploading your own.
+                </p>
+              </div>
+            </div>
+
+            <div data-lang="es">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Obtén tu archivo desde cualquier broker.
+              </h2>
+              <div class="prose">
+                <p>
+                  La mayoría de los brokers te permiten exportar tus posiciones
+                  como archivo CSV o Excel. FolioSense acepta ambos. Así se hace
+                  en las plataformas más comunes:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Robinhood</strong> — Cuenta → Historial → Exportar
+                  </li>
+                  <li>
+                    <strong>Fidelity</strong> — Cuentas → Portafolio → Descargar
+                  </li>
+                  <li>
+                    <strong>Charles Schwab</strong> — Cuentas → Posiciones →
+                    Exportar a hoja de cálculo
+                  </li>
+                  <li>
+                    <strong>Interactive Brokers</strong> — Reportes → Actividad
+                    → Posiciones
+                  </li>
+                </ul>
+                <p>
+                  Tu archivo necesita al menos tres columnas: el símbolo
+                  (ticker), la cantidad de acciones y el precio que pagaste. Las
+                  columnas de sector y ROI son opcionales pero enriquecen el
+                  análisis.
+                </p>
+                <p>
+                  ¿No estás seguro del formato?
+                  <a href="/dashboard">Prueba nuestro archivo de ejemplo</a> —
+                  se carga con datos de muestra para que explores todas las
+                  funciones antes de subir el tuyo.
+                </p>
+              </div>
             </div>
           </div>
-          <div
-            class="card"
-            style="background: var(--ink); border-color: transparent"
-          >
+
+          <!-- Right: file format visual -->
+          <div>
             <div
               style="
-                font-size: 0.75rem;
-                font-weight: 600;
-                color: rgba(247, 246, 242, 0.4);
-                margin-bottom: 1rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
+                background: var(--ink);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                font-family: monospace;
+                font-size: 0.82rem;
               "
             >
-              Sample CSV format
+              <div
+                style="
+                  color: rgba(247, 246, 242, 0.4);
+                  margin-bottom: 0.75rem;
+                  font-size: 0.72rem;
+                  letter-spacing: 0.08em;
+                "
+              >
+                portfolio.csv
+              </div>
+              <table style="width: 100%; border-collapse: collapse">
+                <thead>
+                  <tr>
+                    <th
+                      style="
+                        text-align: left;
+                        color: var(--accent-light);
+                        padding: 6px 8px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                      "
+                    >
+                      symbol
+                    </th>
+                    <th
+                      style="
+                        text-align: left;
+                        color: var(--accent-light);
+                        padding: 6px 8px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                      "
+                    >
+                      shares
+                    </th>
+                    <th
+                      style="
+                        text-align: left;
+                        color: var(--accent-light);
+                        padding: 6px 8px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                      "
+                    >
+                      price
+                    </th>
+                    <th
+                      style="
+                        text-align: left;
+                        color: var(--accent-light);
+                        padding: 6px 8px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                      "
+                    >
+                      sector
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      AAPL
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      12
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      185.32
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      Technology
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      MSFT
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      8
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      421.14
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      Technology
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      JPM
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      10
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      201.66
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      Finance
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      VOO
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      5
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      478.20
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      ETF
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <table
-              style="width: 100%; font-size: 0.85rem; border-collapse: collapse"
-            >
-              <thead>
-                <tr>
-                  <th
-                    style="
-                      text-align: left;
-                      color: var(--accent-light);
-                      padding: 6px 8px;
-                      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    "
-                  >
-                    ticker
-                  </th>
-                  <th
-                    style="
-                      text-align: left;
-                      color: var(--accent-light);
-                      padding: 6px 8px;
-                      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    "
-                  >
-                    cantidad
-                  </th>
-                  <th
-                    style="
-                      text-align: left;
-                      color: var(--accent-light);
-                      padding: 6px 8px;
-                      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    "
-                  >
-                    precio
-                  </th>
-                  <th
-                    style="
-                      text-align: left;
-                      color: var(--accent-light);
-                      padding: 6px 8px;
-                      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    "
-                  >
-                    sector
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    AAPL
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    12
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    185.32
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    Technology
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    MSFT
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    8
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    421.14
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    Technology
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    NVDA
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    5
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    1102.45
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    Technology
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    KO
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    15
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    59.88
-                  </td>
-                  <td style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px">
-                    Consumer
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <p
-              style="
-                font-size: 0.75rem;
-                color: rgba(247, 246, 242, 0.35);
-                margin-top: 1rem;
-              "
-            >
-              Column names can be in English or Spanish. FolioSense auto-detects
-              them.
-            </p>
           </div>
         </div>
 
         <hr class="divider" style="margin-bottom: 5rem" />
 
-        <!-- Step 2 -->
+        <!-- ── STEP 2 ── -->
         <div
           style="
             display: grid;
@@ -320,154 +393,6 @@
             margin-bottom: 5rem;
           "
         >
-          <div class="card" style="order: -1">
-            <div
-              style="
-                font-size: 0.75rem;
-                font-weight: 600;
-                color: var(--ink-muted);
-                margin-bottom: 1rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-              "
-            >
-              What gets analyzed
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px">
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Total portfolio value</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Calculated</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Risk score (0–100)</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Calculated</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Concentration risk</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Calculated</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Sector distribution</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Calculated</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Top &amp; worst performers</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Ranked</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 10px 12px;
-                  background: var(--paper);
-                  border-radius: 8px;
-                "
-              >
-                <span style="font-size: 0.9rem; font-weight: 500"
-                  >Risk vs return scatter plot</span
-                >
-                <span
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--accent);
-                    font-weight: 600;
-                  "
-                  >✓ Visualized</span
-                >
-              </div>
-            </div>
-          </div>
           <div>
             <div
               style="
@@ -494,34 +419,169 @@
               >
                 2
               </div>
-              <div class="badge" style="margin: 0">Upload and analyze</div>
+              <div class="badge" style="margin: 0" data-lang="en">
+                Upload and analyze
+              </div>
+              <div class="badge" style="margin: 0" data-lang="es">
+                Sube y analiza
+              </div>
             </div>
-            <h2 class="h2" style="margin-bottom: 1rem">
-              Your portfolio analyzed instantly.
-            </h2>
-            <div class="prose">
-              <p>
-                Drag and drop your file onto the FolioSense app. That's it. No
-                forms, no email, no password.
-              </p>
-              <p>
-                Within seconds you'll see your complete portfolio breakdown:
-                total value, a risk score from 0 to 100, how concentrated your
-                holdings are, and which sectors you're exposed to.
-              </p>
-              <p>
-                Every chart is interactive. Hover over any data point to see the
-                details. The scatter plot shows you every stock as a point —
-                risk on the X axis, return on the Y axis — so you can instantly
-                spot which positions are high risk and low reward.
-              </p>
+
+            <div data-lang="en">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Your portfolio analyzed instantly.
+              </h2>
+              <div class="prose">
+                <p>
+                  Drag and drop your file onto the FolioSense app. That's it. No
+                  forms, no email, no password.
+                </p>
+                <p>
+                  Within seconds you'll see your complete portfolio breakdown:
+                  total value, a risk score from 0 to 100, how concentrated your
+                  holdings are, and which sectors you're exposed to.
+                </p>
+                <p>
+                  Every chart is interactive. Hover over any data point to see
+                  the details. The scatter plot shows you every stock as a point
+                  — risk on the X axis, return on the Y axis — so you can
+                  instantly spot which positions are high risk and low reward.
+                </p>
+              </div>
+            </div>
+
+            <div data-lang="es">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Tu portafolio analizado en segundos.
+              </h2>
+              <div class="prose">
+                <p>
+                  Arrastra y suelta tu archivo en la app de FolioSense. Eso es
+                  todo. Sin formularios, sin correo, sin contraseña.
+                </p>
+                <p>
+                  En segundos verás el desglose completo de tu portafolio: valor
+                  total, puntaje de riesgo del 0 al 100, qué tan concentradas
+                  están tus posiciones y a qué sectores estás expuesto.
+                </p>
+                <p>
+                  Cada gráfico es interactivo. Pasa el cursor sobre cualquier
+                  punto para ver los detalles. El scatter plot muestra cada
+                  acción como un punto — riesgo en el eje X, retorno en el eje Y
+                  — para que identifiques al instante las posiciones de alto
+                  riesgo y bajo rendimiento.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: analysis mock -->
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <div
+              style="
+                background: var(--white);
+                border: 1px solid var(--paper-warm);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="en"
+                >Risk score calculated</span
+              >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="es"
+                >Puntaje de riesgo</span
+              >
+              <span
+                style="
+                  font-size: 0.8rem;
+                  color: var(--accent);
+                  font-weight: 600;
+                "
+                >✓ 62 / 100</span
+              >
+            </div>
+            <div
+              style="
+                background: var(--white);
+                border: 1px solid var(--paper-warm);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="en"
+                >Sector breakdown</span
+              >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="es"
+                >Desglose por sector</span
+              >
+              <span
+                style="
+                  font-size: 0.8rem;
+                  color: var(--accent);
+                  font-weight: 600;
+                "
+                >✓ 4 sectors</span
+              >
+            </div>
+            <div
+              style="
+                background: var(--white);
+                border: 1px solid var(--paper-warm);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="en"
+                >Concentration check</span
+              >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="es"
+                >Análisis de concentración</span
+              >
+              <span style="font-size: 0.8rem; color: #c0392b; font-weight: 600"
+                >⚠ 24% in MSFT</span
+              >
+            </div>
+            <div
+              style="
+                background: var(--white);
+                border: 1px solid var(--paper-warm);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="en"
+                >Risk vs return scatter</span
+              >
+              <span style="font-size: 0.9rem; font-weight: 500" data-lang="es"
+                >Riesgo vs retorno</span
+              >
+              <span
+                style="
+                  font-size: 0.8rem;
+                  color: var(--accent);
+                  font-weight: 600;
+                "
+                >✓ Visualized</span
+              >
             </div>
           </div>
         </div>
 
         <hr class="divider" style="margin-bottom: 5rem" />
 
-        <!-- Step 3 -->
+        <!-- ── STEP 3 ── -->
         <div
           style="
             display: grid;
@@ -545,7 +605,7 @@
                   width: 48px;
                   height: 48px;
                   border-radius: 50%;
-                  background: var(--gold);
+                  background: var(--gold, #c9993a);
                   color: var(--white);
                   display: flex;
                   align-items: center;
@@ -557,89 +617,164 @@
               >
                 3
               </div>
-              <div class="badge" style="margin: 0">
+              <div class="badge" style="margin: 0" data-lang="en">
                 Chat with your AI advisor
               </div>
+              <div class="badge" style="margin: 0" data-lang="es">
+                Chatea con tu asesor IA
+              </div>
             </div>
-            <h2 class="h2" style="margin-bottom: 1rem">
-              Ask anything. Get real answers.
-            </h2>
-            <div class="prose">
-              <p>
-                Once your portfolio is loaded, an AI advisor is ready to answer
-                any question about it — in plain language, using your actual
-                numbers.
-              </p>
-              <p>You can ask things like:</p>
-              <ul>
-                <li>"Am I too heavily invested in tech?"</li>
-                <li>
-                  "Which of my stocks has the worst risk-to-return ratio?"
-                </li>
-                <li>
-                  "What would happen to my portfolio if the tech sector dropped
-                  20%?"
-                </li>
-                <li>"Should I be worried about my NVDA position?"</li>
-              </ul>
-              <p>
-                The AI knows your exact holdings, weights, sectors, and ROI. It
-                gives advice specific to your portfolio, not generic tips copied
-                from a finance blog.
-              </p>
-              <p style="font-size: 0.85rem; color: var(--ink-muted)">
-                <em
-                  >FolioSense is an educational tool. Nothing here is
-                  professional financial advice. Always consult a qualified
-                  advisor before making investment decisions.</em
-                >
-              </p>
+
+            <div data-lang="en">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Ask anything. Get real answers.
+              </h2>
+              <div class="prose">
+                <p>
+                  Once your portfolio is loaded, an AI advisor is ready to
+                  answer any question about it — in plain language, using your
+                  actual numbers.
+                </p>
+                <p>You can ask things like:</p>
+                <ul>
+                  <li>"Am I too heavily invested in tech?"</li>
+                  <li>
+                    "Which of my stocks has the worst risk-to-return ratio?"
+                  </li>
+                  <li>
+                    "What would happen to my portfolio if the tech sector
+                    dropped 20%?"
+                  </li>
+                  <li>"Should I be worried about my NVDA position?"</li>
+                </ul>
+                <p>
+                  The AI knows your exact holdings, weights, sectors, and ROI.
+                  It gives advice specific to your portfolio, not generic tips
+                  from a finance blog.
+                </p>
+                <p style="font-size: 0.85rem; color: var(--ink-muted)">
+                  <em
+                    >FolioSense is an educational tool. Nothing here is
+                    professional financial advice.</em
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div data-lang="es">
+              <h2 class="h2" style="margin-bottom: 1rem">
+                Pregunta lo que quieras. Obtén respuestas reales.
+              </h2>
+              <div class="prose">
+                <p>
+                  Una vez que tu portafolio está cargado, un asesor IA está
+                  listo para responder cualquier pregunta — en lenguaje simple,
+                  usando tus números reales.
+                </p>
+                <p>Puedes preguntar cosas como:</p>
+                <ul>
+                  <li>"¿Estoy demasiado invertido en tecnología?"</li>
+                  <li>
+                    "¿Cuál de mis acciones tiene la peor relación
+                    riesgo-retorno?"
+                  </li>
+                  <li>
+                    "¿Qué pasaría con mi portafolio si el sector tecnológico cae
+                    20%?"
+                  </li>
+                  <li>"¿Debería preocuparme mi posición en NVDA?"</li>
+                </ul>
+                <p>
+                  La IA conoce exactamente tus posiciones, pesos, sectores y
+                  ROI. Da consejos específicos para tu portafolio, no consejos
+                  genéricos de un blog de finanzas.
+                </p>
+                <p style="font-size: 0.85rem; color: var(--ink-muted)">
+                  <em
+                    >FolioSense es una herramienta educativa. Nada aquí
+                    constituye asesoría financiera profesional.</em
+                  >
+                </p>
+              </div>
             </div>
           </div>
-          <div class="card" style="background: var(--paper)">
-            <div
-              style="
-                font-size: 0.75rem;
-                font-weight: 600;
-                color: var(--ink-muted);
-                margin-bottom: 1rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-              "
-            >
-              Example conversation
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 12px">
+
+          <!-- Right: chat mock -->
+          <div
+            style="
+              background: var(--white);
+              border: 1px solid var(--paper-warm);
+              border-radius: var(--radius-lg);
+              padding: 1.5rem;
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+            "
+          >
+            <div style="display: flex; justify-content: flex-end">
               <div
                 style="
-                  background: var(--white);
-                  border-radius: 12px 12px 12px 4px;
-                  padding: 12px 14px;
-                  font-size: 0.88rem;
-                  color: var(--ink-soft);
-                  max-width: 85%;
+                  background: var(--accent);
+                  color: white;
+                  padding: 10px 14px;
+                  border-radius: 16px 16px 4px 16px;
+                  font-size: 0.85rem;
+                  max-width: 80%;
                 "
+                data-lang="en"
               >
-                Is my portfolio too risky?
+                Am I too concentrated in tech?
               </div>
               <div
                 style="
-                  background: var(--ink);
-                  border-radius: 12px 12px 4px 12px;
-                  padding: 12px 14px;
-                  font-size: 0.88rem;
-                  color: rgba(247, 246, 242, 0.85);
-                  align-self: flex-end;
-                  max-width: 90%;
+                  background: var(--accent);
+                  color: white;
+                  padding: 10px 14px;
+                  border-radius: 16px 16px 4px 16px;
+                  font-size: 0.85rem;
+                  max-width: 80%;
+                "
+                data-lang="es"
+              >
+                ¿Estoy muy concentrado en tecnología?
+              </div>
+            </div>
+            <div style="display: flex; justify-content: flex-start">
+              <div
+                style="
+                  background: var(--paper);
+                  border: 1px solid var(--paper-warm);
+                  padding: 10px 14px;
+                  border-radius: 16px 16px 16px 4px;
+                  font-size: 0.85rem;
+                  max-width: 85%;
+                  color: var(--ink);
                   line-height: 1.6;
                 "
+                data-lang="en"
               >
-                Your risk score is 60 out of 100, which is moderate-to-high. The
-                main concern is NVDA at 28% of your portfolio — well above the
-                recommended 10% for any single stock. Your tech exposure overall
-                is 62%, meaning a sector downturn would hit you hard. Consider
-                trimming NVDA and adding a defensive position like bonds or
-                consumer staples.
+                Yes — Technology makes up 46% of your portfolio. MSFT alone is
+                24.7%, which is well above the recommended 10% limit for any
+                single position. I'd suggest trimming MSFT and adding a broad
+                ETF to reduce sector concentration.
+              </div>
+              <div
+                style="
+                  background: var(--paper);
+                  border: 1px solid var(--paper-warm);
+                  padding: 10px 14px;
+                  border-radius: 16px 16px 16px 4px;
+                  font-size: 0.85rem;
+                  max-width: 85%;
+                  color: var(--ink);
+                  line-height: 1.6;
+                "
+                data-lang="es"
+              >
+                Sí — Tecnología representa el 46% de tu portafolio. MSFT sola es
+                el 24.7%, muy por encima del límite recomendado del 10% para una
+                sola posición. Te sugiero reducir MSFT y agregar un ETF amplio
+                para bajar la concentración sectorial.
               </div>
             </div>
           </div>
@@ -647,31 +782,45 @@
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- BOTTOM CTA -->
     <section
       style="
-        background: var(--accent);
-        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-        text-align: center;
+        background: var(--ink);
+        padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
       "
     >
-      <div class="container-sm">
-        <h2 class="h2" style="color: var(--white); margin-bottom: 1rem">
+      <div class="container" style="text-align: center">
+        <h2
+          class="h2"
+          style="color: var(--paper); margin-bottom: 1rem"
+          data-i18n="cta_h2"
+        >
           Ready to understand your portfolio?
         </h2>
-        <p style="color: rgba(255, 255, 255, 0.75); margin-bottom: 2rem">
-          Free. Private. No account required.
-        </p>
-        <a
-          href="/dashboard"
-          class="btn"
+        <p
           style="
-            background: var(--white);
-            color: var(--accent);
-            font-weight: 600;
+            color: rgba(247, 246, 242, 0.6);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
           "
-          >Analyze my portfolio →</a
+          data-i18n="cta_sub"
         >
+          It takes 30 seconds. No sign-up. No credit card. Just real answers
+          about your real portfolio.
+        </p>
+        <a href="/dashboard" class="btn btn-primary btn-lg" data-i18n="cta_btn"
+          >Analyze my portfolio</a
+        >
+        <p
+          style="
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            color: rgba(247, 246, 242, 0.35);
+          "
+          data-i18n="cta_note"
+        >
+          Free · Private · AI-powered
+        </p>
       </div>
     </section>
 
@@ -679,14 +828,18 @@
       <div class="footer-inner">
         <a href="/" class="footer-logo">FolioSense</a>
         <div class="footer-links">
-          <a href="/how-it-works.html">How it works</a>
-          <a href="/why-invest.html">Why invest</a>
-          <a href="/glossary.html">Glossary</a>
-          <a href="/privacy.html">Privacy policy</a>
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+          <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog" data-i18n="nav_blog">Blog</a>
+          <a href="/privacy" data-i18n="footer_privacy">Privacy policy</a>
         </div>
-        <div class="footer-copy">© 2026 FolioSense. Not financial advice.</div>
+        <div class="footer-copy" data-i18n="footer_copy">
+          © 2026 FolioSense. Not financial advice.
+        </div>
       </div>
     </footer>
+
     <script src="/i18n.js"></script>
   </body>
 </html>

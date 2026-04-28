@@ -34,23 +34,16 @@ const TOOLTIP_STYLE = {
 };
 
 export default function PortfolioCharts({ data }) {
-  const { lang } = useLang();
+  const { t } = useLang();
 
   if (!data || data.length === 0) return null;
 
   const totalValue = data.reduce((s, p) => s + (p.value || 0), 0);
-
   const finalData = data.map((item) => ({
     name: item.symbol,
     percentage:
       totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0,
   }));
-
-  const labels = {
-    distribution: lang === "es" ? "Distribución" : "Distribution",
-    byAsset: lang === "es" ? "Peso por activo" : "Weight by asset",
-    weight: lang === "es" ? "Peso" : "Weight",
-  };
 
   return (
     <div
@@ -61,7 +54,6 @@ export default function PortfolioCharts({ data }) {
         flexWrap: "wrap",
       }}
     >
-      {/* PIE */}
       <div>
         <h4
           style={{
@@ -73,7 +65,7 @@ export default function PortfolioCharts({ data }) {
             fontSize: "0.9rem",
           }}
         >
-          {labels.distribution}
+          {t.chart_distribution}
         </h4>
         <PieChart width={320} height={320}>
           <Pie
@@ -86,18 +78,17 @@ export default function PortfolioCharts({ data }) {
             label={({ name, percentage }) => `${name} ${percentage}%`}
             labelLine={false}
           >
-            {finalData.map((_, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            {finalData.map((_, i) => (
+              <Cell key={i} fill={COLORS[i % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, labels.weight]}
+            formatter={(v) => [`${v}%`, t.chart_weight]}
           />
         </PieChart>
       </div>
 
-      {/* BAR */}
       <div>
         <h4
           style={{
@@ -109,7 +100,7 @@ export default function PortfolioCharts({ data }) {
             fontSize: "0.9rem",
           }}
         >
-          {labels.byAsset}
+          {t.chart_by_asset}
         </h4>
         <BarChart
           width={380}
@@ -144,12 +135,12 @@ export default function PortfolioCharts({ data }) {
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, labels.weight]}
+            formatter={(v) => [`${v}%`, t.chart_weight]}
             cursor={{ fill: "#f7f6f2" }}
           />
           <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
-            {finalData.map((_, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            {finalData.map((_, i) => (
+              <Cell key={i} fill={COLORS[i % COLORS.length]} />
             ))}
           </Bar>
         </BarChart>

@@ -26,21 +26,21 @@ function riskColor(score) {
   return "#1a6b4a";
 }
 
-function formatPercent(value) {
-  return (value * 100).toFixed(1) + "%";
+function formatPercent(v) {
+  return (v * 100).toFixed(1) + "%";
 }
 
-function formatCurrency(value) {
+function formatCurrency(v) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(value);
+  }).format(v);
 }
 
 export default function App() {
-  const { lang, toggleLang, t } = useLang();
+  const { toggleLang, t } = useLang();
 
   const [positions, setPositions] = useState([]);
   const [analysis, setAnalysis] = useState(null);
@@ -48,19 +48,19 @@ export default function App() {
   const [analyzeError, setAnalyzeError] = useState(null);
   const [chatOpen, setChatOpen] = useState(true);
 
-  function riskLabel(score) {
-    if (score >= 70) return t.sect_risk_label_high;
-    if (score >= 40) return t.sect_risk_label_mid;
+  function riskLabel(s) {
+    if (s >= 70) return t.sect_risk_label_high;
+    if (s >= 40) return t.sect_risk_label_mid;
     return t.sect_risk_label_low;
   }
 
-  const handlePortfolioParsed = async (parsedPositions) => {
-    setPositions(parsedPositions);
+  const handlePortfolioParsed = async (parsed) => {
+    setPositions(parsed);
     setAnalysis(null);
     setAnalyzeError(null);
     setLoadingAnalysis(true);
     try {
-      const data = await analyzePortfolio(parsedPositions);
+      const data = await analyzePortfolio(parsed);
       setAnalysis(data);
     } catch (err) {
       console.error(err);
@@ -70,9 +70,12 @@ export default function App() {
     }
   };
 
+  // Translate noteKeys from backend into current language
+  const notes = (analysis?.noteKeys || []).map((k) => t[k] || k);
+
   return (
     <Layout style={{ minHeight: "100vh", background: "var(--paper)" }}>
-      {/* ── NAV ── */}
+      {/* NAV */}
       <Header
         style={{
           background: "rgba(247,246,242,0.92)",
@@ -90,7 +93,6 @@ export default function App() {
           lineHeight: "normal",
         }}
       >
-        {/* Back link */}
         <a
           href="/"
           style={{
@@ -101,7 +103,6 @@ export default function App() {
             color: "var(--ink-muted)",
             fontSize: "0.85rem",
             fontWeight: 500,
-            transition: "color 0.2s",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
           onMouseLeave={(e) =>
@@ -112,7 +113,6 @@ export default function App() {
           {t.back_link}
         </a>
 
-        {/* Brand */}
         <a
           href="/"
           style={{
@@ -121,15 +121,12 @@ export default function App() {
             fontWeight: 800,
             fontSize: "1.2rem",
             color: "var(--ink)",
-            letterSpacing: "-0.01em",
           }}
         >
           Folio<span style={{ color: "var(--accent)" }}>Sense</span>
         </a>
 
-        {/* Right controls */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {/* Language toggle */}
           <button
             onClick={toggleLang}
             style={{
@@ -143,7 +140,6 @@ export default function App() {
               color: "var(--ink-soft)",
               cursor: "pointer",
               letterSpacing: "0.06em",
-              transition: "border-color 0.2s, color 0.2s",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "var(--accent)";
@@ -157,7 +153,6 @@ export default function App() {
             {t.lang_toggle}
           </button>
 
-          {/* Chat toggle */}
           <button
             onClick={() => setChatOpen((v) => !v)}
             style={{
@@ -173,7 +168,6 @@ export default function App() {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              transition: "background 0.2s",
             }}
           >
             {chatOpen ? <CloseOutlined /> : <MessageOutlined />}
@@ -182,7 +176,6 @@ export default function App() {
         </div>
       </Header>
 
-      {/* ── CONTENT ── */}
       <Content style={{ padding: "32px", background: "var(--paper)" }}>
         <div
           style={{
@@ -193,12 +186,10 @@ export default function App() {
             margin: "0 auto",
           }}
         >
-          {/* ── MAIN COLUMN ── */}
           <div style={{ flex: 3, minWidth: 0 }}>
-            {/* ── UPLOAD CARD ── */}
+            {/* UPLOAD */}
             <div className="section-card">
               {!analysis && !loadingAnalysis ? (
-                /* Empty state */
                 <div style={{ textAlign: "center", padding: "24px 0" }}>
                   <div
                     style={{
@@ -235,13 +226,8 @@ export default function App() {
                       lineHeight: 1.6,
                     }}
                   >
-                    {t.upload_desc_pre}{" "}
-                    <strong style={{ color: "var(--ink-soft)" }}>
-                      Excel (.xlsx)
-                    </strong>{" "}
-                    {t.upload_desc_or}{" "}
-                    <strong style={{ color: "var(--ink-soft)" }}>CSV</strong>{" "}
-                    {t.upload_desc_post}{" "}
+                    {t.upload_desc_pre} <strong>Excel (.xlsx)</strong>{" "}
+                    {t.upload_desc_or} <strong>CSV</strong> {t.upload_desc_post}{" "}
                     <code
                       style={{
                         background: "var(--paper-warm)",
@@ -301,7 +287,6 @@ export default function App() {
                   <FileUploader onPortfolioParsed={handlePortfolioParsed} />
                 </div>
               ) : (
-                /* Loaded header */
                 <div
                   style={{
                     display: "flex",
@@ -338,7 +323,6 @@ export default function App() {
                   <FileUploader onPortfolioParsed={handlePortfolioParsed} />
                 </div>
               )}
-
               {loadingAnalysis && (
                 <div
                   style={{
@@ -353,14 +337,12 @@ export default function App() {
                       marginTop: 16,
                       color: "var(--ink-muted)",
                       fontWeight: 500,
-                      fontSize: "0.95rem",
                     }}
                   >
                     {t.analyzing}
                   </p>
                 </div>
               )}
-
               {analyzeError && (
                 <Alert
                   style={{ marginTop: 16 }}
@@ -371,7 +353,7 @@ export default function App() {
               )}
             </div>
 
-            {/* ── STATS ROW ── */}
+            {/* STATS ROW */}
             {analysis && (
               <div
                 style={{
@@ -382,32 +364,21 @@ export default function App() {
                 }}
               >
                 <div className="stat-card">
-                  <div className="stat-label">
-                    {lang === "es" ? "Valor total" : "Total value"}
-                  </div>
+                  <div className="stat-label">{t.stat_total_value}</div>
                   <div className="stat-value">
                     {formatCurrency(analysis.totalValue)}
                   </div>
                 </div>
-
                 <div className="stat-card">
-                  <div className="stat-label">
-                    {lang === "es" ? "Activos" : "Assets"}
-                  </div>
+                  <div className="stat-label">{t.stat_assets}</div>
                   <div className="stat-value">{analysis.diversification}</div>
                 </div>
-
                 <div className="stat-card">
-                  <div className="stat-label">
-                    {lang === "es"
-                      ? "Concentración máx."
-                      : "Max. concentration"}
-                  </div>
+                  <div className="stat-label">{t.stat_max_concentration}</div>
                   <div className="stat-value">
                     {formatPercent(analysis.concentration)}
                   </div>
                 </div>
-
                 <div className="stat-card">
                   <div className="stat-label">{t.sect_risk}</div>
                   <div
@@ -433,7 +404,7 @@ export default function App() {
               </div>
             )}
 
-            {/* ── RISK BAR ── */}
+            {/* RISK BAR */}
             {analysis && (
               <div className="section-card">
                 <h3 className="section-title">{t.sect_risk}</h3>
@@ -491,7 +462,7 @@ export default function App() {
               </div>
             )}
 
-            {/* ── SECTORS ── */}
+            {/* SECTORS */}
             {analysis && (
               <div className="section-card">
                 <h3 className="section-title">{t.sect_sectors}</h3>
@@ -522,10 +493,9 @@ export default function App() {
                     ),
                   )}
                 </div>
-
-                {(analysis.notes || []).length > 0 && (
+                {notes.length > 0 && (
                   <div style={{ marginBottom: 16 }}>
-                    {analysis.notes.map((n, i) => (
+                    {notes.map((n, i) => (
                       <p
                         key={i}
                         style={{
@@ -539,13 +509,12 @@ export default function App() {
                     ))}
                   </div>
                 )}
-
                 <SectorPieChart sectors={analysis.sectors} />
                 <SectorRanking positions={positions} />
               </div>
             )}
 
-            {/* ── DISTRIBUTION CHARTS ── */}
+            {/* DISTRIBUTION */}
             {positions.length > 0 && (
               <div className="section-card">
                 <h3 className="section-title">{t.sect_distribution}</h3>
@@ -553,14 +522,14 @@ export default function App() {
               </div>
             )}
 
-            {/* ── ARTICLE WIDGET (after charts, before radar) ── */}
+            {/* ARTICLE WIDGET */}
             {analysis && (
               <ArticleWidget
                 tags={["risk", "concentration", "diversification"]}
               />
             )}
 
-            {/* ── RADAR + SCATTER ── */}
+            {/* RADAR + SCATTER */}
             {analysis && positions.length > 0 && (
               <div style={{ display: "flex", gap: 24, marginBottom: 24 }}>
                 <div
@@ -578,7 +547,7 @@ export default function App() {
               </div>
             )}
 
-            {/* ── ASSET RANKING ── */}
+            {/* ASSET RANKING */}
             {positions.length > 0 && (
               <div className="section-card">
                 <AssetRanking positions={positions} />
@@ -586,7 +555,7 @@ export default function App() {
             )}
           </div>
 
-          {/* ── CHAT PANEL ── */}
+          {/* CHAT */}
           {chatOpen && (
             <div
               style={{
