@@ -1,6 +1,23 @@
 {
   "articles": [
     {
+      "slug": "market-crash-2026-investing-strategy",
+      "slugEs": "caida-mercado-2026-estrategia-inversion",
+      "titleEn": "Will the Market Crash in 2026? (And Why That Shouldn't Stop You)",
+      "titleEs": "¿El mercado va a caer en 2026? (Y por qué eso no debería detenerte)",
+      "descEn": "Yes, the market will drop in 2026, like it does every year. Learn why staying invested beats trying to time the crash.",
+      "descEs": "Sí, el mercado caerá en 2026 como todos los años. Aprende por qué seguir invirtiendo es mejor que intentar predecir caídas.",
+      "published": "2026-04-28",
+      "tags": [
+        "market crash",
+        "investing strategy",
+        "long term investing",
+        "volatility",
+        "stock market"
+      ],
+      "featured": true
+    },
+    {
       "slug": "portfolio-concentration-risk",
       "slugEs": "riesgo-concentracion-portafolio",
       "titleEn": "How to Tell if Your Portfolio is Too Concentrated in One Stock",
@@ -41,18 +58,7 @@
       "descEn": "Diversification isn't just 'buy different stocks.' Here's how to actually measure it — with real formulas and examples you can check yourself.",
       "descEs": "Diversificar no es solo 'comprar acciones diferentes'. Así se mide correctamente — con fórmulas reales y ejemplos que puedes verificar tú mismo.",
       "published": "2026-05-01",
-      "tags": ["diversification", "calculation", "tutorial"],
-      "featured": false
-    },
-    {
-      "slug": "what-happens-portfolio-sector-crash",
-      "slugEs": "que-pasa-portafolio-caida-sector",
-      "titleEn": "What Happens to Your Portfolio When One Sector Crashes?",
-      "titleEs": "¿Qué le pasa a tu portafolio cuando un sector se desploma?",
-      "descEn": "Sector crashes happen faster than you think. Here's how to stress-test your portfolio before it happens to you.",
-      "descEs": "Las caídas sectoriales ocurren más rápido de lo que crees. Así puedes hacer una prueba de estrés a tu portafolio antes de que te pase.",
-      "published": "2026-05-02",
-      "tags": ["sector-risk", "stress-test", "risk", "concentration"],
+      "tags": ["diversification", "portfolio-health", "risk"],
       "featured": false
     }
   ]
