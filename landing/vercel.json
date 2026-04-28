@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/dashboard",
@@ -7,7 +8,18 @@
     {
       "source": "/dashboard/:path*",
       "destination": "https://portfolio-analyzer-agent.vercel.app/dashboard/:path*"
+    },
+    {
+      "source": "/blog/es/:slug",
+      "destination": "/blog/es/:slug.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog/:slug.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/blog-index.html"
     }
-  ],
-  "cleanUrls": true
+  ]
 }
