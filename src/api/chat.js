@@ -19,6 +19,7 @@ export async function sendMessage(
   positions,
   rankings,
   history,
+  lang, // ← added: "en" | "es"
 ) {
   const res = await fetch(`${API_BASE}/api/chat`, {
     method: "POST",
@@ -29,12 +30,11 @@ export async function sendMessage(
       positions,
       rankings,
       history,
-      language: lang,
+      language: lang ?? "en",
     }),
   });
 
   if (!res.ok) {
-    // Surface rate-limit errors nicely
     if (res.status === 429) {
       const body = await res.json().catch(() => ({}));
       throw new Error(body.error || "Rate limit reached. Please wait.");
