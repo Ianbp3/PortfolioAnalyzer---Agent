@@ -7,7 +7,7 @@ const app = express();
 app.set("trust proxy", 1);
 const port = process.env.PORT || 4000;
 
-// ── CORS ────────────────────────────────────────────────────────────────────
+// ── CORS ─────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:5173",
   "https://foliosenseapp.com",
@@ -19,7 +19,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow server-to-server or same-origin requests (no Origin header)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -32,19 +31,17 @@ app.use(
 
 app.use(express.json({ limit: "1mb" }));
 
-// ── RATE LIMITING ────────────────────────────────────────────────────────────
-// General API limiter — protects all endpoints
+// ── RATE LIMITING ─────────────────────────────────────────────────────────────
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Too many requests. Please try again in 15 minutes." },
 });
 
-// Tighter limit on /api/chat to protect Groq credits
 const chatLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
+  windowMs: 60 * 1000,
   max: 8,
   standardHeaders: true,
   legacyHeaders: false,
@@ -53,7 +50,7 @@ const chatLimiter = rateLimit({
 
 app.use("/api/", apiLimiter);
 
-// ── ROUTES ───────────────────────────────────────────────────────────────────
+// ── ROUTES ────────────────────────────────────────────────────────────────────
 app.post("/api/analyze", (req, res) => {
   try {
     const { positions } = req.body;
@@ -67,7 +64,8 @@ app.post("/api/analyze", (req, res) => {
 
 app.post("/api/chat", chatLimiter, async (req, res) => {
   try {
-    const { message, analysis, positions = [] } = req.body;
+    // ── 1. Parse body ────────────────────────────────────────────────────────
+    const { message, analysis, positions = [], language = "en" } = req.body;
 
     if (!message?.trim()) {
       return res.status(400).json({ error: "Message is required." });
@@ -78,7 +76,13 @@ app.post("/api/chat", chatLimiter, async (req, res) => {
       return res.status(503).json({ error: "LLM service not configured." });
     }
 
-    // Build scatter data for the prompt (same logic as before)
+    // ── 2. Language instruction ──────────────────────────────────────────────
+    const langInstruction =
+      language === "es"
+        ? "Responde SIEMPRE en español. Usa lenguaje claro y directo."
+        : "Always respond in English. Use clear, plain language.";
+
+    // ── 3. Build scatter data ────────────────────────────────────────────────
     const totalValue = positions.reduce((sum, p) => sum + (p.value || 0), 0);
     const scatterData =
       totalValue > 0
@@ -91,25 +95,12 @@ app.post("/api/chat", chatLimiter, async (req, res) => {
           }))
         : [];
 
-    // System prompt — same rules as before, now as a proper system message
-    const { message, analysis, positions = [], language = "en" } = req.body;
-
-    const langInstruction =
-      language === "es"
-        ? "Responde SIEMPRE en español. Usa lenguaje claro y directo."
-        : "Always respond in English. Use clear, plain language.";
-
-    const systemPromptTemplate = (
-      langInstruction,
-      analysis,
-      positions,
-      scatterData,
-    ) => `
-You are a professional financial advisor with a clear opinion on well-constructed portfolios.
+    // ── 4. System prompt ─────────────────────────────────────────────────────
+    const systemPrompt = `You are a professional financial advisor with clear opinions on well-constructed portfolios.
 ${langInstruction}
 
 Rules:
-- A good portfolio usually has 40%–60% in a broad ETF like the S&P 500.
+- A good portfolio usually has 40%-60% in a broad ETF like the S&P 500.
 - No single position should exceed 10% of the portfolio.
 - Total crypto should not exceed 10%.
 - When the portfolio follows good practices, praise the user.
@@ -135,12 +126,9 @@ ${JSON.stringify(positions, null, 2)}
 
 SCATTER CHART DATA
 (each point: symbol, sector, riesgo_pct = X axis, retorno_pct = Y axis):
-${JSON.stringify(scatterData, null, 2)}
-`;
+${JSON.stringify(scatterData, null, 2)}`;
 
-    module.exports = { systemPromptTemplate };
-
-    // ── Groq API call (OpenAI-compatible) ───────────────────────────────────
+    // ── 5. Groq API call ─────────────────────────────────────────────────────
     const groqRes = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
@@ -150,7 +138,7 @@ ${JSON.stringify(scatterData, null, 2)}
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "llama-3.3-70b-versatile", // free-tier model on Groq
+          model: "llama-3.3-70b-versatile",
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: message.trim() },
@@ -170,10 +158,10 @@ ${JSON.stringify(scatterData, null, 2)}
         .json({ error: "LLM service unavailable. Please try again." });
     }
 
-    const data = await groqRes.json();
-    const raw = data.choices?.[0]?.message?.content ?? "";
+    // ── 6. Strip markdown and return ─────────────────────────────────────────
+    const groqData = await groqRes.json();
+    const raw = groqData.choices?.[0]?.message?.content ?? "";
 
-    // Strip any markdown formatting the model may still emit
     const clean = raw
       .replace(/\*\*(.*?)\*\*/g, "$1")
       .replace(/\*(.*?)\*/g, "$1")
@@ -188,7 +176,7 @@ ${JSON.stringify(scatterData, null, 2)}
   }
 });
 
-// ── HEALTH CHECK ─────────────────────────────────────────────────────────────
+// ── HEALTH CHECK ──────────────────────────────────────────────────────────────
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
 app.listen(port, () => {

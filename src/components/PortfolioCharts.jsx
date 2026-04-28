@@ -3,46 +3,54 @@ import {
   PieChart,
   Pie,
   Cell,
-  Tooltip,
-  Legend,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
+  Tooltip,
 } from "recharts";
+import { useLang } from "../hooks/useLang";
 
 const COLORS = [
   "#1a6b4a",
+  "#2a9b6a",
   "#c9993a",
   "#3d4450",
-  "#2a9b6a",
   "#7a8394",
-  "#0d5c3e",
-  "#e8a040",
-  "#5a6882",
-  "#4ab585",
+  "#c0392b",
+  "#8e44ad",
+  "#2980b9",
+  "#16a085",
+  "#d35400",
 ];
 
 const TOOLTIP_STYLE = {
-  borderRadius: 12,
+  background: "#fff",
   border: "1px solid #edecea",
+  borderRadius: 8,
   fontFamily: "'DM Sans', sans-serif",
-  fontSize: "0.85rem",
-  boxShadow: "0 2px 16px rgba(13,17,23,0.08)",
+  fontSize: 12,
 };
 
 export default function PortfolioCharts({ data }) {
+  const { lang } = useLang();
+
   if (!data || data.length === 0) return null;
 
-  const totalValue = data.reduce((sum, item) => sum + (item.value || 0), 0);
+  const totalValue = data.reduce((s, p) => s + (p.value || 0), 0);
 
   const finalData = data.map((item) => ({
     name: item.symbol,
-    value: item.value,
     percentage:
       totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0,
   }));
+
+  const labels = {
+    distribution: lang === "es" ? "Distribución" : "Distribution",
+    byAsset: lang === "es" ? "Peso por activo" : "Weight by asset",
+    weight: lang === "es" ? "Peso" : "Weight",
+  };
 
   return (
     <div
@@ -65,7 +73,7 @@ export default function PortfolioCharts({ data }) {
             fontSize: "0.9rem",
           }}
         >
-          Distribución
+          {labels.distribution}
         </h4>
         <PieChart width={320} height={320}>
           <Pie
@@ -84,7 +92,7 @@ export default function PortfolioCharts({ data }) {
           </Pie>
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, "Peso"]}
+            formatter={(v) => [`${v}%`, labels.weight]}
           />
         </PieChart>
       </div>
@@ -101,7 +109,7 @@ export default function PortfolioCharts({ data }) {
             fontSize: "0.9rem",
           }}
         >
-          Peso por activo
+          {labels.byAsset}
         </h4>
         <BarChart
           width={380}
@@ -136,7 +144,7 @@ export default function PortfolioCharts({ data }) {
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, "Peso"]}
+            formatter={(v) => [`${v}%`, labels.weight]}
             cursor={{ fill: "#f7f6f2" }}
           />
           <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
