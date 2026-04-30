@@ -58,6 +58,26 @@
 
   <!-- ── BLOG ARTICLES ── -->
 
+  <!-- Article: trading-vs-investing-which-is-better-long-term-wealth -->
+  <url>
+    <loc>https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth"/>
+  </url>
+  <url>
+    <loc>https://foliosenseapp.com/blog/es/trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth"/>
+  </url>
+
   <!-- Article: market-crash-2026-investing-strategy -->
   <url>
     <loc>https://foliosenseapp.com/blog/market-crash-2026-investing-strategy</loc>
@@ -76,26 +96,6 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/caida-mercado-2026-estrategia-inversion"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/market-crash-2026-investing-strategy"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/market-crash-2026-investing-strategy"/>
-  </url>
-
-  <!-- Article: portfolio-concentration-risk -->
-  <url>
-    <loc>https://foliosenseapp.com/blog/portfolio-concentration-risk</loc>
-    <lastmod>2026-04-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/portfolio-concentration-risk"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/riesgo-concentracion-portafolio"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/portfolio-concentration-risk"/>
-  </url>
-  <url>
-    <loc>https://foliosenseapp.com/blog/es/riesgo-concentracion-portafolio</loc>
-    <lastmod>2026-04-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/riesgo-concentracion-portafolio"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/portfolio-concentration-risk"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/portfolio-concentration-risk"/>
   </url>
 
 </urlset>
