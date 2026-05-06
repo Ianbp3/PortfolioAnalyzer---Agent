@@ -110,9 +110,6 @@ export default function Chat({ analysis, positions, rankings }) {
             >
               {t.chat_header}
             </div>
-            <div style={{ fontSize: "0.72rem", color: "var(--ink-muted)" }}>
-              {t.chat_powered}
-            </div>
           </div>
         </div>
       </div>

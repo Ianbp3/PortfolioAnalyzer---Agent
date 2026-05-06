@@ -58,7 +58,6 @@ const T = {
     note_good_balance: "Good overall balance.",
 
     chat_header: "AI Advisor",
-    chat_powered: "Powered by Groq",
     chat_ready: "Your portfolio is ready. What do you want to know?",
     chat_upload_first: "Upload your portfolio to start chatting.",
     chat_placeholder: "Ask something about your portfolio…",
@@ -132,7 +131,6 @@ const T = {
     note_good_balance: "Buen balance general.",
 
     chat_header: "Asesor IA",
-    chat_powered: "Powered by Groq",
     chat_ready: "Tu portafolio está listo. ¿Qué quieres saber?",
     chat_upload_first: "Sube tu portafolio para empezar a chatear.",
     chat_placeholder: "Pregunta algo sobre tu portafolio…",
