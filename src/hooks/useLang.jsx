@@ -56,6 +56,10 @@ const T = {
     note_low_diversification:
       "Low diversification — consider adding more assets.",
     note_good_balance: "Good overall balance.",
+    note_sp500_anchored:
+      "A significant portion of your portfolio is in S&P 500 ETFs — this provides broad built-in diversification.",
+    note_dead_weight:
+      "You have losing positions with significant portfolio weight. Consider reviewing them.",
 
     chat_header: "AI Advisor",
     chat_ready: "Your portfolio is ready. What do you want to know?",
@@ -129,6 +133,10 @@ const T = {
     note_low_diversification:
       "Poca diversificación — considera agregar más activos.",
     note_good_balance: "Buen balance general.",
+    note_sp500_anchored:
+      "Una parte significativa de tu portafolio está en ETFs del S&P 500 — esto aporta diversificación amplia integrada.",
+    note_dead_weight:
+      "Tienes posiciones en pérdida con un peso significativo. Considera revisarlas.",
 
     chat_header: "Asesor IA",
     chat_ready: "Tu portafolio está listo. ¿Qué quieres saber?",

@@ -15,6 +15,7 @@ import SectorRanking from "./components/SectorRanking";
 import AssetRanking from "./components/AssetRanking";
 import ScatterRiskReturn from "./components/ScatterRiskReturn";
 import ArticleWidget from "./components/ArticleWidget";
+import SectorComparison from "./components/SectorComparison";
 import { analyzePortfolio } from "./api/chat";
 import { useLang } from "./hooks/useLang";
 
@@ -510,7 +511,7 @@ export default function App() {
                   </div>
                 )}
                 <SectorPieChart sectors={analysis.sectors} />
-                <SectorRanking positions={positions} />
+                <SectorComparison analysis={analysis} />
               </div>
             )}
 
@@ -569,7 +570,11 @@ export default function App() {
                 flexDirection: "column",
               }}
             >
-              <Chat analysis={analysis} positions={positions} />
+              <Chat
+                analysis={analysis}
+                positions={positions}
+                rankings={rankings}
+              />
             </div>
           )}
         </div>
