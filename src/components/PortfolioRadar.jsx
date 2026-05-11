@@ -6,6 +6,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { useLang } from "../hooks/useLang";
 
@@ -40,31 +41,28 @@ export default function PortfolioRadar({ analysis }) {
   ];
 
   return (
-    <div
-      style={{
-        marginTop: 40,
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <div>
-        <h3
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "0.9rem",
-            color: "var(--ink)",
-            marginBottom: 16,
-          }}
-        >
-          {t.radar_title}
-        </h3>
-        <RadarChart outerRadius={120} width={500} height={400} data={data}>
+    <div style={{ marginTop: 40, width: "100%" }}>
+      <h3
+        style={{
+          textAlign: "center",
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: "0.9rem",
+          color: "var(--ink)",
+          marginBottom: 16,
+        }}
+      >
+        {t.radar_title}
+      </h3>
+      <ResponsiveContainer width="100%" height={320}>
+        <RadarChart outerRadius={100} data={data}>
           <PolarGrid />
-          <PolarAngleAxis dataKey="attribute" />
-          <PolarRadiusAxis angle={90} domain={[0, 100]} />
+          <PolarAngleAxis dataKey="attribute" tick={{ fontSize: 11 }} />
+          <PolarRadiusAxis
+            angle={90}
+            domain={[0, 100]}
+            tick={{ fontSize: 9 }}
+          />
           <Radar
             name={t.radar_series}
             dataKey="value"
@@ -74,7 +72,7 @@ export default function PortfolioRadar({ analysis }) {
           />
           <Tooltip />
         </RadarChart>
-      </div>
+      </ResponsiveContainer>
     </div>
   );
 }

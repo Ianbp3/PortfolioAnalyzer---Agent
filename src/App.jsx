@@ -129,10 +129,10 @@ export default function App() {
               background: "transparent",
               border: "1.5px solid var(--paper-warm)",
               borderRadius: 99,
-              padding: "7px 14px",
+              padding: "5px 11px",
               fontFamily: "var(--font-body)",
               fontWeight: 700,
-              fontSize: "0.78rem",
+              fontSize: "0.75rem",
               color: "var(--ink-soft)",
               cursor: "pointer",
               letterSpacing: "0.06em",
@@ -156,10 +156,10 @@ export default function App() {
               color: "white",
               border: "none",
               borderRadius: 99,
-              padding: "9px 20px",
+              padding: "6px 14px",
               fontFamily: "var(--font-body)",
               fontWeight: 600,
-              fontSize: "0.85rem",
+              fontSize: "0.8rem",
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
@@ -279,7 +279,7 @@ export default function App() {
                       roi
                     </code>
                   </p>
-                  <FileUploader onPortfolioParsed={handlePositionsLoaded} />
+                  <FileUploader onPositionsLoaded={handlePositionsLoaded} />
                 </div>
               ) : (
                 <div>
@@ -302,7 +302,7 @@ export default function App() {
                         ✓ {t.portfolio_loaded} · {positions.length} {t.assets}
                       </span>
                       <FileUploader
-                        onPortfolioParsed={handlePositionsLoaded}
+                        onPositionsLoaded={handlePositionsLoaded}
                         compact
                       />
                     </div>

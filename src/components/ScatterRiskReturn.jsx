@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { useLang } from "../hooks/useLang";
 
@@ -37,37 +38,42 @@ export default function ScatterRiskReturn({ positions }) {
   };
 
   return (
-    <div
-      style={{
-        marginTop: 40,
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <div>
-        <h3
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "0.9rem",
-            color: "var(--ink)",
-            marginBottom: 16,
-          }}
-        >
-          {labels.title}
-        </h3>
-        <ScatterChart width={600} height={400}>
+    <div style={{ marginTop: 40, width: "100%" }}>
+      <h3
+        style={{
+          textAlign: "center",
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: "0.9rem",
+          color: "var(--ink)",
+          marginBottom: 16,
+        }}
+      >
+        {labels.title}
+      </h3>
+      <ResponsiveContainer width="100%" height={320}>
+        <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
           <CartesianGrid />
-          <XAxis type="number" dataKey="weight" name={labels.weight} unit="%" />
-          <YAxis type="number" dataKey="return" name={labels.return} unit="%" />
-          <ZAxis type="number" dataKey="value" range={[60, 400]} />
+          <XAxis
+            type="number"
+            dataKey="weight"
+            name={labels.weight}
+            unit="%"
+            tick={{ fontSize: 11 }}
+          />
+          <YAxis
+            type="number"
+            dataKey="return"
+            name={labels.return}
+            unit="%"
+            tick={{ fontSize: 11 }}
+          />
+          <ZAxis type="number" dataKey="value" range={[40, 300]} />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
           <Legend />
           <Scatter name={labels.assets} data={data} fill="#1a6b4a" />
         </ScatterChart>
-      </div>
+      </ResponsiveContainer>
     </div>
   );
 }
