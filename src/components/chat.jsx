@@ -3,7 +3,7 @@ import { SendOutlined } from "@ant-design/icons";
 import { sendMessage } from "../api/chat";
 import { useLang } from "../hooks/useLang";
 
-export default function Chat({ analysis, positions, rankings }) {
+export default function Chat({ analysis, positions }) {
   const { lang, t } = useLang();
 
   const [messages, setMessages] = useState([]);
@@ -33,9 +33,9 @@ export default function Chat({ analysis, positions, rankings }) {
         currentMessage,
         analysis,
         positions,
-        rankings,
+        null,
         messages,
-        lang, // ← new: tells the backend which language to respond in
+        lang,
       );
       setMessages((prev) => [
         ...prev,
@@ -99,17 +99,15 @@ export default function Chat({ analysis, positions, rankings }) {
           >
             🤖
           </div>
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                fontSize: "0.95rem",
-                color: "var(--ink)",
-              }}
-            >
-              {t.chat_header}
-            </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              color: "var(--ink)",
+            }}
+          >
+            {t.chat_header}
           </div>
         </div>
       </div>
@@ -181,7 +179,8 @@ export default function Chat({ analysis, positions, rankings }) {
                 whiteSpace: "pre-wrap",
                 border:
                   m.role === "user" ? "none" : "1px solid var(--paper-warm)",
-                boxShadow: m.role === "user" ? "none" : "var(--shadow)",
+                boxShadow:
+                  m.role === "user" ? "0 2px 8px rgba(26,107,74,0.15)" : "none",
               }}
             >
               {m.content}
@@ -189,38 +188,23 @@ export default function Chat({ analysis, positions, rankings }) {
           </div>
         ))}
 
-        {/* Loading bubble */}
+        {/* Loading indicator */}
         {loading && (
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
             <div
               style={{
                 padding: "10px 16px",
-                borderRadius: "16px 16px 16px 4px",
                 background: "var(--paper)",
                 border: "1px solid var(--paper-warm)",
-                display: "flex",
-                gap: 4,
-                alignItems: "center",
+                borderRadius: "16px 16px 16px 4px",
+                fontSize: "0.85rem",
+                color: "var(--ink-muted)",
               }}
             >
-              {[0, 1, 2].map((i) => (
-                <span
-                  key={i}
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "var(--ink-muted)",
-                    display: "inline-block",
-                    animation: "bounce 1.2s infinite",
-                    animationDelay: `${i * 0.2}s`,
-                  }}
-                />
-              ))}
+              ···
             </div>
           </div>
         )}
-
         <div ref={bottomRef} />
       </div>
 
@@ -256,17 +240,20 @@ export default function Chat({ analysis, positions, rankings }) {
             lineHeight: 1.5,
             maxHeight: 120,
             overflowY: "auto",
-            transition: "border-color 0.2s",
           }}
-          onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
-          onBlur={(e) => (e.target.style.borderColor = "var(--paper-warm)")}
+          onFocus={(e) => {
+            e.target.style.borderColor = "var(--accent)";
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = "var(--paper-warm)";
+          }}
         />
         <button
           onClick={handleSend}
           disabled={!userInput.trim() || loading}
           style={{
-            width: 38,
-            height: 38,
+            width: 40,
+            height: 40,
             borderRadius: "50%",
             background:
               userInput.trim() && !loading
@@ -278,11 +265,12 @@ export default function Chat({ analysis, positions, rankings }) {
             alignItems: "center",
             justifyContent: "center",
             color: userInput.trim() && !loading ? "white" : "var(--ink-muted)",
+            fontSize: "1rem",
             flexShrink: 0,
             transition: "background 0.2s",
           }}
         >
-          <SendOutlined style={{ fontSize: 14 }} />
+          <SendOutlined />
         </button>
       </div>
     </div>

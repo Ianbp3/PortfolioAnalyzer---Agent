@@ -39,8 +39,8 @@ const T = {
     radar_technology: "Technology",
     radar_series: "Profile",
 
-    scatter_title: "Scatter: Risk (weight %) vs Return (%)",
-    scatter_risk: "Risk",
+    scatter_title: "Scatter: Portfolio Weight (%) vs Return (%)",
+    scatter_weight: "Weight",
     scatter_return: "Return",
     scatter_assets: "Assets",
 
@@ -116,8 +116,8 @@ const T = {
     radar_technology: "Tecnología",
     radar_series: "Perfil",
 
-    scatter_title: "Scatter: Riesgo (peso %) vs Retorno (%)",
-    scatter_risk: "Riesgo",
+    scatter_title: "Scatter: Peso del Portafolio (%) vs Retorno (%)",
+    scatter_weight: "Peso",
     scatter_return: "Retorno",
     scatter_assets: "Activos",
 

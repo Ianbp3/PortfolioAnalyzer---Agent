@@ -55,57 +55,52 @@ export default function App() {
     return t.sect_risk_label_low;
   }
 
-  const handlePortfolioParsed = async (parsed) => {
-    setPositions(parsed);
+  async function handlePositionsLoaded(newPositions) {
+    setPositions(newPositions);
     setAnalysis(null);
     setAnalyzeError(null);
     setLoadingAnalysis(true);
     try {
-      const data = await analyzePortfolio(parsed);
-      setAnalysis(data);
+      const result = await analyzePortfolio(newPositions);
+      setAnalysis(result);
     } catch (err) {
-      console.error(err);
       setAnalyzeError(t.error_connect);
     } finally {
       setLoadingAnalysis(false);
     }
-  };
+  }
 
-  // Translate noteKeys from backend into current language
-  const notes = (analysis?.noteKeys || []).map((k) => t[k] || k);
+  const notes = analysis?.noteKeys?.map((k) => t[k]).filter(Boolean) || [];
 
   return (
     <Layout style={{ minHeight: "100vh", background: "var(--paper)" }}>
-      {/* NAV */}
       <Header
         style={{
-          background: "rgba(247,246,242,0.92)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          background: "var(--white)",
           borderBottom: "1px solid var(--paper-warm)",
+          padding: "0 32px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingInline: 32,
+          height: 64,
           position: "sticky",
           top: 0,
           zIndex: 100,
-          height: 64,
-          lineHeight: "normal",
+          boxShadow: "var(--shadow-sm)",
         }}
       >
         <a
-          href="/"
+          href="https://www.foliosenseapp.com"
           style={{
             textDecoration: "none",
+            fontSize: "0.75rem",
+            fontWeight: 500,
+            color: "var(--ink-muted)",
             display: "flex",
             alignItems: "center",
             gap: 6,
-            color: "var(--ink-muted)",
-            fontSize: "0.85rem",
-            fontWeight: 500,
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
           onMouseLeave={(e) =>
             (e.currentTarget.style.color = "var(--ink-muted)")
           }
@@ -283,74 +278,52 @@ export default function App() {
                     >
                       roi
                     </code>
-                    .
                   </p>
-                  <FileUploader onPortfolioParsed={handlePortfolioParsed} />
+                  <FileUploader onPositionsLoaded={handlePositionsLoaded} />
                 </div>
               ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 12 }}
-                  >
-                    <span
+                <div>
+                  {analysis && (
+                    <div
                       style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 700,
-                        fontSize: "1.05rem",
-                        color: "var(--ink)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 12,
                       }}
                     >
-                      {t.portfolio_loaded}
-                    </span>
-                    <span
-                      style={{
-                        background: "var(--accent-light)",
-                        color: "var(--accent)",
-                        borderRadius: 99,
-                        padding: "3px 12px",
-                        fontSize: "0.8rem",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {positions.length} {t.assets}
-                    </span>
-                  </div>
-                  <FileUploader onPortfolioParsed={handlePortfolioParsed} />
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          color: "var(--ink)",
+                          fontSize: "0.95rem",
+                        }}
+                      >
+                        ✓ {t.portfolio_loaded} · {positions.length} {t.assets}
+                      </span>
+                      <FileUploader
+                        onPositionsLoaded={handlePositionsLoaded}
+                        compact
+                      />
+                    </div>
+                  )}
+                  {loadingAnalysis && (
+                    <div style={{ textAlign: "center", padding: "32px 0" }}>
+                      <Spin size="large" />
+                      <p style={{ marginTop: 16, color: "var(--ink-muted)" }}>
+                        {t.analyzing}
+                      </p>
+                    </div>
+                  )}
+                  {analyzeError && (
+                    <Alert
+                      style={{ marginTop: 16 }}
+                      type="error"
+                      message={analyzeError}
+                      showIcon
+                    />
+                  )}
                 </div>
-              )}
-              {loadingAnalysis && (
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "40px 0",
-                    marginTop: 16,
-                  }}
-                >
-                  <Spin size="large" />
-                  <p
-                    style={{
-                      marginTop: 16,
-                      color: "var(--ink-muted)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {t.analyzing}
-                  </p>
-                </div>
-              )}
-              {analyzeError && (
-                <Alert
-                  style={{ marginTop: 16 }}
-                  type="error"
-                  message={analyzeError}
-                  showIcon
-                />
               )}
             </div>
 
@@ -545,6 +518,13 @@ export default function App() {
                 >
                   <ScatterRiskReturn positions={positions} />
                 </div>
+              </div>
+            )}
+
+            {/* SECTOR RANKING */}
+            {positions.length > 0 && (
+              <div className="section-card">
+                <SectorRanking positions={positions} />
               </div>
             )}
 

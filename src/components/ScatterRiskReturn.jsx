@@ -20,7 +20,7 @@ export default function ScatterRiskReturn({ positions }) {
 
   const data = positions.map((p) => ({
     symbol: p.symbol,
-    risk: Number(((p.value / total) * 100).toFixed(2)),
+    weight: Number(((p.value / total) * 100).toFixed(2)),
     return: p.roi !== null ? Number((p.roi * 100).toFixed(2)) : 0,
     value: p.value,
     sector: p.sector,
@@ -29,9 +29,9 @@ export default function ScatterRiskReturn({ positions }) {
   const labels = {
     title:
       lang === "es"
-        ? "Scatter: Riesgo (peso %) vs Retorno (%)"
-        : "Scatter: Risk (weight %) vs Return (%)",
-    risk: lang === "es" ? "Riesgo" : "Risk",
+        ? "Scatter: Peso del Portafolio (%) vs Retorno (%)"
+        : "Scatter: Portfolio Weight (%) vs Return (%)",
+    weight: lang === "es" ? "Peso" : "Weight",
     return: lang === "es" ? "Retorno" : "Return",
     assets: lang === "es" ? "Activos" : "Assets",
   };
@@ -60,7 +60,7 @@ export default function ScatterRiskReturn({ positions }) {
         </h3>
         <ScatterChart width={600} height={400}>
           <CartesianGrid />
-          <XAxis type="number" dataKey="risk" name={labels.risk} unit="%" />
+          <XAxis type="number" dataKey="weight" name={labels.weight} unit="%" />
           <YAxis type="number" dataKey="return" name={labels.return} unit="%" />
           <ZAxis type="number" dataKey="value" range={[60, 400]} />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
