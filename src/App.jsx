@@ -279,7 +279,7 @@ export default function App() {
                       roi
                     </code>
                   </p>
-                  <FileUploader onPositionsLoaded={handlePositionsLoaded} />
+                  <FileUploader onPortfolioParsed={handlePositionsLoaded} />
                 </div>
               ) : (
                 <div>
@@ -302,7 +302,7 @@ export default function App() {
                         ✓ {t.portfolio_loaded} · {positions.length} {t.assets}
                       </span>
                       <FileUploader
-                        onPositionsLoaded={handlePositionsLoaded}
+                        onPortfolioParsed={handlePositionsLoaded}
                         compact
                       />
                     </div>
