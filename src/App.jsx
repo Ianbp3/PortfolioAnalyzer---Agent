@@ -570,11 +570,7 @@ export default function App() {
                 flexDirection: "column",
               }}
             >
-              <Chat
-                analysis={analysis}
-                positions={positions}
-                rankings={rankings}
-              />
+              <Chat analysis={analysis} positions={positions} />
             </div>
           )}
         </div>
