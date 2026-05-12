@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- ── LANDING PAGES ── -->
   <url>
@@ -49,7 +50,7 @@
   <!-- ── BLOG INDEX ── -->
   <url>
     <loc>https://foliosenseapp.com/blog</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog"/>
@@ -57,6 +58,36 @@
   </url>
 
   <!-- ── BLOG ARTICLES ── -->
+
+  <!-- Article: invest-in-openai-through-microsoft-and-ai-stocks -->
+  <url>
+    <loc>https://foliosenseapp.com/blog/invest-in-openai-through-microsoft-and-ai-stocks</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/invest-in-openai-through-microsoft-and-ai-stocks"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/invertir-en-openai-por-medio-de-microsoft-y-acciones-de-ia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/invest-in-openai-through-microsoft-and-ai-stocks"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/openai-ownership-distribution-pie-chart.png</image:loc>
+      <image:title>OpenAI Ownership Distribution Pie Chart</image:title>
+      <image:caption>Approximate distribution of OpenAI ownership: Microsoft, OpenAI nonprofit foundation, other investors, and employees</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://foliosenseapp.com/blog/es/invertir-en-openai-por-medio-de-microsoft-y-acciones-de-ia</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/invertir-en-openai-por-medio-de-microsoft-y-acciones-de-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/invest-in-openai-through-microsoft-and-ai-stocks"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/invest-in-openai-through-microsoft-and-ai-stocks"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/openai-ownership-distribution-pie-chart.png</image:loc>
+      <image:title>Gráfico de distribución de propiedad de OpenAI</image:title>
+      <image:caption>Distribución aproximada de la propiedad de OpenAI: Microsoft, fundación sin fines de lucro, otros inversionistas y empleados</image:caption>
+    </image:image>
+  </url>
 
   <!-- Article: trading-vs-investing-which-is-better-long-term-wealth -->
   <url>

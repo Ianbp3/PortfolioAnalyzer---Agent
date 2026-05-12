@@ -1,6 +1,28 @@
 {
   "articles": [
     {
+      "slug": "invest-in-openai-through-microsoft-and-ai-stocks",
+      "slugEs": "invertir-en-openai-por-medio-de-microsoft-y-acciones-de-ia",
+      "titleEn": "You Can Finally Invest in OpenAI: Here's How Smart Investors Are Doing It",
+      "titleEs": "Ya puedes invertir en OpenAI: así lo están haciendo los inversionistas inteligentes",
+      "descEn": "OpenAI is still private, but investors are already gaining exposure through Microsoft and other AI giants. Learn how.",
+      "descEs": "OpenAI sigue siendo privada, pero ya puedes exponerte a su crecimiento mediante Microsoft y otras empresas de IA.",
+      "published": "2026-05-12",
+      "tags": [
+        "OpenAI stock",
+        "invest in OpenAI",
+        "Microsoft OpenAI",
+        "AI stocks",
+        "artificial intelligence investing",
+        "OpenAI valuation",
+        "NVIDIA OpenAI",
+        "AI investing",
+        "tech stocks",
+        "future of AI"
+      ],
+      "featured": true
+    },
+    {
       "slug": "trading-vs-investing-which-is-better-long-term-wealth",
       "slugEs": "trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo",
       "titleEn": "Trading vs Investing: The Uncomfortable Truth About Why Only One Builds Real Wealth",
