@@ -9,6 +9,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { useLang } from "../hooks/useLang";
 
@@ -33,6 +34,38 @@ const TOOLTIP_STYLE = {
   fontSize: 12,
 };
 
+function renderLabel({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  name,
+}) {
+  if (percent < 0.05) return null;
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor="middle"
+      dominantBaseline="central"
+      style={{
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: "0.7rem",
+        fontWeight: 700,
+      }}
+    >
+      {name}
+    </text>
+  );
+}
+
 export default function PortfolioCharts({ data }) {
   const { t } = useLang();
 
@@ -46,15 +79,9 @@ export default function PortfolioCharts({ data }) {
   }));
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 32,
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <div>
+    <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+      {/* PIE */}
+      <div style={{ flex: "1 1 260px", minWidth: 220 }}>
         <h4
           style={{
             textAlign: "center",
@@ -67,29 +94,32 @@ export default function PortfolioCharts({ data }) {
         >
           {t.chart_distribution}
         </h4>
-        <PieChart width={320} height={320}>
-          <Pie
-            data={finalData}
-            cx="50%"
-            cy="50%"
-            outerRadius={110}
-            innerRadius={48}
-            dataKey="percentage"
-            label={({ name, percentage }) => `${name} ${percentage}%`}
-            labelLine={false}
-          >
-            {finalData.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, t.chart_weight]}
-          />
-        </PieChart>
+        <ResponsiveContainer width="100%" height={260}>
+          <PieChart>
+            <Pie
+              data={finalData}
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              innerRadius={44}
+              dataKey="percentage"
+              labelLine={false}
+              label={renderLabel}
+            >
+              {finalData.map((_, i) => (
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip
+              contentStyle={TOOLTIP_STYLE}
+              formatter={(v) => [`${v}%`, t.chart_weight]}
+            />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
-      <div>
+      {/* BAR */}
+      <div style={{ flex: "2 1 300px", minWidth: 260 }}>
         <h4
           style={{
             textAlign: "center",
@@ -102,48 +132,48 @@ export default function PortfolioCharts({ data }) {
         >
           {t.chart_by_asset}
         </h4>
-        <BarChart
-          width={380}
-          height={320}
-          data={finalData}
-          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-        >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#edecea"
-            vertical={false}
-          />
-          <XAxis
-            dataKey="name"
-            tick={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 11,
-              fill: "#7a8394",
-            }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            tick={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 11,
-              fill: "#7a8394",
-            }}
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(v) => `${v}%`}
-          />
-          <Tooltip
-            contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`${v}%`, t.chart_weight]}
-            cursor={{ fill: "#f7f6f2" }}
-          />
-          <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
-            {finalData.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
-            ))}
-          </Bar>
-        </BarChart>
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart
+            data={finalData}
+            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#edecea"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="name"
+              tick={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 11,
+                fill: "#7a8394",
+              }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 11,
+                fill: "#7a8394",
+              }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => `${v}%`}
+            />
+            <Tooltip
+              contentStyle={TOOLTIP_STYLE}
+              formatter={(v) => [`${v}%`, t.chart_weight]}
+              cursor={{ fill: "#f7f6f2" }}
+            />
+            <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
+              {finalData.map((_, i) => (
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

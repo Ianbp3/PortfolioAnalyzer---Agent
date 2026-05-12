@@ -129,13 +129,16 @@ export default function App() {
               background: "transparent",
               border: "1.5px solid var(--paper-warm)",
               borderRadius: 99,
-              padding: "5px 11px",
+              padding: "0 12px",
+              height: 32,
               fontFamily: "var(--font-body)",
               fontWeight: 700,
               fontSize: "0.75rem",
               color: "var(--ink-soft)",
               cursor: "pointer",
               letterSpacing: "0.06em",
+              display: "flex",
+              alignItems: "center",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "var(--accent)";
@@ -156,7 +159,8 @@ export default function App() {
               color: "white",
               border: "none",
               borderRadius: 99,
-              padding: "6px 14px",
+              padding: "0 14px",
+              height: 32,
               fontFamily: "var(--font-body)",
               fontWeight: 600,
               fontSize: "0.8rem",
@@ -279,7 +283,7 @@ export default function App() {
                       roi
                     </code>
                   </p>
-                  <FileUploader onPortfolioParsed={handlePositionsLoaded} />
+                  <FileUploader onPositionsParsed={handlePositionsLoaded} />
                 </div>
               ) : (
                 <div>
@@ -302,7 +306,7 @@ export default function App() {
                         ✓ {t.portfolio_loaded} · {positions.length} {t.assets}
                       </span>
                       <FileUploader
-                        onPortfolioParsed={handlePositionsLoaded}
+                        onPositionsParsed={handlePositionsLoaded}
                         compact
                       />
                     </div>
