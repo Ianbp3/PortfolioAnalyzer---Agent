@@ -49,7 +49,7 @@
   <!-- ── BLOG INDEX ── -->
   <url>
     <loc>https://foliosenseapp.com/blog</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog"/>
@@ -61,7 +61,7 @@
   <!-- Article: trading-vs-investing-which-is-better-long-term-wealth -->
   <url>
     <loc>https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/trading-vs-investing-which-is-better-long-term-wealth"/>
@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>https://foliosenseapp.com/blog/es/trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/trading-vs-invertir-cual-es-mejor-riqueza-largo-plazo"/>
