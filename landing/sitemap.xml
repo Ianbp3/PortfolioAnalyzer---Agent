@@ -41,6 +41,15 @@
   </url>
 
   <url>
+    <loc>https://foliosenseapp.com/recommended</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/recommended"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/recommended"/>
+  </url>
+
+  <url>
     <loc>https://foliosenseapp.com/privacy</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>yearly</changefreq>

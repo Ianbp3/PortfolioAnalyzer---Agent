@@ -4,6 +4,7 @@ var TRANSLATIONS = {
     nav_why: "Why invest",
     nav_glossary: "Glossary",
     nav_blog: "Blog",
+    nav_recommended: "Recommended",
     nav_cta: "Launch app",
     lang_toggle: "ES",
 
@@ -85,6 +86,63 @@ var TRANSLATIONS = {
     cta_btn: "Analyze my portfolio",
     cta_note: "Free · Private · AI-powered",
 
+    /* ── RECOMMENDED PAGE ── */
+    rec_badge: "Recommended",
+    rec_h1: "Tools, brokers and apps we actually trust.",
+    rec_sub:
+      "A short, honest list of platforms we recommend for investors. Some include exclusive rewards for FolioSense readers.",
+    rec_disclosure_label: "Transparency disclosure:",
+    rec_disclosure_text:
+      "Some links on this page are referral or affiliate links. If you sign up through them, FolioSense may receive a commission — at no extra cost to you. We only recommend products we'd use ourselves.",
+    rec_section_brokers: "Brokers and trading platforms",
+    rec_section_brokers_sub:
+      "Where to actually buy the stocks, ETFs and crypto you'll analyze.",
+
+    rec_hapi_region: "LatAm only",
+    rec_hapi_tagline: "Invest in US stocks from Latin America",
+    rec_hapi_reward_label: "Exclusive reward",
+    rec_hapi_reward_amount: "Up to US$500 in crypto",
+    rec_hapi_reward_sub:
+      "When you sign up with our link and complete the active campaign steps. Both you and FolioSense receive a reward.",
+    rec_hapi_desc:
+      "Hapi is a fintech app letting Latin American investors buy fractional shares of US stocks and ETFs from their phone, with no minimum and low fees. A simple way to start building a US portfolio without leaving your country.",
+    rec_hapi_p1: "Fractional shares from $1",
+    rec_hapi_p2: "US stocks, ETFs and crypto in one app",
+    rec_hapi_p3: "Available across most of Latin America",
+    rec_hapi_p4: "Reward in crypto when you complete signup",
+    rec_hapi_cta: "Claim your reward on Hapi →",
+    rec_hapi_fine:
+      "Referral link. Reward subject to Hapi's terms and conditions. Investing involves risk.",
+
+    rec_more_soon_title: "More coming soon",
+    rec_more_soon_tagline: "We're partnering with the best",
+    rec_more_soon_desc:
+      "We're in the process of adding more recommended platforms for US, European and global investors. These are some we're evaluating:",
+    rec_more_soon_fine:
+      "Have a platform you'd like us to review? Drop us a line.",
+    rec_label_us: "US",
+    rec_label_global: "Global",
+
+    rec_how_h2: "How we pick what to recommend",
+    rec_how_p1:
+      "We only list platforms we'd actually use, or that solve a specific problem for our readers. The fact that something pays a referral commission is never enough on its own.",
+    rec_how_p2:
+      "For every platform on this page we look at: fees, country availability, regulation, user experience, and whether the promotion is genuinely worth it for the reader, not just for us.",
+    rec_how_p3:
+      "If a platform stops meeting these criteria, we remove it. This page changes when we change our mind.",
+    rec_final_h2: "Before you invest, understand what you already own.",
+    rec_final_sub:
+      "FolioSense analyzes your portfolio in 30 seconds. Free, no account.",
+
+    /* ── HAPI CTA INSIDE ARTICLES (Spanish-only injection) ── */
+    hapi_cta_label: "Recommended for LatAm",
+    hapi_cta_h3: "Want to invest in US stocks from Latin America?",
+    hapi_cta_desc:
+      "Hapi lets you buy fractional shares of US stocks and ETFs from your phone. Sign up with our link and earn up to US$500 in crypto.",
+    hapi_cta_btn: "Get your crypto reward →",
+    hapi_cta_fine:
+      "Referral link. Reward subject to Hapi's terms and conditions.",
+
     footer_copy: "© 2026 FolioSense. Not financial advice.",
     footer_privacy: "Privacy policy",
   },
@@ -94,6 +152,7 @@ var TRANSLATIONS = {
     nav_why: "Por qué invertir",
     nav_glossary: "Glosario",
     nav_blog: "Blog",
+    nav_recommended: "Recomendados",
     nav_cta: "Abrir app",
     lang_toggle: "EN",
 
@@ -175,6 +234,63 @@ var TRANSLATIONS = {
       "Son 30 segundos. Sin registro. Sin tarjeta. Solo respuestas reales sobre tu portafolio real.",
     cta_btn: "Analizar mi portafolio",
     cta_note: "Gratis · Privado · Con IA",
+
+    /* ── PÁGINA RECOMENDADOS ── */
+    rec_badge: "Recomendados",
+    rec_h1: "Herramientas, brokers y apps en los que confiamos.",
+    rec_sub:
+      "Una lista corta y honesta de plataformas que recomendamos para inversionistas. Algunas incluyen recompensas exclusivas para lectores de FolioSense.",
+    rec_disclosure_label: "Aviso de transparencia:",
+    rec_disclosure_text:
+      "Algunos enlaces de esta página son referidos o de afiliados. Si te registras a través de ellos, FolioSense puede recibir una comisión — sin costo adicional para ti. Solo recomendamos productos que usaríamos nosotros mismos.",
+    rec_section_brokers: "Brokers y plataformas de inversión",
+    rec_section_brokers_sub:
+      "Dónde comprar las acciones, ETFs y cripto que vas a analizar.",
+
+    rec_hapi_region: "Solo LatAm",
+    rec_hapi_tagline: "Invierte en acciones de EE.UU. desde Latinoamérica",
+    rec_hapi_reward_label: "Recompensa exclusiva",
+    rec_hapi_reward_amount: "Hasta US$500 en cripto",
+    rec_hapi_reward_sub:
+      "Cuando te registras con nuestro enlace y completas los pasos de la campaña activa. Ambos, tú y FolioSense, reciben una recompensa.",
+    rec_hapi_desc:
+      "Hapi es una app fintech que permite a inversionistas latinoamericanos comprar acciones fraccionadas de empresas y ETFs de EE.UU. desde el celular, sin monto mínimo y con comisiones bajas. Una forma sencilla de empezar a construir un portafolio en EE.UU. sin salir de tu país.",
+    rec_hapi_p1: "Acciones fraccionadas desde $1",
+    rec_hapi_p2: "Acciones de EE.UU., ETFs y cripto en una sola app",
+    rec_hapi_p3: "Disponible en la mayor parte de Latinoamérica",
+    rec_hapi_p4: "Recompensa en cripto al completar el registro",
+    rec_hapi_cta: "Reclama tu recompensa en Hapi →",
+    rec_hapi_fine:
+      "Enlace de referido. Recompensa sujeta a los términos y condiciones de Hapi. Invertir implica riesgos.",
+
+    rec_more_soon_title: "Más por venir",
+    rec_more_soon_tagline: "Estamos sumando aliados",
+    rec_more_soon_desc:
+      "Estamos en proceso de agregar más plataformas recomendadas para inversionistas de EE.UU., Europa y el mundo. Estas son algunas que estamos evaluando:",
+    rec_more_soon_fine:
+      "¿Conoces una plataforma que deberíamos revisar? Escríbenos.",
+    rec_label_us: "EE.UU.",
+    rec_label_global: "Global",
+
+    rec_how_h2: "Cómo elegimos qué recomendar",
+    rec_how_p1:
+      "Solo incluimos plataformas que usaríamos nosotros mismos o que resuelven un problema concreto para nuestros lectores. Que algo pague comisión por referido nunca es razón suficiente por sí sola.",
+    rec_how_p2:
+      "Para cada plataforma de esta página analizamos: comisiones, disponibilidad por país, regulación, experiencia de usuario y si la promoción realmente vale la pena para el lector, no solo para nosotros.",
+    rec_how_p3:
+      "Si una plataforma deja de cumplir estos criterios, la retiramos. Esta página cambia cuando cambia nuestra opinión.",
+    rec_final_h2: "Antes de invertir, entiende lo que ya tienes.",
+    rec_final_sub:
+      "FolioSense analiza tu portafolio en 30 segundos. Gratis, sin cuenta.",
+
+    /* ── CTA DE HAPI DENTRO DE ARTÍCULOS (solo en español) ── */
+    hapi_cta_label: "Recomendado para LatAm",
+    hapi_cta_h3: "¿Quieres invertir en acciones de EE.UU. desde Latinoamérica?",
+    hapi_cta_desc:
+      "Hapi te permite comprar acciones fraccionadas de empresas y ETFs de EE.UU. desde tu celular. Regístrate con nuestro enlace y gana hasta US$500 en cripto.",
+    hapi_cta_btn: "Obtener mi recompensa en cripto →",
+    hapi_cta_fine:
+      "Enlace de referido. Recompensa sujeta a los términos y condiciones de Hapi.",
 
     footer_copy: "© 2026 FolioSense. No es asesoría financiera.",
     footer_privacy: "Política de privacidad",

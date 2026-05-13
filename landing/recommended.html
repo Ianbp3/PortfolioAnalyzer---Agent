@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recommended Tools for Investors — FolioSense</title>
+    <meta
+      name="description"
+      content="Hand-picked brokers, apps and tools we trust for investing. Exclusive promos and rewards for FolioSense readers."
+    />
+    <meta
+      name="keywords"
+      content="best brokers, recommended investing apps, Hapi referral, AI investing tools, broker bonus, crypto rewards"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://foliosenseapp.com/recommended" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://foliosenseapp.com/recommended"
+    />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://foliosenseapp.com/recommended"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── Affiliate cards ── */
+      .aff-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin: 2.5rem 0;
+      }
+      .aff-card {
+        background: var(--white);
+        border: 1px solid var(--paper-warm);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s,
+          transform 0.2s;
+        position: relative;
+      }
+      .aff-card:hover {
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-light);
+        transform: translateY(-2px);
+      }
+      .aff-card.featured {
+        border-color: var(--accent);
+        box-shadow: 0 4px 24px rgba(26, 107, 74, 0.12);
+      }
+      .aff-region-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--gold-light);
+        color: var(--gold);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 4px 10px;
+        border-radius: 99px;
+      }
+      .aff-wordmark {
+        font-family: var(--font-display);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+        margin-bottom: 0.4rem;
+      }
+      .aff-wordmark .accent-dot {
+        color: var(--accent);
+      }
+      .aff-tagline {
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+      }
+      .aff-reward-box {
+        background: var(--accent-light);
+        border-radius: var(--radius);
+        padding: 1rem 1.1rem;
+        margin: 0.75rem 0 1.1rem;
+      }
+      .aff-reward-label {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--accent);
+        margin-bottom: 0.25rem;
+      }
+      .aff-reward-amount {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+      .aff-reward-sub {
+        display: block;
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+        margin-top: 0.3rem;
+        line-height: 1.4;
+      }
+      .aff-body p {
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+        line-height: 1.65;
+        margin-bottom: 0.7rem;
+      }
+      .aff-points {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1.25rem;
+      }
+      .aff-points li {
+        font-size: 0.87rem;
+        color: var(--ink-soft);
+        padding: 0.3rem 0 0.3rem 1.4rem;
+        position: relative;
+        line-height: 1.5;
+      }
+      .aff-points li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .aff-footer {
+        margin-top: auto;
+        padding-top: 1rem;
+      }
+      .aff-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: var(--accent);
+        color: var(--white);
+        padding: 12px 20px;
+        border-radius: 99px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .aff-btn:hover {
+        background: var(--accent-glow);
+      }
+      .aff-fine {
+        margin-top: 0.7rem;
+        font-size: 0.72rem;
+        color: var(--ink-muted);
+        text-align: center;
+        line-height: 1.5;
+      }
+      .aff-fine a {
+        color: var(--ink-muted);
+        text-decoration: underline;
+      }
+
+      .disclosure-box {
+        background: var(--paper-warm);
+        border-radius: var(--radius);
+        padding: 1.1rem 1.4rem;
+        margin: 2rem auto;
+        max-width: 720px;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+        line-height: 1.65;
+      }
+      .disclosure-box strong {
+        color: var(--ink);
+      }
+
+      .coming-soon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+      .coming-soon-card {
+        background: var(--paper);
+        border: 1px dashed var(--paper-warm);
+        border-radius: var(--radius);
+        padding: 1rem;
+        text-align: center;
+      }
+      .coming-soon-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+      }
+      .coming-soon-label {
+        font-size: 0.7rem;
+        color: var(--ink-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── NAV ── -->
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+        <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog" data-i18n="nav_blog">Blog</a>
+        <a
+          href="/recommended"
+          data-i18n="nav_recommended"
+          style="color: var(--accent)"
+          >Recommended</a
+        >
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Launch app</a>
+        <button
+          id="lang-toggle"
+          style="
+            background: transparent;
+            border: 1.5px solid var(--paper-warm);
+            border-radius: 99px;
+            padding: 5px 13px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition:
+              border-color 0.2s,
+              color 0.2s;
+          "
+          onmouseover="
+            this.style.borderColor = 'var(--accent)';
+            this.style.color = 'var(--accent)';
+          "
+          onmouseout="
+            this.style.borderColor = 'var(--paper-warm)';
+            this.style.color = 'var(--ink-soft)';
+          "
+        >
+          ES
+        </button>
+      </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="page-hero">
+      <div class="container-sm">
+        <div class="badge" data-i18n="rec_badge">Recommended</div>
+        <h1
+          class="h1"
+          style="color: var(--paper); margin-bottom: 1rem"
+          data-i18n="rec_h1"
+        >
+          Tools, brokers and apps we actually trust.
+        </h1>
+        <p
+          style="
+            color: rgba(247, 246, 242, 0.65);
+            font-size: 1.05rem;
+            max-width: 600px;
+          "
+          data-i18n="rec_sub"
+        >
+          A short, honest list of platforms we recommend for investors. Some
+          include exclusive rewards for FolioSense readers.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── DISCLOSURE ── -->
+    <section style="background: var(--white); padding-bottom: 0">
+      <div class="container-sm">
+        <div class="disclosure-box">
+          <strong data-i18n="rec_disclosure_label"
+            >Transparency disclosure:</strong
+          >
+          <span data-i18n="rec_disclosure_text">
+            Some links on this page are referral or affiliate links. If you sign
+            up through them, FolioSense may receive a commission — at no extra
+            cost to you. We only recommend products we'd use ourselves.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CARDS ── -->
+    <section style="background: var(--white); padding-top: 2rem">
+      <div class="container">
+        <h2
+          class="h2"
+          style="margin-bottom: 0.4rem"
+          data-i18n="rec_section_brokers"
+        >
+          Brokers and trading platforms
+        </h2>
+        <p
+          style="color: var(--ink-muted); font-size: 0.95rem"
+          data-i18n="rec_section_brokers_sub"
+        >
+          Where to actually buy the stocks, ETFs and crypto you'll analyze.
+        </p>
+
+        <div class="aff-grid">
+          <!-- ── HAPI CARD ── -->
+          <div class="aff-card featured">
+            <span class="aff-region-badge" data-i18n="rec_hapi_region"
+              >LatAm only</span
+            >
+
+            <img
+              src="/recommended/hapi-logo.png"
+              alt="Hapi"
+              style="height: 40px; width: auto; margin-bottom: 0.8rem"
+            />
+            <div class="aff-tagline" data-i18n="rec_hapi_tagline">
+              Invest in US stocks from Latin America
+            </div>
+
+            <div class="aff-reward-box">
+              <span class="aff-reward-label" data-i18n="rec_hapi_reward_label"
+                >Exclusive reward</span
+              >
+              <span class="aff-reward-amount" data-i18n="rec_hapi_reward_amount"
+                >Up to US$500 in crypto</span
+              >
+              <span class="aff-reward-sub" data-i18n="rec_hapi_reward_sub">
+                When you sign up with our link and complete the active campaign
+                steps. Both you and FolioSense receive a reward.
+              </span>
+            </div>
+
+            <div class="aff-body">
+              <p data-i18n="rec_hapi_desc">
+                Hapi is a fintech app letting Latin American investors buy
+                fractional shares of US stocks and ETFs from their phone, with
+                no minimum and low fees. A simple way to start building a US
+                portfolio without leaving your country.
+              </p>
+              <ul class="aff-points">
+                <li data-i18n="rec_hapi_p1">Fractional shares from $1</li>
+                <li data-i18n="rec_hapi_p2">
+                  US stocks, ETFs and crypto in one app
+                </li>
+                <li data-i18n="rec_hapi_p3">
+                  Available across most of Latin America
+                </li>
+                <li data-i18n="rec_hapi_p4">
+                  Reward in crypto when you complete signup
+                </li>
+              </ul>
+            </div>
+
+            <div class="aff-footer">
+              <a
+                href="https://hapi.trade/es/rewards?code=IANBEL1"
+                target="_blank"
+                rel="sponsored noopener"
+                class="aff-btn"
+                data-i18n="rec_hapi_cta"
+                >Claim your reward on Hapi →</a
+              >
+              <p class="aff-fine" data-i18n="rec_hapi_fine">
+                Referral link. Reward subject to Hapi's
+                <a
+                  href="https://hapi.trade/es/rewards?code=IANBEL1"
+                  target="_blank"
+                  rel="sponsored noopener"
+                  >terms and conditions</a
+                >. Investing involves risk.
+              </p>
+            </div>
+          </div>
+
+          <!-- ── COMING SOON PLACEHOLDER (to be filled later) ── -->
+          <div class="aff-card" style="border-style: dashed; opacity: 0.85">
+            <div
+              class="aff-wordmark"
+              style="color: var(--ink-muted)"
+              data-i18n="rec_more_soon_title"
+            >
+              More coming soon
+            </div>
+            <div class="aff-tagline" data-i18n="rec_more_soon_tagline">
+              We're partnering with the best
+            </div>
+
+            <div class="aff-body">
+              <p data-i18n="rec_more_soon_desc">
+                We're in the process of adding more recommended platforms for
+                US, European and global investors. These are some we're
+                evaluating:
+              </p>
+
+              <div class="coming-soon-grid">
+                <div class="coming-soon-card">
+                  <div class="coming-soon-name">M1 Finance</div>
+                  <div class="coming-soon-label" data-i18n="rec_label_us">
+                    US
+                  </div>
+                </div>
+                <div class="coming-soon-card">
+                  <div class="coming-soon-name">Interactive Brokers</div>
+                  <div class="coming-soon-label" data-i18n="rec_label_global">
+                    Global
+                  </div>
+                </div>
+                <div class="coming-soon-card">
+                  <div class="coming-soon-name">Personal Capital</div>
+                  <div class="coming-soon-label" data-i18n="rec_label_us">
+                    US
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="aff-footer">
+              <p
+                class="aff-fine"
+                style="margin-top: 0"
+                data-i18n="rec_more_soon_fine"
+              >
+                Have a platform you'd like us to review? Drop us a line.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <hr
+          style="
+            border: none;
+            border-top: 1px solid var(--paper-warm);
+            margin: 3rem 0;
+          "
+        />
+
+        <!-- ── HOW WE PICK ── -->
+        <h2 class="h2" style="margin-bottom: 1rem" data-i18n="rec_how_h2">
+          How we pick what to recommend
+        </h2>
+        <div style="max-width: 720px">
+          <p
+            style="
+              color: var(--ink-soft);
+              line-height: 1.75;
+              margin-bottom: 1rem;
+            "
+            data-i18n="rec_how_p1"
+          >
+            We only list platforms we'd actually use, or that solve a specific
+            problem for our readers. The fact that something pays a referral
+            commission is never enough on its own.
+          </p>
+          <p
+            style="
+              color: var(--ink-soft);
+              line-height: 1.75;
+              margin-bottom: 1rem;
+            "
+            data-i18n="rec_how_p2"
+          >
+            For every platform on this page we look at: fees, country
+            availability, regulation, user experience, and whether the promotion
+            is genuinely worth it for the reader, not just for us.
+          </p>
+          <p
+            style="color: var(--ink-soft); line-height: 1.75"
+            data-i18n="rec_how_p3"
+          >
+            If a platform stops meeting these criteria, we remove it. This page
+            changes when we change our mind.
+          </p>
+        </div>
+
+        <!-- ── FINAL CTA ── -->
+        <div
+          style="
+            margin-top: 4rem;
+            text-align: center;
+            padding: 3rem;
+            background: var(--ink);
+            border-radius: var(--radius-lg);
+          "
+        >
+          <h2
+            class="h2"
+            style="color: var(--paper); margin-bottom: 0.75rem"
+            data-i18n="rec_final_h2"
+          >
+            Before you invest, understand what you already own.
+          </h2>
+          <p
+            style="color: rgba(247, 246, 242, 0.6); margin-bottom: 1.5rem"
+            data-i18n="rec_final_sub"
+          >
+            FolioSense analyzes your portfolio in 30 seconds. Free, no account.
+          </p>
+          <a href="/dashboard" class="btn btn-primary" data-i18n="nav_cta"
+            >Launch app</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+          <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog" data-i18n="nav_blog">Blog</a>
+          <a href="/recommended" data-i18n="nav_recommended">Recommended</a>
+          <a href="/privacy" data-i18n="footer_privacy">Privacy policy</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">
+          © 2026 FolioSense. Not financial advice.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/i18n.js"></script>
+  </body>
+</html>
