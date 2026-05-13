@@ -71,6 +71,13 @@
         padding: 4px 10px;
         border-radius: 99px;
       }
+      .aff-logo {
+        display: block;
+        height: 38px;
+        width: auto;
+        margin-bottom: 0.9rem;
+        object-fit: contain;
+      }
       .aff-wordmark {
         font-family: var(--font-display);
         font-size: 1.8rem;
@@ -78,6 +85,7 @@
         color: var(--ink);
         letter-spacing: -0.02em;
         margin-bottom: 0.4rem;
+        text-transform: lowercase;
       }
       .aff-wordmark .accent-dot {
         color: var(--accent);
@@ -330,11 +338,20 @@
               >LatAm only</span
             >
 
+            <!-- Hapi logo (with automatic fallback to text wordmark if image fails) -->
             <img
               src="/recommended/hapi-logo.png"
               alt="Hapi"
-              style="height: 40px; width: auto; margin-bottom: 0.8rem"
+              class="aff-logo"
+              onerror="
+                this.style.display = 'none';
+                var w = this.nextElementSibling;
+                if (w) w.style.display = 'block';
+              "
             />
+            <div class="aff-wordmark" style="display: none">
+              hapi<span class="accent-dot">.</span>
+            </div>
             <div class="aff-tagline" data-i18n="rec_hapi_tagline">
               Invest in US stocks from Latin America
             </div>
@@ -457,10 +474,14 @@
         />
 
         <!-- ── HOW WE PICK ── -->
-        <h2 class="h2" style="margin-bottom: 1rem" data-i18n="rec_how_h2">
+        <h2
+          class="h2"
+          style="margin-bottom: 1rem; text-align: center"
+          data-i18n="rec_how_h2"
+        >
           How we pick what to recommend
         </h2>
-        <div style="max-width: 720px">
+        <div style="max-width: 720px; margin: 0 auto">
           <p
             style="
               color: var(--ink-soft);
