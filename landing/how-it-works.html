@@ -387,15 +387,32 @@
         <!-- ── STEP 1 · Fallback: build a CSV from a screenshot ── -->
         <div
           style="
-            background: var(--paper);
+            background: var(--white);
             border: 1px solid var(--paper-warm);
+            border-left: 4px solid var(--gold);
             border-radius: var(--radius-lg);
-            padding: clamp(1.5rem, 4vw, 2.5rem);
+            padding: clamp(1.75rem, 4vw, 2.75rem);
             margin-bottom: 5rem;
+            box-shadow: var(--shadow);
           "
         >
           <!-- EN -->
           <div data-lang="en">
+            <div
+              style="
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--gold-light);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.35rem;
+                margin-bottom: 0.85rem;
+              "
+            >
+              📸
+            </div>
             <div class="badge" style="margin: 0 0 1rem">
               No download button? No problem.
             </div>
@@ -459,7 +476,7 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--accent);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -489,7 +506,7 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--gold);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -519,7 +536,7 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--accent-glow);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -540,8 +557,8 @@
                     margin: 0;
                   "
                 >
-                  Save the reply as <strong>portfolio.csv</strong> and upload it
-                  to FolioSense.
+                  Copy the CSV (the code block has a copy button) and paste it
+                  into FolioSense.
                 </p>
               </div>
             </div>
@@ -607,13 +624,28 @@
                   word-break: break-word;
                 "
               >
-From this screenshot of my investment portfolio, build a CSV with exactly these columns: symbol, shares, price, sector, roi. Use one row per holding. symbol = ticker, shares = quantity I hold, price = average price paid per share (use the current price if the cost isn't shown), sector = the company's sector (infer it if missing, e.g. Technology, Healthcare), roi = percent gain or loss if visible (leave it blank if not). If a value is unclear or cut off in the image, make your best reasonable estimate instead of skipping the row, and never invent tickers that aren't shown. Reply with the raw CSV only: the header row first, then the data, with no extra text.</pre
+From this screenshot of my investment portfolio, build a CSV with exactly these columns: symbol, shares, price, sector, roi. Use one row per holding. symbol = ticker, shares = quantity I hold, price = average price paid per share (use the current price if the cost isn't shown), sector = the company's sector (infer it if missing, e.g. Technology, Healthcare), roi = percent gain or loss if visible (leave it blank if not). If a value is unclear or cut off in the image, make your best reasonable estimate instead of skipping the row, and never invent tickers that aren't shown. Put the CSV inside one code block (header row first, then the data) so I can copy it with one click, and write nothing outside that block.</pre
               >
             </div>
           </div>
 
           <!-- ES -->
           <div data-lang="es">
+            <div
+              style="
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--gold-light);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.35rem;
+                margin-bottom: 0.85rem;
+              "
+            >
+              📸
+            </div>
             <div class="badge" style="margin: 0 0 1rem">
               ¿Sin botón de descarga? No hay problema.
             </div>
@@ -678,7 +710,7 @@ From this screenshot of my investment portfolio, build a CSV with exactly these 
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--accent);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -708,7 +740,7 @@ From this screenshot of my investment portfolio, build a CSV with exactly these 
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--gold);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -738,7 +770,7 @@ From this screenshot of my investment portfolio, build a CSV with exactly these 
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background: var(--ink);
+                    background: var(--accent-glow);
                     color: var(--paper);
                     display: flex;
                     align-items: center;
@@ -759,8 +791,8 @@ From this screenshot of my investment portfolio, build a CSV with exactly these 
                     margin: 0;
                   "
                 >
-                  Guarda la respuesta como <strong>portfolio.csv</strong> y
-                  súbelo a FolioSense.
+                  Copia el CSV (el bloque trae botón de copiar) y pégalo en
+                  FolioSense.
                 </p>
               </div>
             </div>
@@ -826,7 +858,7 @@ From this screenshot of my investment portfolio, build a CSV with exactly these 
                   word-break: break-word;
                 "
               >
-A partir de esta captura de mi portafolio de inversiones, arma un CSV con exactamente estas columnas: symbol, shares, price, sector, roi. Usa una fila por cada posición. symbol = ticker, shares = cantidad que tengo, price = precio promedio pagado por acción (usa el precio actual si no aparece el costo), sector = el sector de la empresa (dedúcelo si falta, ej. Technology, Healthcare), roi = ganancia o pérdida en porcentaje si es visible (déjalo vacío si no). Si un valor no se ve claro o está cortado en la imagen, haz tu mejor estimación razonable en vez de omitir la fila, y nunca inventes tickers que no aparezcan. Responde solo con el CSV crudo: primero la fila de encabezados, luego los datos, sin texto adicional.</pre
+A partir de esta captura de mi portafolio de inversiones, arma un CSV con exactamente estas columnas: symbol, shares, price, sector, roi. Usa una fila por cada posición. symbol = ticker, shares = cantidad que tengo, price = precio promedio pagado por acción (usa el precio actual si no aparece el costo), sector = el sector de la empresa (dedúcelo si falta, ej. Technology, Healthcare), roi = ganancia o pérdida en porcentaje si es visible (déjalo vacío si no). Si un valor no se ve claro o está cortado en la imagen, haz tu mejor estimación razonable en vez de omitir la fila, y nunca inventes tickers que no aparezcan. Coloca el CSV dentro de un solo bloque de código (primero los encabezados, luego los datos) para poder copiarlo con un clic, y no escribas nada fuera de ese bloque.</pre
               >
             </div>
           </div>

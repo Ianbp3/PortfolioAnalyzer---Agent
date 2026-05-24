@@ -1,7 +1,8 @@
-import React from "react";
-import { Upload, Button, message } from "antd";
+import React, { useState } from "react";
+import { Upload, Button, message, Input } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
+import { useLang } from "../hooks/useLang";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -52,7 +53,7 @@ function buildHeaderMap(headerRow) {
   }, {});
 }
 
-// ── Core parsing (shared between Excel and CSV paths) ────────────────────────
+// ── Core parsing (shared between Excel, CSV and pasted-text paths) ───────────
 
 function processRows(json, onPortfolioParsed) {
   if (!json || json.length < 2) {
@@ -62,7 +63,7 @@ function processRows(json, onPortfolioParsed) {
 
   // Filter out fully-empty rows (XLSX sometimes emits them)
   const nonEmpty = json.filter((row) =>
-    Array.isArray(row) ? row.some((cell) => cell !== "" && cell != null) : true
+    Array.isArray(row) ? row.some((cell) => cell !== "" && cell != null) : true,
   );
 
   const [headerRow, ...rows] = nonEmpty;
@@ -82,7 +83,7 @@ function processRows(json, onPortfolioParsed) {
     const detected = headerRow.map(normalizeHeader).join(", ");
     message.error(
       `El archivo debe tener columnas para símbolo, cantidad y precio.\n` +
-        `Encabezados detectados: ${detected}`
+        `Encabezados detectados: ${detected}`,
     );
     return;
   }
@@ -117,7 +118,7 @@ function processRows(json, onPortfolioParsed) {
 
   if (positions.length === 0) {
     message.error(
-      "No se pudieron leer posiciones válidas. Revisa que las filas tengan símbolo, cantidad y precio."
+      "No se pudieron leer posiciones válidas. Revisa que las filas tengan símbolo, cantidad y precio.",
     );
     return;
   }
@@ -126,9 +127,47 @@ function processRows(json, onPortfolioParsed) {
   message.success(`Portafolio cargado: ${positions.length} posiciones.`);
 }
 
+// Parse a raw CSV string (e.g. pasted from an AI chat) through the same pipeline.
+function parseCsvText(rawText, onPortfolioParsed, lang) {
+  let text = (rawText || "").trim();
+
+  // Strip markdown code fences if the user pasted a ``` block
+  text = text
+    .replace(/^```[a-zA-Z]*\s*\n?/, "")
+    .replace(/\n?```\s*$/, "")
+    .trim();
+
+  if (!text) {
+    message.warning(
+      lang === "es"
+        ? "Pega primero el texto CSV."
+        : "Paste the CSV text first.",
+    );
+    return;
+  }
+
+  try {
+    const workbook = XLSX.read(text, { type: "string" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    processRows(json, onPortfolioParsed);
+  } catch (err) {
+    console.error(err);
+    message.error(
+      lang === "es"
+        ? "No se pudo leer el texto. Verifica que sea un CSV válido."
+        : "Couldn't read the text. Make sure it's valid CSV.",
+    );
+  }
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function FileUploader({ onPortfolioParsed }) {
+  const { lang } = useLang();
+  const [showPaste, setShowPaste] = useState(false);
+  const [pastedText, setPastedText] = useState("");
+
   const handleFile = (file) => {
     const ext = file.name.split(".").pop().toLowerCase();
 
@@ -171,14 +210,75 @@ export default function FileUploader({ onPortfolioParsed }) {
   };
 
   return (
-    <Upload
-      beforeUpload={handleFile}
-      showUploadList={false}
-      accept=".xlsx,.xls,.csv"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 14,
+      }}
     >
-      <Button icon={<UploadOutlined />}>
-        Subir portafolio (Excel o CSV)
-      </Button>
-    </Upload>
+      <Upload
+        beforeUpload={handleFile}
+        showUploadList={false}
+        accept=".xlsx,.xls,.csv"
+      >
+        <Button icon={<UploadOutlined />}>
+          {lang === "es"
+            ? "Subir portafolio (Excel o CSV)"
+            : "Upload portfolio (Excel or CSV)"}
+        </Button>
+      </Upload>
+
+      <button
+        onClick={() => setShowPaste((v) => !v)}
+        style={{
+          background: "none",
+          border: "none",
+          color: "var(--ink-muted)",
+          fontFamily: "var(--font-body)",
+          fontSize: "0.8rem",
+          fontWeight: 600,
+          cursor: "pointer",
+          textDecoration: "underline",
+        }}
+      >
+        {showPaste
+          ? lang === "es"
+            ? "Ocultar"
+            : "Hide"
+          : lang === "es"
+            ? "o pega el texto CSV de tu IA"
+            : "or paste CSV text from your AI"}
+      </button>
+
+      {showPaste && (
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 480,
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
+          <Input.TextArea
+            value={pastedText}
+            onChange={(e) => setPastedText(e.target.value)}
+            rows={6}
+            placeholder={
+              "symbol,shares,price,sector,roi\nAAPL,12,185.32,Technology,0.14\nMSFT,8,402.10,Technology,0.21"
+            }
+            style={{ fontFamily: "monospace", fontSize: "0.82rem" }}
+          />
+          <Button
+            type="primary"
+            onClick={() => parseCsvText(pastedText, onPortfolioParsed, lang)}
+          >
+            {lang === "es" ? "Analizar texto pegado" : "Analyze pasted text"}
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }
