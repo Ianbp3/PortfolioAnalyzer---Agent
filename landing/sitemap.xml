@@ -50,6 +50,15 @@
   </url>
 
   <url>
+    <loc>https://foliosenseapp.com/contact</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/contact"/>
+  </url>
+
+  <url>
     <loc>https://foliosenseapp.com/privacy</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>yearly</changefreq>

@@ -6,6 +6,7 @@ var TRANSLATIONS = {
     nav_blog: "Blog",
     nav_recommended: "Recommended",
     nav_cta: "Launch app",
+    nav_contact: "Contact",
     lang_toggle: "ES",
 
     hero_badge: "Free. No account needed",
@@ -134,6 +135,23 @@ var TRANSLATIONS = {
     rec_final_sub:
       "FolioSense analyzes your portfolio in 30 seconds. Free, no account.",
 
+    /* ── CONTACT PAGE ── */
+    contact_badge: "Contact",
+    contact_h1: "Get in touch.",
+    contact_sub:
+      "We're a small team and we read every message. Pick the inbox that fits and we'll get back to you.",
+    contact_c1_title: "General questions",
+    contact_c1_desc:
+      "Questions, feedback, or just to say hello. This one reaches us fastest.",
+    contact_c2_title: "Support",
+    contact_c2_desc:
+      "Trouble with the analyzer, a file that won't upload, or something that looks wrong.",
+    contact_c3_title: "Privacy & legal",
+    contact_c3_desc:
+      "Data questions, privacy requests, or anything about our privacy policy.",
+    contact_c4_title: "Partnerships",
+    contact_c4_desc: "Affiliates, sponsorships, and business inquiries.",
+
     /* ── HAPI CTA INSIDE ARTICLES (Spanish-only injection) ── */
     hapi_cta_label: "Recommended for LatAm",
     hapi_cta_h3: "Want to invest in US stocks from Latin America?",
@@ -154,6 +172,7 @@ var TRANSLATIONS = {
     nav_blog: "Blog",
     nav_recommended: "Recomendados",
     nav_cta: "Abrir app",
+    nav_contact: "Contacto",
     lang_toggle: "EN",
 
     hero_badge: "Gratis. Sin cuenta",
@@ -283,6 +302,23 @@ var TRANSLATIONS = {
     rec_final_sub:
       "FolioSense analiza tu portafolio en 30 segundos. Gratis, sin cuenta.",
 
+    /* ── PÁGINA DE CONTACTO ── */
+    contact_badge: "Contacto",
+    contact_h1: "Hablemos.",
+    contact_sub:
+      "Somos un equipo pequeño y leemos cada mensaje. Elige el buzón que corresponda y te respondemos.",
+    contact_c1_title: "Preguntas generales",
+    contact_c1_desc:
+      "Preguntas, comentarios o solo para saludar. Este buzón es el que nos llega más rápido.",
+    contact_c2_title: "Soporte",
+    contact_c2_desc:
+      "Problemas con el analizador, un archivo que no carga o algo que se ve mal.",
+    contact_c3_title: "Privacidad y legal",
+    contact_c3_desc:
+      "Preguntas sobre datos, solicitudes de privacidad o cualquier tema de nuestra política de privacidad.",
+    contact_c4_title: "Alianzas",
+    contact_c4_desc: "Afiliados, patrocinios y consultas comerciales.",
+
     /* ── CTA DE HAPI DENTRO DE ARTÍCULOS (solo en español) ── */
     hapi_cta_label: "Recomendado para LatAm",
     hapi_cta_h3: "¿Quieres invertir en acciones de EE.UU. desde Latinoamérica?",
@@ -303,6 +339,27 @@ function detectLang() {
   return (navigator.language || "en").slice(0, 2).toLowerCase() === "es"
     ? "es"
     : "en";
+}
+
+// Adds a "Contact" link into every page footer so it appears site-wide
+// without editing each HTML file. Runs before applyLang so the link's
+// data-i18n="nav_contact" gets translated on load and on every toggle.
+function injectFooterContact() {
+  document.querySelectorAll("footer .footer-links").forEach(function (list) {
+    if (list.querySelector('a[href="/contact"]')) return;
+    var link = document.createElement("a");
+    link.setAttribute("href", "/contact");
+    link.setAttribute("data-i18n", "nav_contact");
+    link.textContent = "Contact";
+    var privacy =
+      list.querySelector('a[href="/privacy"]') ||
+      list.querySelector('a[href="/privacy.html"]');
+    if (privacy) {
+      list.insertBefore(link, privacy);
+    } else {
+      list.appendChild(link);
+    }
+  });
 }
 
 function applyLang(lang) {
@@ -343,6 +400,7 @@ function toggleLang() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  injectFooterContact();
   applyLang(detectLang());
   var btn = document.getElementById("lang-toggle");
   if (btn) btn.addEventListener("click", toggleLang);

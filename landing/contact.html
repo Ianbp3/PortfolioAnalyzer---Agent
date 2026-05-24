@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | FolioSense</title>
+    <meta
+      name="description"
+      content="Contact the FolioSense team for questions, support, privacy requests, or partnerships. We read every message and reply as soon as we can."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://foliosenseapp.com/contact" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://foliosenseapp.com/contact"
+    />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://foliosenseapp.com/contact"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+        margin-top: 2.5rem;
+      }
+      .contact-card {
+        display: flex;
+        flex-direction: column;
+      }
+      .contact-card .icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1;
+      }
+      .contact-card h3 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--ink);
+        margin-bottom: 0.4rem;
+      }
+      .contact-card p {
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1.1rem;
+      }
+      .contact-card a.mail {
+        margin-top: auto;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        word-break: break-word;
+        transition: color 0.2s;
+      }
+      .contact-card a.mail:hover {
+        color: var(--accent-glow);
+        text-decoration: underline;
+      }
+      .contact-note {
+        background: var(--paper-warm);
+        border-radius: var(--radius);
+        padding: 1.25rem 1.5rem;
+        margin-top: 2.5rem;
+        text-align: center;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+      .contact-note a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .contact-note a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+        <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog" data-i18n="nav_blog">Blog</a>
+        <a href="/recommended" data-i18n="nav_recommended">Recommended</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Launch app</a>
+        <button
+          id="lang-toggle"
+          style="
+            background: transparent;
+            border: 1.5px solid var(--paper-warm);
+            border-radius: 99px;
+            padding: 5px 13px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition:
+              border-color 0.2s,
+              color 0.2s;
+          "
+          onmouseover="
+            this.style.borderColor = 'var(--accent)';
+            this.style.color = 'var(--accent)';
+          "
+          onmouseout="
+            this.style.borderColor = 'var(--paper-warm)';
+            this.style.color = 'var(--ink-soft)';
+          "
+        >
+          ES
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="page-hero">
+      <div class="container-sm">
+        <div class="badge" data-i18n="contact_badge">Contact</div>
+        <h1
+          class="h1"
+          style="color: var(--paper); margin-bottom: 1rem"
+          data-i18n="contact_h1"
+        >
+          Get in touch.
+        </h1>
+        <p
+          style="color: rgba(247, 246, 242, 0.65); font-size: 1.05rem"
+          data-i18n="contact_sub"
+        >
+          We're a small team and we read every message. Pick the inbox that fits
+          and we'll get back to you.
+        </p>
+      </div>
+    </div>
+
+    <!-- CONTACT CARDS -->
+    <section style="background: var(--white)">
+      <div class="container-sm">
+        <div class="contact-grid">
+          <div class="card contact-card">
+            <div class="icon">👋</div>
+            <h3 data-i18n="contact_c1_title">General questions</h3>
+            <p data-i18n="contact_c1_desc">
+              Questions, feedback, or just to say hello. This one reaches us
+              fastest.
+            </p>
+            <a class="mail" href="mailto:hello@foliosenseapp.com"
+              >hello@foliosenseapp.com</a
+            >
+          </div>
+
+          <div class="card contact-card">
+            <div class="icon">🛠️</div>
+            <h3 data-i18n="contact_c2_title">Support</h3>
+            <p data-i18n="contact_c2_desc">
+              Trouble with the analyzer, a file that won't upload, or something
+              that looks wrong.
+            </p>
+            <a class="mail" href="mailto:support@foliosenseapp.com"
+              >support@foliosenseapp.com</a
+            >
+          </div>
+
+          <div class="card contact-card">
+            <div class="icon">🔒</div>
+            <h3 data-i18n="contact_c3_title">Privacy & legal</h3>
+            <p data-i18n="contact_c3_desc">
+              Data questions, privacy requests, or anything about our privacy
+              policy.
+            </p>
+            <a class="mail" href="mailto:privacy@foliosenseapp.com"
+              >privacy@foliosenseapp.com</a
+            >
+          </div>
+
+          <div class="card contact-card">
+            <div class="icon">🤝</div>
+            <h3 data-i18n="contact_c4_title">Partnerships</h3>
+            <p data-i18n="contact_c4_desc">
+              Affiliates, sponsorships, and business inquiries.
+            </p>
+            <a class="mail" href="mailto:contact@foliosenseapp.com"
+              >contact@foliosenseapp.com</a
+            >
+          </div>
+        </div>
+
+        <div class="contact-note" data-lang="en">
+          Not sure which one to use? Write to
+          <a href="mailto:hello@foliosenseapp.com">hello@foliosenseapp.com</a>
+          and it always reaches us.
+        </div>
+        <div class="contact-note" data-lang="es">
+          ¿No sabes cuál usar? Escribe a
+          <a href="mailto:hello@foliosenseapp.com">hello@foliosenseapp.com</a>
+          y siempre nos llega.
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+          <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog" data-i18n="nav_blog">Blog</a>
+          <a href="/privacy" data-i18n="footer_privacy">Privacy policy</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">
+          © 2026 FolioSense. Not financial advice.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/i18n.js"></script>
+  </body>
+</html>
