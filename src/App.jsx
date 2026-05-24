@@ -41,7 +41,7 @@ function formatCurrency(v) {
 }
 
 export default function App() {
-  const { toggleLang, t } = useLang();
+  const { toggleLang, t, lang } = useLang();
 
   const [positions, setPositions] = useState([]);
   const [analysis, setAnalysis] = useState(null);
@@ -123,6 +123,36 @@ export default function App() {
         </a>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <a
+            href="https://www.foliosenseapp.com/how-it-works"
+            style={{
+              background: "transparent",
+              border: "1.5px solid var(--paper-warm)",
+              borderRadius: 99,
+              padding: "0 14px",
+              height: 32,
+              fontFamily: "var(--font-body)",
+              fontWeight: 600,
+              fontSize: "0.8rem",
+              color: "var(--ink-soft)",
+              textDecoration: "none",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--accent)";
+              e.currentTarget.style.color = "var(--accent)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--paper-warm)";
+              e.currentTarget.style.color = "var(--ink-soft)";
+            }}
+          >
+            {lang === "es" ? "Cómo funciona" : "How it works"}
+          </a>
+
           <button
             onClick={toggleLang}
             style={{

@@ -384,6 +384,454 @@
           </div>
         </div>
 
+        <!-- ── STEP 1 · Fallback: build a CSV from a screenshot ── -->
+        <div
+          style="
+            background: var(--paper);
+            border: 1px solid var(--paper-warm);
+            border-radius: var(--radius-lg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 5rem;
+          "
+        >
+          <!-- EN -->
+          <div data-lang="en">
+            <div class="badge" style="margin: 0 0 1rem">
+              No download button? No problem.
+            </div>
+            <h3 class="h3" style="margin-bottom: 0.6rem">
+              Turn a screenshot into a CSV in 30 seconds.
+            </h3>
+            <p
+              style="
+                color: var(--ink-muted);
+                font-size: 0.95rem;
+                max-width: 640px;
+                margin-bottom: 1.75rem;
+              "
+            >
+              Some brokers don't let you export a file. If that's your case, any
+              AI chat can build one for you from a simple screenshot.
+            </p>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.25rem;
+                margin-bottom: 1.75rem;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  1
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Take a screenshot of your portfolio (symbols, shares and
+                  prices visible).
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  2
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Open your favorite AI chat: Gemini, ChatGPT or Claude.
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  3
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Attach the screenshot and paste the prompt below.
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  4
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Save the reply as <strong>portfolio.csv</strong> and upload it
+                  to FolioSense.
+                </p>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: var(--ink);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <span
+                  style="
+                    color: rgba(247, 246, 242, 0.4);
+                    font-size: 0.72rem;
+                    letter-spacing: 0.08em;
+                  "
+                  >prompt</span
+                >
+                <button
+                  onclick="
+                    var p = document.getElementById('fs-prompt-en');
+                    navigator.clipboard.writeText(p.innerText);
+                    var b = this;
+                    b.textContent = '\u2713';
+                    setTimeout(function () {
+                      b.textContent = 'Copy';
+                    }, 1500);
+                  "
+                  style="
+                    background: rgba(247, 246, 242, 0.1);
+                    color: var(--paper);
+                    border: 1px solid rgba(247, 246, 242, 0.2);
+                    border-radius: 99px;
+                    padding: 4px 12px;
+                    font-family: var(--font-body);
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    cursor: pointer;
+                  "
+                >
+                  Copy
+                </button>
+              </div>
+              <pre
+                id="fs-prompt-en"
+                style="
+                  margin: 0;
+                  color: rgba(247, 246, 242, 0.85);
+                  font-family: monospace;
+                  font-size: 0.82rem;
+                  line-height: 1.6;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              >
+From this screenshot of my investment portfolio, build a CSV with exactly these columns: symbol, shares, price, sector, roi. Use one row per holding. symbol = ticker, shares = quantity I hold, price = average price paid per share (use the current price if the cost isn't shown), sector = the company's sector (infer it if missing, e.g. Technology, Healthcare), roi = percent gain or loss if visible (leave it blank if not). If a value is unclear or cut off in the image, make your best reasonable estimate instead of skipping the row, and never invent tickers that aren't shown. Reply with the raw CSV only: the header row first, then the data, with no extra text.</pre
+              >
+            </div>
+          </div>
+
+          <!-- ES -->
+          <div data-lang="es">
+            <div class="badge" style="margin: 0 0 1rem">
+              ¿Sin botón de descarga? No hay problema.
+            </div>
+            <h3 class="h3" style="margin-bottom: 0.6rem">
+              Convierte un screenshot en un CSV en 30 segundos.
+            </h3>
+            <p
+              style="
+                color: var(--ink-muted);
+                font-size: 0.95rem;
+                max-width: 640px;
+                margin-bottom: 1.75rem;
+              "
+            >
+              Algunos brokers no te dejan exportar un archivo. Si es tu caso,
+              cualquier chat de IA puede armarlo por ti a partir de una simple
+              captura de pantalla.
+            </p>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.25rem;
+                margin-bottom: 1.75rem;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  1
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Toma una captura de tu portafolio (que se vean símbolos,
+                  cantidades y precios).
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  2
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Abre tu chat de IA favorito: Gemini, ChatGPT o Claude.
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  3
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Adjunta la captura y pega el prompt de abajo.
+                </p>
+              </div>
+              <div>
+                <div
+                  style="
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: var(--ink);
+                    color: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: var(--font-display);
+                    font-weight: 800;
+                    font-size: 0.85rem;
+                    margin-bottom: 0.6rem;
+                  "
+                >
+                  4
+                </div>
+                <p
+                  style="
+                    color: var(--ink-soft);
+                    font-size: 0.9rem;
+                    line-height: 1.55;
+                    margin: 0;
+                  "
+                >
+                  Guarda la respuesta como <strong>portfolio.csv</strong> y
+                  súbelo a FolioSense.
+                </p>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: var(--ink);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <span
+                  style="
+                    color: rgba(247, 246, 242, 0.4);
+                    font-size: 0.72rem;
+                    letter-spacing: 0.08em;
+                  "
+                  >prompt</span
+                >
+                <button
+                  onclick="
+                    var p = document.getElementById('fs-prompt-es');
+                    navigator.clipboard.writeText(p.innerText);
+                    var b = this;
+                    b.textContent = '\u2713';
+                    setTimeout(function () {
+                      b.textContent = 'Copiar';
+                    }, 1500);
+                  "
+                  style="
+                    background: rgba(247, 246, 242, 0.1);
+                    color: var(--paper);
+                    border: 1px solid rgba(247, 246, 242, 0.2);
+                    border-radius: 99px;
+                    padding: 4px 12px;
+                    font-family: var(--font-body);
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    cursor: pointer;
+                  "
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre
+                id="fs-prompt-es"
+                style="
+                  margin: 0;
+                  color: rgba(247, 246, 242, 0.85);
+                  font-family: monospace;
+                  font-size: 0.82rem;
+                  line-height: 1.6;
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                "
+              >
+A partir de esta captura de mi portafolio de inversiones, arma un CSV con exactamente estas columnas: symbol, shares, price, sector, roi. Usa una fila por cada posición. symbol = ticker, shares = cantidad que tengo, price = precio promedio pagado por acción (usa el precio actual si no aparece el costo), sector = el sector de la empresa (dedúcelo si falta, ej. Technology, Healthcare), roi = ganancia o pérdida en porcentaje si es visible (déjalo vacío si no). Si un valor no se ve claro o está cortado en la imagen, haz tu mejor estimación razonable en vez de omitir la fila, y nunca inventes tickers que no aparezcan. Responde solo con el CSV crudo: primero la fila de encabezados, luego los datos, sin texto adicional.</pre
+              >
+            </div>
+          </div>
+        </div>
+
         <hr class="divider" style="margin-bottom: 5rem" />
 
         <!-- ── STEP 2 ── -->
