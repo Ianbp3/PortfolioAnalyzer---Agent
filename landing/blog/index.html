@@ -215,22 +215,15 @@
             console.warn("Could not load blog manifest");
           });
 
-        // Re-render on language toggle
-        var _origToggle = window.FolioSenseLang && window.FolioSenseLang.toggle;
-        if (window.FolioSenseLang) {
-          window.FolioSenseLang.toggle = function () {
-            if (_origToggle) _origToggle();
-            setTimeout(function () {
-              fetch(MANIFEST)
-                .then(function (r) {
-                  return r.json();
-                })
-                .then(function (data) {
-                  render(data.articles || []);
-                });
-            }, 50);
-          };
-        }
+        window.addEventListener("foliosense:langchange", function () {
+          fetch(MANIFEST)
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (data) {
+              render(data.articles || []);
+            });
+        });
       })();
     </script>
   </body>

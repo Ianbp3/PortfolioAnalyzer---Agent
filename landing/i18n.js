@@ -331,6 +331,10 @@ function applyLang(lang) {
 
   document.documentElement.lang = lang;
   localStorage.setItem("foliosense_lang", lang);
+
+  window.dispatchEvent(
+    new CustomEvent("foliosense:langchange", { detail: { lang: lang } }),
+  );
 }
 
 function toggleLang() {

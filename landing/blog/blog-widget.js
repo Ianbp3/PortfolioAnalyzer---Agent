@@ -9,6 +9,9 @@
  *
  * For related articles, add to the <div>:
  *   <div id="blog-related" data-tags="risk,concentration" data-current-slug="portfolio-concentration-risk"></div>
+ *
+ * Re-renders automatically when the language changes, because i18n.js fires a
+ * global "foliosense:langchange" event on every applyLang() call.
  */
 
 (function () {
@@ -36,7 +39,9 @@
   function formatDate(dateStr, lang) {
     const d = new Date(dateStr + "T00:00:00");
     return d.toLocaleDateString(lang === "es" ? "es-HN" : "en-US", {
-      year: "numeric", month: "long", day: "numeric",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   }
 
@@ -76,7 +81,13 @@
     };
     const heading = headings[lang][headingKey];
 
-    if (!articles.length) { containerEl.style.display = "none"; return; }
+    if (!articles.length) {
+      containerEl.style.display = "none";
+      return;
+    }
+
+    // Make sure a previously hidden section becomes visible again on re-render
+    containerEl.style.display = "";
 
     containerEl.innerHTML = `
       <div style="margin: 3rem 0 0;">
@@ -90,13 +101,13 @@
           grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
           gap:1.25rem;
         ">
-          ${articles.map(a => renderCard(a, lang)).join("")}
+          ${articles.map((a) => renderCard(a, lang)).join("")}
         </div>
       </div>`;
   }
 
   async function init() {
-    const newestEl  = document.getElementById("blog-newest");
+    const newestEl = document.getElementById("blog-newest");
     const relatedEl = document.getElementById("blog-related");
     if (!newestEl && !relatedEl) return;
 
@@ -113,41 +124,44 @@
 
     const all = manifest.articles || [];
     // Sort newest first
-    const sorted = [...all].sort((a, b) => b.published.localeCompare(a.published));
+    const sorted = [...all].sort((a, b) =>
+      b.published.localeCompare(a.published),
+    );
 
-    // ── Newest: top 3 ────────────────────────────────────────────────────────
+    // ── Newest: top 3 ──────────────────────────────────────────────────────
     if (newestEl) {
       renderSection(newestEl, sorted.slice(0, 3), lang, "newest");
     }
 
-    // ── Related: by matching tags, exclude current ───────────────────────────
+    // ── Related: by matching tags, exclude current ─────────────────────────
     if (relatedEl) {
-      const rawTags    = (relatedEl.dataset.tags || "").split(",").map(t => t.trim()).filter(Boolean);
+      const rawTags = (relatedEl.dataset.tags || "")
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
       const currentSlug = relatedEl.dataset.currentSlug || "";
 
       const related = sorted
-        .filter(a => a.slug !== currentSlug && a.slugEs !== currentSlug)
-        .filter(a => rawTags.length === 0 || a.tags.some(t => rawTags.includes(t)))
+        .filter((a) => a.slug !== currentSlug && a.slugEs !== currentSlug)
+        .filter(
+          (a) =>
+            rawTags.length === 0 || a.tags.some((t) => rawTags.includes(t)),
+        )
         .slice(0, 3);
 
       renderSection(relatedEl, related, lang, "related");
     }
   }
 
-  // Re-run if language is toggled (listens for storage events in same tab too)
+  // Re-render whenever the language changes (fired by i18n.js applyLang)
+  window.addEventListener("foliosense:langchange", init);
+
+  // Also handle language changes made in another tab
   window.addEventListener("storage", (e) => {
     if (e.key === "foliosense_lang") init();
   });
 
-  // Tiny hack: patch FolioSenseLang.apply so widget re-renders on toggle
-  const _origToggle = window.FolioSenseLang?.toggle;
-  if (window.FolioSenseLang) {
-    window.FolioSenseLang.toggle = function () {
-      _origToggle?.();
-      setTimeout(init, 50); // after i18n.js finishes
-    };
-  }
-
+  // First render
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
