@@ -54,10 +54,10 @@ const T = {
     note_no_positions: "No positions received.",
     note_high_concentration: "High concentration (>40%) in a single asset.",
     note_low_diversification:
-      "Low diversification — consider adding more assets.",
+      "Low diversification. Consider adding more assets.",
     note_good_balance: "Good overall balance.",
     note_sp500_anchored:
-      "A significant portion of your portfolio is in S&P 500 ETFs — this provides broad built-in diversification.",
+      "A significant portion of your portfolio is in S&P 500 ETFs. This provides broad built-in diversification.",
     note_dead_weight:
       "You have losing positions with significant portfolio weight. Consider reviewing them.",
 
@@ -131,10 +131,10 @@ const T = {
     note_no_positions: "No se recibieron posiciones.",
     note_high_concentration: "Alta concentración (>40%) en un solo activo.",
     note_low_diversification:
-      "Poca diversificación — considera agregar más activos.",
+      "Poca diversificación. Considera agregar más activos.",
     note_good_balance: "Buen balance general.",
     note_sp500_anchored:
-      "Una parte significativa de tu portafolio está en ETFs del S&P 500 — esto aporta diversificación amplia integrada.",
+      "Una parte significativa de tu portafolio está en ETFs del S&P 500. Esto aporta diversificación amplia integrada.",
     note_dead_weight:
       "Tienes posiciones en pérdida con un peso significativo. Considera revisarlas.",
 

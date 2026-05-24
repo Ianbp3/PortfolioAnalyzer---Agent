@@ -8,7 +8,7 @@ var TRANSLATIONS = {
     nav_cta: "Launch app",
     lang_toggle: "ES",
 
-    hero_badge: "Free — No account needed",
+    hero_badge: "Free. No account needed",
     hero_h1_line1: "Your portfolio,",
     hero_h1_line2: "finally making sense.",
     hero_sub:
@@ -24,7 +24,7 @@ var TRANSLATIONS = {
       "No spreadsheets. No finance degree required. Just upload and understand.",
     feat1_title: "Instant analysis",
     feat1_desc:
-      "Upload your CSV or Excel file and get a full breakdown in seconds. Risk score, sector distribution, top and worst performers — all calculated automatically.",
+      "Upload your CSV or Excel file and get a full breakdown in seconds. Risk score, sector distribution, top and worst performers, all calculated automatically.",
     feat2_title: "AI chat advisor",
     feat2_desc:
       "Ask anything about your portfolio in plain language. Am I too concentrated in tech? Get clear answers based on your actual holdings.",
@@ -45,7 +45,7 @@ var TRANSLATIONS = {
       "Download a CSV or Excel from Robinhood, Fidelity, Schwab, or any platform.",
     step2_title: "Upload your file",
     step2_desc:
-      "Drop it in. FolioSense reads your holdings automatically — no formatting required.",
+      "Drop it in. FolioSense reads your holdings automatically, no formatting required.",
     step3_title: "Read your analysis",
     step3_desc:
       "Instant risk score, sector breakdown, and AI-powered insights. Ask follow-up questions in plain language.",
@@ -53,17 +53,17 @@ var TRANSLATIONS = {
     hiw_badge: "How it works",
     hiw_h1: "From spreadsheet to strategy in 30 seconds.",
     hiw_sub:
-      "FolioSense is designed to be the fastest way to understand what your investments are actually doing — and what to do about it.",
+      "FolioSense is designed to be the fastest way to understand what your investments are actually doing, and what to do about it.",
 
     wi_badge: "The basics",
     wi_h1: "Why your money should be working while you sleep.",
     wi_sub:
-      "A plain-language guide to why investing matters — and what happens to people who skip it.",
+      "A plain-language guide to why investing matters, and what happens to people who skip it.",
 
     gl_badge: "Reference",
     gl_h1: "Investment terms, finally explained.",
     gl_sub:
-      "Every term you'll encounter when managing a portfolio — defined in plain language with real examples.",
+      "Every term you'll encounter when managing a portfolio, defined in plain language with real examples.",
     gl_search: "Search terms",
 
     blog_badge: "Blog",
@@ -78,7 +78,7 @@ var TRANSLATIONS = {
     free_badge: "Free forever",
     free_h2: "How do we keep the lights on?",
     free_p:
-      "FolioSense is supported by non-intrusive ads. No paywalls, no premium tiers — just a small ad that helps keep everything free.",
+      "FolioSense is supported by non-intrusive ads. No paywalls, no premium tiers. Just a small ad that helps keep everything free.",
 
     cta_h2: "Ready to understand your portfolio?",
     cta_sub:
@@ -93,7 +93,7 @@ var TRANSLATIONS = {
       "A short, honest list of platforms we recommend for investors. Some include exclusive rewards for FolioSense readers.",
     rec_disclosure_label: "Transparency disclosure:",
     rec_disclosure_text:
-      "Some links on this page are referral or affiliate links. If you sign up through them, FolioSense may receive a commission — at no extra cost to you. We only recommend products we'd use ourselves.",
+      "Some links on this page are referral or affiliate links. If you sign up through them, FolioSense may receive a commission (at no extra cost to you). We only recommend products we'd use ourselves.",
     rec_section_brokers: "Brokers and trading platforms",
     rec_section_brokers_sub:
       "Where to actually buy the stocks, ETFs and crypto you'll analyze.",
@@ -156,7 +156,7 @@ var TRANSLATIONS = {
     nav_cta: "Abrir app",
     lang_toggle: "EN",
 
-    hero_badge: "Gratis — Sin cuenta",
+    hero_badge: "Gratis. Sin cuenta",
     hero_h1_line1: "Tu portafolio,",
     hero_h1_line2: "por fin con sentido.",
     hero_sub:
@@ -173,7 +173,7 @@ var TRANSLATIONS = {
       "Sin hojas de cálculo. Sin título en finanzas. Solo sube y entiende.",
     feat1_title: "Análisis instantáneo",
     feat1_desc:
-      "Sube tu archivo CSV o Excel y obtén un desglose completo en segundos. Puntaje de riesgo, distribución por sector, mejores y peores posiciones — todo automático.",
+      "Sube tu archivo CSV o Excel y obtén un desglose completo en segundos. Puntaje de riesgo, distribución por sector, mejores y peores posiciones, todo automático.",
     feat2_title: "Asesor IA por chat",
     feat2_desc:
       "Pregunta lo que quieras sobre tu portafolio en lenguaje común. ¿Estoy demasiado concentrado en tecnología? Respuestas claras basadas en tus datos reales.",
@@ -194,7 +194,7 @@ var TRANSLATIONS = {
       "Descarga un CSV o Excel desde Robinhood, Fidelity, Schwab o cualquier plataforma.",
     step2_title: "Sube tu archivo",
     step2_desc:
-      "Súbelo. FolioSense lee tus posiciones automáticamente — sin formato especial requerido.",
+      "Súbelo. FolioSense lee tus posiciones automáticamente, sin formato especial requerido.",
     step3_title: "Lee tu análisis",
     step3_desc:
       "Puntaje de riesgo instantáneo, desglose por sector e insights con IA. Haz preguntas de seguimiento en lenguaje simple.",
@@ -202,17 +202,17 @@ var TRANSLATIONS = {
     hiw_badge: "Cómo funciona",
     hiw_h1: "De hoja de cálculo a estrategia en 30 segundos.",
     hiw_sub:
-      "FolioSense está diseñado para ser la forma más rápida de entender lo que realmente están haciendo tus inversiones — y qué hacer al respecto.",
+      "FolioSense está diseñado para ser la forma más rápida de entender lo que realmente están haciendo tus inversiones, y qué hacer al respecto.",
 
     wi_badge: "Lo básico",
     wi_h1: "Por qué tu dinero debería trabajar mientras duermes.",
     wi_sub:
-      "Una guía en lenguaje simple sobre por qué invertir importa — y qué les pasa a quienes no lo hacen.",
+      "Una guía en lenguaje simple sobre por qué invertir importa, y qué les pasa a quienes no lo hacen.",
 
     gl_badge: "Referencia",
     gl_h1: "Términos de inversión, por fin explicados.",
     gl_sub:
-      "Cada término que encontrarás al gestionar un portafolio — definido en lenguaje simple con ejemplos reales.",
+      "Cada término que encontrarás al gestionar un portafolio, definido en lenguaje simple con ejemplos reales.",
     gl_search: "Buscar términos",
 
     blog_badge: "Blog",
@@ -227,7 +227,7 @@ var TRANSLATIONS = {
     free_badge: "Gratis para siempre",
     free_h2: "¿Cómo mantenemos esto gratis?",
     free_p:
-      "FolioSense se sostiene con publicidad no intrusiva. Sin muros de pago, sin planes premium — solo un pequeño anuncio que ayuda a mantener todo gratuito.",
+      "FolioSense se sostiene con publicidad no intrusiva. Sin muros de pago, sin planes premium. Solo un pequeño anuncio que ayuda a mantener todo gratuito.",
 
     cta_h2: "¿Listo para entender tu portafolio?",
     cta_sub:
@@ -242,7 +242,7 @@ var TRANSLATIONS = {
       "Una lista corta y honesta de plataformas que recomendamos para inversionistas. Algunas incluyen recompensas exclusivas para lectores de FolioSense.",
     rec_disclosure_label: "Aviso de transparencia:",
     rec_disclosure_text:
-      "Algunos enlaces de esta página son referidos o de afiliados. Si te registras a través de ellos, FolioSense puede recibir una comisión — sin costo adicional para ti. Solo recomendamos productos que usaríamos nosotros mismos.",
+      "Algunos enlaces de esta página son referidos o de afiliados. Si te registras a través de ellos, FolioSense puede recibir una comisión (sin costo adicional para ti). Solo recomendamos productos que usaríamos nosotros mismos.",
     rec_section_brokers: "Brokers y plataformas de inversión",
     rec_section_brokers_sub:
       "Dónde comprar las acciones, ETFs y cripto que vas a analizar.",
