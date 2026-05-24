@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useLang } from "../hooks/useLang";
 
 const COLORS = [
   "#1a6b4a",
@@ -34,9 +35,12 @@ function renderLabel({
   innerRadius,
   outerRadius,
   percent,
-  name,
+  value,
 }) {
-  if (percent < 0.06) return null; // skip tiny slices
+  // `value` is the sector's real % of the portfolio (matches the breakdown
+  // below). `percent` is recharts' share-of-drawn-slices — we only use it to
+  // decide whether the slice is big enough to fit a label.
+  if (percent < 0.05) return null; // skip tiny slices
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -54,18 +58,58 @@ function renderLabel({
         fontWeight: 700,
       }}
     >
-      {`${(percent * 100).toFixed(0)}%`}
+      {`${Math.round(value)}%`}
     </text>
   );
 }
 
-export default function SectorPieChart({ sectors }) {
-  if (!sectors) return null;
+export default function SectorPieChart({ analysis }) {
+  const { lang } = useLang();
+  if (!analysis) return null;
 
-  const data = Object.entries(sectors).map(([name, info]) => ({
-    name,
-    value: info.value,
-  }));
+  // Use the SAME blended exposure the breakdown below uses (direct + implied
+  // S&P 500 ETF look-through), so the chart and the breakdown always agree.
+  // The slice value is each sector's total exposure as % of the portfolio,
+  // without splitting it into direct vs ETF.
+  let data;
+  const blended = analysis.sectorVsSP500;
+
+  if (blended && Object.keys(blended).length) {
+    data = Object.entries(blended)
+      .filter(([, s]) => s.userPct > 0)
+      .sort(([, a], [, b]) => b.userPct - a.userPct)
+      .map(([name, s]) => ({ name, value: s.userPct }));
+  } else if (analysis.sectors && Object.keys(analysis.sectors).length) {
+    // Fallback (no blended data): normalise raw sector values to percentages.
+    const total =
+      Object.values(analysis.sectors).reduce(
+        (sum, x) => sum + (x.value || 0),
+        0,
+      ) || 1;
+    data = Object.entries(analysis.sectors)
+      .map(([name, info]) => ({
+        name,
+        value: Number((((info.value || 0) / total) * 100).toFixed(1)),
+      }))
+      .sort((a, b) => b.value - a.value);
+  } else {
+    return null;
+  }
+
+  if (!data.length) return null;
+
+  const title = lang === "es" ? "Exposición por sector" : "Sector exposure";
+  const tipLabel = lang === "es" ? "Exposición" : "Exposure";
+  const otherLabel = lang === "es" ? "Otros" : "Other";
+
+  // The blended sector percentages may not reach 100% (some portfolio value
+  // sits outside the tracked GICS sectors). Add a neutral remainder slice so
+  // each slice's drawn area matches its real-% label and the ring closes.
+  const sum = data.reduce((s, d) => s + d.value, 0);
+  const remainder = Number((100 - sum).toFixed(1));
+  if (remainder >= 1) {
+    data = [...data, { name: otherLabel, value: remainder, isRemainder: true }];
+  }
 
   return (
     <div style={{ marginTop: 24, width: "100%" }}>
@@ -79,7 +123,7 @@ export default function SectorPieChart({ sectors }) {
           fontSize: "0.9rem",
         }}
       >
-        Valor por sector
+        {title}
       </h4>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
@@ -93,8 +137,11 @@ export default function SectorPieChart({ sectors }) {
             labelLine={false}
             label={renderLabel}
           >
-            {data.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+            {data.map((entry, i) => (
+              <Cell
+                key={i}
+                fill={entry.isRemainder ? "#d8dae0" : COLORS[i % COLORS.length]}
+              />
             ))}
           </Pie>
           <Legend
@@ -109,7 +156,7 @@ export default function SectorPieChart({ sectors }) {
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v) => [`$${v.toFixed(2)}`, "Valor"]}
+            formatter={(v) => [`${Number(v).toFixed(1)}%`, tipLabel]}
           />
         </PieChart>
       </ResponsiveContainer>

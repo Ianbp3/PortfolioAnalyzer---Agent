@@ -517,7 +517,7 @@ export default function App() {
                     ))}
                   </div>
                 )}
-                <SectorPieChart sectors={analysis.sectors} />
+                <SectorPieChart analysis={analysis} />
                 <SectorComparison analysis={analysis} />
               </div>
             )}
