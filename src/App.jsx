@@ -204,6 +204,11 @@ export default function App() {
             {chatOpen ? t.chat_close : t.chat_open}
           </button>
         </div>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5965745153374411"
+          crossorigin="anonymous"
+        ></script>
       </Header>
 
       <Content style={{ padding: "32px", background: "var(--paper)" }}>
