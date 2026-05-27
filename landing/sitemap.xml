@@ -68,7 +68,7 @@
   <!-- ── BLOG INDEX ── -->
   <url>
     <loc>https://foliosenseapp.com/blog</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog"/>
@@ -76,6 +76,36 @@
   </url>
 
   <!-- ── BLOG ARTICLES ── -->
+
+  <!-- Article: investing-in-gta-6-entertainment-opportunity-beyond-tech -->
+  <url>
+    <loc>https://foliosenseapp.com/blog/investing-in-gta-6-entertainment-opportunity-beyond-tech</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/investing-in-gta-6-entertainment-opportunity-beyond-tech"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/invertir-en-gta-6-oportunidad-entretenimiento-fuera-tecnologia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/investing-in-gta-6-entertainment-opportunity-beyond-tech"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/take-two-stock-growth-game-releases-timeline.png</image:loc>
+      <image:title>Take-Two (TTWO) Stock Price Around Major Rockstar Launches</image:title>
+      <image:caption>Approximate timeline of Take-Two stock price across major Rockstar launches: GTA IV, Red Dead Redemption, GTA V, Red Dead Redemption 2, GTA VI trailer, and the upcoming GTA VI launch</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://foliosenseapp.com/blog/es/invertir-en-gta-6-oportunidad-entretenimiento-fuera-tecnologia</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/invertir-en-gta-6-oportunidad-entretenimiento-fuera-tecnologia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/investing-in-gta-6-entertainment-opportunity-beyond-tech"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/investing-in-gta-6-entertainment-opportunity-beyond-tech"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/take-two-stock-growth-game-releases-timeline.png</image:loc>
+      <image:title>Precio de la acción de Take-Two (TTWO) alrededor de los principales lanzamientos de Rockstar</image:title>
+      <image:caption>Línea de tiempo aproximada del precio de la acción de Take-Two en los principales lanzamientos de Rockstar: GTA IV, Red Dead Redemption, GTA V, Red Dead Redemption 2, tráiler de GTA VI y el próximo lanzamiento de GTA VI</image:caption>
+    </image:image>
+  </url>
 
   <!-- Article: invest-in-openai-through-microsoft-and-ai-stocks -->
   <url>
