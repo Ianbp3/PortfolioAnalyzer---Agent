@@ -277,6 +277,32 @@ section {
 }
 .feat-icon.gold {
   background: var(--gold-light);
+  color: var(--gold);
+}
+/* FolioSense custom icon glyph inside chips */
+.feat-icon {
+  color: var(--accent);
+}
+.feat-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Icon chip used on why-invest cards */
+.wi-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: var(--accent-light);
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+.wi-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* ── FOOTER ── */

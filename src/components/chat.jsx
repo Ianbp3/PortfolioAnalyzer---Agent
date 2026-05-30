@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { SendOutlined } from "@ant-design/icons";
 import { sendMessage } from "../api/chat";
 import { useLang } from "../hooks/useLang";
+import { Icon } from "./Icons";
 
 export default function Chat({ analysis, positions }) {
   const { lang, t } = useLang();
@@ -94,10 +95,10 @@ export default function Chat({ analysis, positions }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 16,
+              color: "var(--accent)",
             }}
           >
-            🤖
+            <Icon name="chatSpark" size={18} stroke={1.7} />
           </div>
           <div
             style={{

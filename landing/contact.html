@@ -36,9 +36,19 @@
         flex-direction: column;
       }
       .contact-card .icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.75rem;
-        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        background: var(--accent-light);
+        color: var(--accent);
+        margin-bottom: 0.85rem;
+      }
+      .contact-card .icon svg {
+        width: 24px;
+        height: 24px;
       }
       .contact-card h3 {
         font-family: var(--font-display);
@@ -158,7 +168,24 @@
       <div class="container-sm">
         <div class="contact-grid">
           <div class="card contact-card">
-            <div class="icon">👋</div>
+            <div class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v6A2.5 2.5 0 0 1 17.5 15H9l-4 4v-4H6.5"
+                />
+                <circle cx="9" cy="9.5" r=".05" />
+                <circle cx="12" cy="9.5" r=".05" />
+                <circle cx="15" cy="9.5" r=".05" />
+              </svg>
+            </div>
             <h3 data-i18n="contact_c1_title">General questions</h3>
             <p data-i18n="contact_c1_desc">
               Questions, feedback, or just to say hello. This one reaches us
@@ -170,7 +197,22 @@
           </div>
 
           <div class="card contact-card">
-            <div class="icon">🛠️</div>
+            <div class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14.5 6.2a3.8 3.8 0 0 0 4.9 4.9l-2 2a3.8 3.8 0 0 1-4.9-4.9Z"
+                />
+                <path d="m12.5 8.2-7 7a2 2 0 0 0 2.8 2.8l7-7" />
+              </svg>
+            </div>
             <h3 data-i18n="contact_c2_title">Support</h3>
             <p data-i18n="contact_c2_desc">
               Trouble with the analyzer, a file that won't upload, or something
@@ -182,7 +224,22 @@
           </div>
 
           <div class="card contact-card">
-            <div class="icon">🔒</div>
+            <div class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 3 5 5.6v5.2c0 4.3 2.9 7.6 7 9.2 4.1-1.6 7-4.9 7-9.2V5.6L12 3Z"
+                />
+                <path d="m9 11.6 2 2 4-4" />
+              </svg>
+            </div>
             <h3 data-i18n="contact_c3_title">Privacy & legal</h3>
             <p data-i18n="contact_c3_desc">
               Data questions, privacy requests, or anything about our privacy
@@ -194,7 +251,24 @@
           </div>
 
           <div class="card contact-card">
-            <div class="icon">🤝</div>
+            <div class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M9.5 14.5a3.5 3.5 0 0 1 0-5l2-2a3.5 3.5 0 0 1 5 5l-1 1"
+                />
+                <path
+                  d="M14.5 9.5a3.5 3.5 0 0 1 0 5l-2 2a3.5 3.5 0 0 1-5-5l1-1"
+                />
+              </svg>
+            </div>
             <h3 data-i18n="contact_c4_title">Partnerships</h3>
             <p data-i18n="contact_c4_desc">
               Affiliates, sponsorships, and business inquiries.

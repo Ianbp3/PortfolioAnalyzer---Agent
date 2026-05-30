@@ -6,6 +6,7 @@
  */
 import { useEffect, useState } from "react";
 import { useLang } from "../hooks/useLang";
+import { Icon } from "./Icons";
 
 const MANIFEST_URL = "https://foliosenseapp.com/blog/blog-manifest.json";
 
@@ -18,7 +19,9 @@ export default function ArticleWidget({ tags = [] }) {
       .then((r) => r.json())
       .then((data) => {
         const all = data.articles || [];
-        const sorted = [...all].sort((a, b) => b.published.localeCompare(a.published));
+        const sorted = [...all].sort((a, b) =>
+          b.published.localeCompare(a.published),
+        );
 
         const filtered =
           tags.length > 0
@@ -47,10 +50,7 @@ export default function ArticleWidget({ tags = [] }) {
   }
 
   return (
-    <div
-      className="section-card"
-      style={{ marginBottom: 24 }}
-    >
+    <div className="section-card" style={{ marginBottom: 24 }}>
       {/* Heading */}
       <div style={{ marginBottom: "1.25rem" }}>
         <h3
@@ -62,9 +62,21 @@ export default function ArticleWidget({ tags = [] }) {
             margin: "0 0 4px",
           }}
         >
-          📚 {t.art_heading}
+          <Icon
+            name="stack"
+            size={18}
+            color="var(--accent)"
+            style={{
+              display: "inline-block",
+              verticalAlign: "-3px",
+              marginRight: 7,
+            }}
+          />
+          {t.art_heading}
         </h3>
-        <p style={{ color: "var(--ink-muted)", fontSize: "0.82rem", margin: 0 }}>
+        <p
+          style={{ color: "var(--ink-muted)", fontSize: "0.82rem", margin: 0 }}
+        >
           {t.art_sub}
         </p>
       </div>

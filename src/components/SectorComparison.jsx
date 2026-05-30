@@ -1,25 +1,14 @@
 import React from "react";
 import { useLang } from "../hooks/useLang";
+import { Icon, SECTOR_ICON_KEYS } from "./Icons";
 
-const SECTOR_EMOJIS = {
-  Technology: "💻",
-  Financials: "🏦",
-  Healthcare: "🏥",
-  "Consumer Discretionary": "🛍️",
-  "Communication Services": "📡",
-  Industrials: "🏭",
-  "Consumer Staples": "🛒",
-  Energy: "⚡",
-  Materials: "⛏️",
-  "Real Estate": "🏠",
-  Utilities: "💡",
-  Other: "📦",
-};
+const SECTOR_ICON_SET = new Set(SECTOR_ICON_KEYS);
 
 const LABELS = {
   en: {
     title: "Sector Exposure vs S&P 500",
-    subtitle: "Your blended exposure (direct holdings + ETF exposure) compared to the S&P 500 benchmark.",
+    subtitle:
+      "Your blended exposure (direct holdings + ETF exposure) compared to the S&P 500 benchmark.",
     you: "You",
     sp500: "S&P 500",
     overweight: "Overweight",
@@ -29,13 +18,15 @@ const LABELS = {
     via_etf: "via ETF",
     sp500_note: "Includes implied exposure from your S&P 500 ETF holdings.",
     dead_weight_title: "Dead Weight",
-    dead_weight_sub: "These positions are losing money and represent a significant share of your portfolio.",
+    dead_weight_sub:
+      "These positions are losing money and represent a significant share of your portfolio.",
     roi: "ROI",
     weight: "Weight",
   },
   es: {
     title: "Exposición por Sector vs S&P 500",
-    subtitle: "Tu exposición combinada (posiciones directas + ETFs) comparada con el índice S&P 500.",
+    subtitle:
+      "Tu exposición combinada (posiciones directas + ETFs) comparada con el índice S&P 500.",
     you: "Tú",
     sp500: "S&P 500",
     overweight: "Sobreexpuesto",
@@ -45,7 +36,8 @@ const LABELS = {
     via_etf: "vía ETF",
     sp500_note: "Incluye exposición implícita de tus ETFs del S&P 500.",
     dead_weight_title: "Peso Muerto",
-    dead_weight_sub: "Estas posiciones están en pérdida y representan una porción significativa de tu portafolio.",
+    dead_weight_sub:
+      "Estas posiciones están en pérdida y representan una porción significativa de tu portafolio.",
     roi: "ROI",
     weight: "Peso",
   },
@@ -71,7 +63,8 @@ function DeltaBadge({ delta, l }) {
         padding: "2px 8px",
       }}
     >
-      {over ? "+" : ""}{delta}% {over ? l.overweight : l.underweight}
+      {over ? "+" : ""}
+      {delta}% {over ? l.overweight : l.underweight}
     </span>
   );
 }
@@ -87,12 +80,22 @@ export default function SectorComparison({ analysis }) {
     .filter(([, s]) => s.userPct > 0 || s.sp500Pct > 0)
     .sort(([, a], [, b]) => b.userPct - a.userPct);
 
-  const maxPct = Math.max(...rows.map(([, s]) => Math.max(s.userPct, s.sp500Pct)), 1);
+  const maxPct = Math.max(
+    ...rows.map(([, s]) => Math.max(s.userPct, s.sp500Pct)),
+    1,
+  );
   const hasSP500 = analysis.sp500Weight > 0.05;
 
   return (
     <div style={{ marginTop: 8 }}>
-      <p style={{ fontSize: "0.8rem", color: "var(--ink-muted)", marginBottom: 20, lineHeight: 1.5 }}>
+      <p
+        style={{
+          fontSize: "0.8rem",
+          color: "var(--ink-muted)",
+          marginBottom: 20,
+          lineHeight: 1.5,
+        }}
+      >
         {l.subtitle}
         {hasSP500 && (
           <span style={{ display: "block", marginTop: 4, fontStyle: "italic" }}>
@@ -105,7 +108,7 @@ export default function SectorComparison({ analysis }) {
         {rows.map(([sector, data]) => {
           const userBarWidth = (data.userPct / maxPct) * 100;
           const sp500BarWidth = (data.sp500Pct / maxPct) * 100;
-          const emoji = SECTOR_EMOJIS[sector] || "📦";
+          const iconName = SECTOR_ICON_SET.has(sector) ? sector : "Other";
 
           return (
             <div key={sector}>
@@ -128,7 +131,13 @@ export default function SectorComparison({ analysis }) {
                     gap: 6,
                   }}
                 >
-                  {emoji} {sector}
+                  <Icon
+                    name={iconName}
+                    size={15}
+                    stroke={1.7}
+                    color="var(--ink)"
+                  />{" "}
+                  {sector}
                 </span>
                 <DeltaBadge delta={data.delta} l={l} />
               </div>
@@ -143,7 +152,13 @@ export default function SectorComparison({ analysis }) {
                     marginBottom: 3,
                   }}
                 >
-                  <span style={{ fontSize: "0.68rem", color: "var(--ink-muted)", width: 48 }}>
+                  <span
+                    style={{
+                      fontSize: "0.68rem",
+                      color: "var(--ink-muted)",
+                      width: 48,
+                    }}
+                  >
                     {l.you}
                   </span>
                   <div
@@ -166,19 +181,21 @@ export default function SectorComparison({ analysis }) {
                       }}
                     >
                       {/* Show direct vs ETF breakdown inside the bar if both exist */}
-                      {hasSP500 && data.impliedPct > 0 && data.directPct > 0 && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            right: 0,
-                            top: 0,
-                            height: "100%",
-                            width: `${(data.impliedPct / data.userPct) * 100}%`,
-                            background: "rgba(255,255,255,0.35)",
-                            borderRadius: "0 99px 99px 0",
-                          }}
-                        />
-                      )}
+                      {hasSP500 &&
+                        data.impliedPct > 0 &&
+                        data.directPct > 0 && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              right: 0,
+                              top: 0,
+                              height: "100%",
+                              width: `${(data.impliedPct / data.userPct) * 100}%`,
+                              background: "rgba(255,255,255,0.35)",
+                              borderRadius: "0 99px 99px 0",
+                            }}
+                          />
+                        )}
                     </div>
                   </div>
                   <span
@@ -244,7 +261,13 @@ export default function SectorComparison({ analysis }) {
                   gap: 8,
                 }}
               >
-                <span style={{ fontSize: "0.68rem", color: "var(--ink-muted)", width: 48 }}>
+                <span
+                  style={{
+                    fontSize: "0.68rem",
+                    color: "var(--ink-muted)",
+                    width: 48,
+                  }}
+                >
                   {l.sp500}
                 </span>
                 <div
@@ -301,7 +324,18 @@ export default function SectorComparison({ analysis }) {
               marginBottom: 6,
             }}
           >
-            ⚠️ {l.dead_weight_title}
+            <Icon
+              name="alert"
+              size={15}
+              stroke={1.9}
+              color="#c0392b"
+              style={{
+                display: "inline-block",
+                verticalAlign: "-2px",
+                marginRight: 6,
+              }}
+            />
+            {l.dead_weight_title}
           </p>
           <p
             style={{

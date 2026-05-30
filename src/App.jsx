@@ -15,6 +15,7 @@ import SectorRanking from "./components/SectorRanking";
 import AssetRanking from "./components/AssetRanking";
 import ScatterRiskReturn from "./components/ScatterRiskReturn";
 import ArticleWidget from "./components/ArticleWidget";
+import { Icon } from "./components/Icons";
 import SectorComparison from "./components/SectorComparison";
 import { analyzePortfolio } from "./api/chat";
 import { useLang } from "./hooks/useLang";
@@ -236,10 +237,10 @@ export default function App() {
                       alignItems: "center",
                       justifyContent: "center",
                       margin: "0 auto 20px",
-                      fontSize: 32,
+                      color: "var(--accent)",
                     }}
                   >
-                    📊
+                    <Icon name="docChart" size={32} stroke={1.6} />
                   </div>
                   <h2
                     style={{
@@ -338,7 +339,18 @@ export default function App() {
                           fontSize: "0.95rem",
                         }}
                       >
-                        ✓ {t.portfolio_loaded} · {positions.length} {t.assets}
+                        <Icon
+                          name="checkLine"
+                          size={14}
+                          stroke={2.2}
+                          color="var(--accent)"
+                          style={{
+                            display: "inline-block",
+                            verticalAlign: "-2px",
+                            marginRight: 6,
+                          }}
+                        />
+                        {t.portfolio_loaded} · {positions.length} {t.assets}
                       </span>
                       <FileUploader
                         onPortfolioParsed={handlePositionsLoaded}
