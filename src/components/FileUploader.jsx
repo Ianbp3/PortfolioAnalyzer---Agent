@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Upload, Button, message, Input } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
@@ -161,12 +161,55 @@ function parseCsvText(rawText, onPortfolioParsed, lang) {
   }
 }
 
+// ── Sample portfolio ─────────────────────────────────────────────────────────
+// Loaded automatically when the dashboard is opened with ?sample=1 (the
+// "Try our sample file" link on the How it works page). Diversified but
+// tech-heavy on purpose, with a couple of losers, so every feature has
+// something to show: concentration warning, sector mix, winners and losers.
+const SAMPLE_CSV = `symbol,shares,price,sector,roi
+AAPL,15,185.32,Technology,0.14
+MSFT,10,402.10,Technology,0.21
+NVDA,8,520.40,Technology,0.38
+AMZN,5,178.30,Consumer Discretionary,0.18
+TSLA,6,242.60,Consumer Discretionary,-0.11
+JPM,12,178.25,Financials,0.09
+V,7,272.40,Financials,0.15
+JNJ,9,156.80,Healthcare,-0.04
+KO,20,61.50,Consumer Staples,0.06
+XOM,14,108.75,Energy,0.12`;
+
+// Module-level guard so the sample loads at most once per page load, even
+// though FileUploader is mounted twice (full empty-state + compact header).
+let sampleAutoLoaded = false;
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function FileUploader({ onPortfolioParsed }) {
   const { lang } = useLang();
   const [showPaste, setShowPaste] = useState(false);
   const [pastedText, setPastedText] = useState("");
+
+  // Auto-load the sample portfolio when arriving via /dashboard?sample=1
+  // (or ?demo). Fills the paste box so the format is visible, then runs the
+  // same analysis path as a normal upload. Strips the query param afterwards
+  // so a refresh won't overwrite the user's own data.
+  useEffect(() => {
+    if (sampleAutoLoaded) return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("sample") && !params.has("demo")) return;
+
+    sampleAutoLoaded = true;
+    try {
+      window.history.replaceState({}, "", window.location.pathname);
+    } catch (e) {
+      /* ignore: replaceState may fail in some embedded contexts */
+    }
+
+    setShowPaste(true);
+    setPastedText(SAMPLE_CSV);
+    parseCsvText(SAMPLE_CSV, onPortfolioParsed, lang);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFile = (file) => {
     const ext = file.name.split(".").pop().toLowerCase();
