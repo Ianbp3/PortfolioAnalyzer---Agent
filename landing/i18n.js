@@ -7,6 +7,8 @@ var TRANSLATIONS = {
     nav_recommended: "Recommended",
     nav_cta: "Launch app",
     nav_contact: "Contact",
+    nav_about: "About",
+    nav_terms: "Terms",
     lang_toggle: "ES",
 
     hero_badge: "Free. No account needed",
@@ -173,6 +175,8 @@ var TRANSLATIONS = {
     nav_recommended: "Recomendados",
     nav_cta: "Abrir app",
     nav_contact: "Contacto",
+    nav_about: "Acerca de",
+    nav_terms: "Términos",
     lang_toggle: "EN",
 
     hero_badge: "Gratis. Sin cuenta",
@@ -341,24 +345,33 @@ function detectLang() {
     : "en";
 }
 
-// Adds a "Contact" link into every page footer so it appears site-wide
-// without editing each HTML file. Runs before applyLang so the link's
-// data-i18n="nav_contact" gets translated on load and on every toggle.
-function injectFooterContact() {
+// Adds the legal/info links (About, Contact, Terms) into every page footer so
+// they appear site-wide without editing each HTML file. AdSense reviewers look
+// for these pages to be reachable from the footer. Runs before applyLang so the
+// data-i18n keys get translated on load and on every toggle. Idempotent.
+function injectFooterLinks() {
   document.querySelectorAll("footer .footer-links").forEach(function (list) {
-    if (list.querySelector('a[href="/contact"]')) return;
-    var link = document.createElement("a");
-    link.setAttribute("href", "/contact");
-    link.setAttribute("data-i18n", "nav_contact");
-    link.textContent = "Contact";
     var privacy =
       list.querySelector('a[href="/privacy"]') ||
       list.querySelector('a[href="/privacy.html"]');
-    if (privacy) {
-      list.insertBefore(link, privacy);
-    } else {
-      list.appendChild(link);
+
+    function ensure(href, key, label, beforeEl) {
+      if (list.querySelector('a[href="' + href + '"]')) return;
+      var link = document.createElement("a");
+      link.setAttribute("href", href);
+      link.setAttribute("data-i18n", key);
+      link.textContent = label;
+      if (beforeEl) {
+        list.insertBefore(link, beforeEl);
+      } else {
+        list.appendChild(link);
+      }
     }
+
+    // Order: ... About, Contact, Privacy, Terms
+    ensure("/about", "nav_about", "About", privacy);
+    ensure("/contact", "nav_contact", "Contact", privacy);
+    ensure("/terms", "nav_terms", "Terms", null);
   });
 }
 
@@ -400,7 +413,7 @@ function toggleLang() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  injectFooterContact();
+  injectFooterLinks();
   applyLang(detectLang());
   var btn = document.getElementById("lang-toggle");
   if (btn) btn.addEventListener("click", toggleLang);
