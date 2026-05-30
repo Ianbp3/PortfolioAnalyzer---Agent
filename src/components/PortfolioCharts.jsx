@@ -34,6 +34,89 @@ const TOOLTIP_STYLE = {
   fontSize: 12,
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// S&P 500 trackers — same set the backend analyzer uses. Holding these means
+// you also own a slice of every constituent below.
+// ─────────────────────────────────────────────────────────────────────────────
+const SP500_ETFS = new Set([
+  "SPY",
+  "VOO",
+  "IVV",
+  "SPLG",
+  "FXAIX",
+  "VFIAX",
+  "SWPPX",
+  "CSPX",
+  "WFSPX",
+  "BSPIX",
+  "SNXFX",
+  "MEISX",
+  "PREIX",
+]);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Approximate weight of each company INSIDE the S&P 500 (fraction of the index,
+// as of early 2025). Used to compute "look-through" exposure: if you hold VOO,
+// your true exposure to e.g. MSFT = (your VOO weight) × (MSFT weight in the index).
+// The index is very top-heavy, so the top ~40 names capture nearly all overlap.
+// NOTE: GOOG/GOOGL are both credited the COMBINED Alphabet weight (~3.9%), since
+// owning either share class gives economic exposure to Alphabet via the ETF.
+// Refresh these periodically (same as SP500_SECTOR_WEIGHTS in the backend).
+// ─────────────────────────────────────────────────────────────────────────────
+const SP500_CONSTITUENT_WEIGHTS = {
+  AAPL: 0.07,
+  MSFT: 0.063,
+  NVDA: 0.065,
+  AMZN: 0.039,
+  META: 0.026,
+  GOOGL: 0.039,
+  GOOG: 0.039,
+  AVGO: 0.02,
+  TSLA: 0.018,
+  "BRK.B": 0.017,
+  LLY: 0.014,
+  JPM: 0.014,
+  UNH: 0.01,
+  XOM: 0.01,
+  V: 0.009,
+  MA: 0.008,
+  COST: 0.008,
+  HD: 0.008,
+  WMT: 0.008,
+  NFLX: 0.008,
+  PG: 0.007,
+  JNJ: 0.007,
+  ABBV: 0.007,
+  BAC: 0.007,
+  CRM: 0.006,
+  ORCL: 0.006,
+  CVX: 0.006,
+  KO: 0.005,
+  MRK: 0.005,
+  AMD: 0.005,
+  PEP: 0.005,
+  ADBE: 0.005,
+  LIN: 0.005,
+  WFC: 0.005,
+  ACN: 0.005,
+  MCD: 0.005,
+  CSCO: 0.005,
+  TMO: 0.004,
+  ABT: 0.004,
+  DIS: 0.004,
+  INTU: 0.004,
+  QCOM: 0.004,
+  TXN: 0.004,
+  IBM: 0.004,
+  GE: 0.004,
+  NOW: 0.004,
+  VZ: 0.004,
+  CMCSA: 0.004,
+  PFE: 0.003,
+  PYPL: 0.003,
+  LULU: 0.001,
+};
+
 function renderLabel({
   cx,
   cy,
@@ -66,21 +149,80 @@ function renderLabel({
   );
 }
 
+// Custom tooltip for the bar chart: shows direct, via-ETF and true exposure.
+function makeBarTooltip(t) {
+  return function BarTooltip({ active, payload }) {
+    if (!active || !payload || !payload.length) return null;
+    const row = payload[0].payload;
+    return (
+      <div style={{ ...TOOLTIP_STYLE, padding: "8px 10px" }}>
+        <div style={{ fontWeight: 700, marginBottom: 4, color: "#3d4450" }}>
+          {row.name}
+        </div>
+        <div style={{ color: "#3d4450" }}>
+          {t.chart_direct}: {row.direct}%
+        </div>
+        {row.implied > 0 && (
+          <>
+            <div style={{ color: "#7a8394" }}>
+              {t.chart_via_etf}: +{row.implied}%
+            </div>
+            <div style={{ fontWeight: 700, color: "#1a6b4a", marginTop: 2 }}>
+              {t.chart_true_exposure}: {row.trueExposure}%
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+}
+
 export default function PortfolioCharts({ data }) {
   const { t } = useLang();
 
   if (!data || data.length === 0) return null;
 
   const totalValue = data.reduce((s, p) => s + (p.value || 0), 0);
-  const finalData = data.map((item) => ({
-    name: item.symbol,
-    percentage:
-      totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0,
-  }));
+
+  // Fraction of the whole portfolio sitting in S&P 500 ETFs (0–1).
+  const sp500Weight =
+    totalValue > 0
+      ? data.reduce(
+          (s, p) =>
+            SP500_ETFS.has((p.symbol || "").toUpperCase())
+              ? s + (p.value || 0) / totalValue
+              : s,
+          0,
+        )
+      : 0;
+
+  const finalData = data.map((item) => {
+    const sym = (item.symbol || "").toUpperCase();
+    const isEtf = SP500_ETFS.has(sym);
+    const direct =
+      totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0;
+
+    // Implied exposure this holding ALSO has hidden inside your S&P 500 ETFs.
+    // ETFs themselves get no ghost (they are the wrapper, not a constituent).
+    const constituentWeight = SP500_CONSTITUENT_WEIGHTS[sym] || 0;
+    const implied = isEtf
+      ? 0
+      : Number((sp500Weight * constituentWeight * 100).toFixed(2));
+
+    return {
+      name: item.symbol,
+      percentage: direct, // used by the pie (what you actually hold)
+      direct, // solid segment of the bar
+      implied, // translucent "ghost" segment stacked on top
+      trueExposure: Number((direct + implied).toFixed(2)),
+    };
+  });
+
+  const hasGhost = finalData.some((d) => d.implied > 0);
 
   return (
     <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-      {/* PIE */}
+      {/* PIE — direct holdings only */}
       <div style={{ flex: "1 1 260px", minWidth: 220 }}>
         <h4
           style={{
@@ -118,7 +260,7 @@ export default function PortfolioCharts({ data }) {
         </ResponsiveContainer>
       </div>
 
-      {/* BAR */}
+      {/* BAR — direct holding (solid) + true look-through exposure (ghost) */}
       <div style={{ flex: "2 1 300px", minWidth: 260 }}>
         <h4
           style={{
@@ -162,18 +304,54 @@ export default function PortfolioCharts({ data }) {
               tickLine={false}
               tickFormatter={(v) => `${v}%`}
             />
-            <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(v) => [`${v}%`, t.chart_weight]}
-              cursor={{ fill: "#f7f6f2" }}
-            />
-            <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
+            <Tooltip content={makeBarTooltip(t)} cursor={{ fill: "#f7f6f2" }} />
+            {/* Solid: what you actually own */}
+            <Bar dataKey="direct" stackId="exposure" radius={[0, 0, 0, 0]}>
               {finalData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                <Cell key={`d-${i}`} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Bar>
+            {/* Ghost: extra exposure hidden inside your S&P 500 ETFs */}
+            <Bar
+              dataKey="implied"
+              stackId="exposure"
+              fillOpacity={0.32}
+              radius={[6, 6, 0, 0]}
+            >
+              {finalData.map((_, i) => (
+                <Cell key={`i-${i}`} fill={COLORS[i % COLORS.length]} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+
+        {/* Hint — only shown when there's hidden exposure to explain */}
+        {hasGhost && (
+          <p
+            style={{
+              textAlign: "center",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.72rem",
+              color: "#7a8394",
+              marginTop: 8,
+              lineHeight: 1.4,
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: 10,
+                height: 10,
+                borderRadius: 2,
+                background: "#1a6b4a",
+                opacity: 0.32,
+                verticalAlign: "middle",
+                marginRight: 6,
+              }}
+            />
+            {t.chart_ghost_hint}
+          </p>
+        )}
       </div>
     </div>
   );
