@@ -19,6 +19,98 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5965745153374411"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Author / Organization structured data (E-E-A-T trust signals) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FolioSense",
+        "url": "https://foliosenseapp.com",
+        "logo": "https://foliosenseapp.com/favicon-48.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Ian Beltrand",
+          "sameAs": "https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ian Beltrand",
+        "jobTitle": "Founder & Editor",
+        "url": "https://foliosenseapp.com/about",
+        "image": "https://foliosenseapp.com/images/ian-beltrand.jpg",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "FolioSense",
+          "url": "https://foliosenseapp.com"
+        },
+        "sameAs": "https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+      }
+    </script>
+
+    <style>
+      .author-card {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        background: var(--white);
+        border: 1px solid var(--paper-warm);
+        border-radius: var(--radius);
+        padding: 1.1rem 1.25rem;
+        margin: 1.25rem 0 1.5rem;
+        box-shadow: var(--shadow);
+      }
+      .author-photo-wrap {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--paper);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.6rem;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .author-photo-wrap img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .author-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--ink);
+      }
+      .author-role {
+        font-size: 0.82rem;
+        color: var(--accent);
+        font-weight: 600;
+        margin: 2px 0 6px;
+      }
+      .author-link {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink-soft);
+        text-decoration: none;
+        border-bottom: 1px solid var(--paper-warm);
+      }
+      .author-link:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -120,9 +212,7 @@
           performers, and a chat advisor that answers questions about your
           holdings in plain language.
         </p>
-        <p>
-          No account. No spreadsheet wrangling. No finance degree required.
-        </p>
+        <p>No account. No spreadsheet wrangling. No finance degree required.</p>
 
         <h2>Why we built it</h2>
         <p>
@@ -169,18 +259,33 @@
         </ul>
 
         <h2>Who is behind FolioSense</h2>
-        <!--
-          EDIT ME: Adding your real name, a short personal note, and ideally a
-          photo here meaningfully strengthens trust (and AdSense reviewers
-          specifically look for a real person behind the site). Replace the
-          paragraph below with your own story when you're ready.
-        -->
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            IB<img
+              src="/images/ian-beltrand.jpg"
+              alt="Ian Beltrand, Founder and Editor of FolioSense"
+              onerror="this.style.display = 'none'"
+            />
+          </div>
+          <div class="author-info">
+            <div class="author-name">Ian Beltrand</div>
+            <div class="author-role">Founder &amp; Editor</div>
+            <a
+              class="author-link"
+              href="https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn →</a
+            >
+          </div>
+        </div>
         <p>
-          FolioSense is an independent project built and maintained by a small
-          team that cares about making investing less intimidating. We are not a
-          bank, a brokerage, or a fund. We do not manage anyone's money. We are
-          investors ourselves who got tired of tools that explained nothing, so
-          we built the one we wanted to use.
+          FolioSense is an independent project created and maintained by a small
+          team, led by Ian Beltrand (Founder &amp; Editor), that cares about
+          making investing less intimidating. We are not a bank, a brokerage, or
+          a fund. We do not manage anyone's money. We are investors who got
+          tired of tools that explained nothing, so we built the one we wanted
+          to use, drawing on our own experience in the financial world.
         </p>
 
         <h2>How we keep it free</h2>
@@ -235,22 +340,22 @@
         <p>
           <strong>FolioSense</strong> es una herramienta gratuita con IA que
           ayuda a inversionistas comunes a entender qué está haciendo realmente
-          su portafolio de acciones. Subes un archivo CSV o Excel de tu broker y,
-          en pocos segundos, obtienes un puntaje de riesgo, un desglose por
+          su portafolio de acciones. Subes un archivo CSV o Excel de tu broker
+          y, en pocos segundos, obtienes un puntaje de riesgo, un desglose por
           sector, tus mejores y peores posiciones, y un asesor por chat que
           responde preguntas sobre tus inversiones en lenguaje simple.
         </p>
         <p>
-          Sin cuenta. Sin pelear con hojas de cálculo. Sin necesidad de un título
-          en finanzas.
+          Sin cuenta. Sin pelear con hojas de cálculo. Sin necesidad de un
+          título en finanzas.
         </p>
 
         <h2>Por qué lo creamos</h2>
         <p>
           La mayoría de las herramientas de inversión están hechas para personas
-          que ya hablan el idioma de las finanzas. Usan términos como beta, ratio
-          de Sharpe o concentración por sector como si todos los hubiéramos
-          aprendido en la escuela. La mayoría no lo hicimos.
+          que ya hablan el idioma de las finanzas. Usan términos como beta,
+          ratio de Sharpe o concentración por sector como si todos los
+          hubiéramos aprendido en la escuela. La mayoría no lo hicimos.
         </p>
         <p>
           Veíamos lo mismo una y otra vez: personas que ya habían hecho lo más
@@ -269,13 +374,13 @@
         <ul>
           <li>
             <strong>Análisis instantáneo.</strong> Sube tus posiciones y obtén
-            un desglose completo en segundos: puntaje de riesgo, distribución por
-            sector, y tus mejores y peores posiciones.
+            un desglose completo en segundos: puntaje de riesgo, distribución
+            por sector, y tus mejores y peores posiciones.
           </li>
           <li>
-            <strong>Asesor IA por chat.</strong> Pregunta lo que quieras sobre tu
-            portafolio en español (o inglés) y obtén respuestas basadas en tus
-            datos reales.
+            <strong>Asesor IA por chat.</strong> Pregunta lo que quieras sobre
+            tu portafolio en español (o inglés) y obtén respuestas basadas en
+            tus datos reales.
           </li>
           <li>
             <strong>Gráficos visuales.</strong> Gráficos de pastel, barras,
@@ -290,19 +395,34 @@
         </ul>
 
         <h2>Quién está detrás de FolioSense</h2>
-        <!--
-          EDÍTAME: Agregar tu nombre real, una breve nota personal e idealmente
-          una foto aquí fortalece la confianza de forma notable (y los revisores
-          de AdSense buscan específicamente a una persona real detrás del sitio).
-          Reemplaza el párrafo de abajo con tu propia historia cuando quieras.
-        -->
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            IB<img
+              src="/images/ian-beltrand.jpg"
+              alt="Ian Beltrand, Fundador y Editor de FolioSense"
+              onerror="this.style.display = 'none'"
+            />
+          </div>
+          <div class="author-info">
+            <div class="author-name">Ian Beltrand</div>
+            <div class="author-role">Fundador y Editor</div>
+            <a
+              class="author-link"
+              href="https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn →</a
+            >
+          </div>
+        </div>
         <p>
           FolioSense es un proyecto independiente creado y mantenido por un
-          equipo pequeño al que le importa hacer que invertir sea menos
-          intimidante. No somos un banco, ni un broker, ni un fondo. No
-          gestionamos el dinero de nadie. Somos inversionistas que nos cansamos
-          de herramientas que no explicaban nada, así que construimos la que
-          queríamos usar.
+          equipo pequeño, liderado por Ian Beltrand (Fundador/Editor), al que le
+          importa hacer que invertir sea menos intimidante. No somos un banco,
+          ni un broker, ni un fondo. No gestionamos el dinero de nadie. Somos
+          inversionistas que nos cansamos de herramientas que no explicaban
+          nada, así que construimos la que queríamos usar basándonos en nuestra
+          experiencia en el mundo financiero.
         </p>
 
         <h2>Cómo lo mantenemos gratis</h2>
@@ -310,8 +430,8 @@
           FolioSense se sostiene con publicidad no intrusiva y con alianzas de
           referidos con plataformas que de verdad creemos que vale la pena
           recomendar. Cuando te registras en un aliado a través de uno de
-          nuestros enlaces, podemos recibir una comisión sin costo adicional para
-          ti. Solo recomendamos productos que usaríamos nosotros mismos, y
+          nuestros enlaces, podemos recibir una comisión sin costo adicional
+          para ti. Solo recomendamos productos que usaríamos nosotros mismos, y
           decimos con claridad cuándo un enlace es de referido. No hay muros de
           pago ni planes premium. El analizador es gratis para todos, para
           siempre.
@@ -330,8 +450,8 @@
 
         <h2>¿Quieres contactarnos?</h2>
         <p>
-          Somos un equipo pequeño y leemos cada mensaje. Ya sea un comentario, un
-          error, una idea de alianza o solo un saludo, entra a nuestra
+          Somos un equipo pequeño y leemos cada mensaje. Ya sea un comentario,
+          un error, una idea de alianza o solo un saludo, entra a nuestra
           <a href="/contact">página de contacto</a> y elige el buzón que
           corresponda. También puedes leer nuestra
           <a href="/privacy">política de privacidad</a> y nuestros
@@ -348,10 +468,10 @@
           "
         >
           <p style="color: var(--ink-soft); font-size: 0.9rem; margin: 0">
-            <strong>En una línea:</strong> FolioSense es una herramienta gratuita
-            que lee tu portafolio y te lo explica como lo haría una persona.
-            Ganamos dinero con anuncios y referidos honestos, nunca vendiendo tus
-            datos.
+            <strong>En una línea:</strong> FolioSense es una herramienta
+            gratuita que lee tu portafolio y te lo explica como lo haría una
+            persona. Ganamos dinero con anuncios y referidos honestos, nunca
+            vendiendo tus datos.
           </p>
         </div>
       </div>

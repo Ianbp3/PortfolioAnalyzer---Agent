@@ -76,6 +76,12 @@
         "description": "A single stock eating up 25% of your portfolio is a time bomb. Here's how to measure concentration risk and what to do about it.",
         "url": "https://foliosenseapp.com/blog/portfolio-concentration-risk",
         "datePublished": "2026-04-28",
+        "author": {
+          "@type": "Person",
+          "name": "Ian Beltrand",
+          "url": "https://foliosenseapp.com/about",
+          "sameAs": "https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+        },
         "publisher": {
           "@type": "Organization",
           "name": "FolioSense",
@@ -103,6 +109,18 @@
         padding: 3px 10px;
         border-radius: 99px;
         background: var(--accent-light);
+        color: var(--accent);
+      }
+      .article-byline {
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+      }
+      .article-byline a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        border-bottom: 1px solid var(--paper-warm);
+      }
+      .article-byline a:hover {
         color: var(--accent);
       }
       .article-date {
@@ -252,6 +270,9 @@
         <div class="article-meta">
           <span class="article-date">April 28, 2026</span>
           <span class="article-tag">5 min read</span>
+          <span class="article-byline"
+            >Written by <a href="/about">Ian Beltrand</a></span
+          >
         </div>
         <p
           style="
