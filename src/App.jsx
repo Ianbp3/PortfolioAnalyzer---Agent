@@ -76,6 +76,7 @@ export default function App() {
   return (
     <Layout style={{ minHeight: "100vh", background: "var(--paper)" }}>
       <Header
+        className="dash-header"
         style={{
           background: "var(--white)",
           borderBottom: "1px solid var(--paper-warm)",
@@ -92,6 +93,7 @@ export default function App() {
       >
         <a
           href="https://www.foliosenseapp.com"
+          className="dash-back"
           style={{
             textDecoration: "none",
             fontSize: "0.75rem",
@@ -107,7 +109,7 @@ export default function App() {
           }
         >
           <ArrowLeftOutlined style={{ fontSize: 12 }} />
-          {t.back_link}
+          <span className="dash-back-text">{t.back_link}</span>
         </a>
 
         <a
@@ -123,9 +125,13 @@ export default function App() {
           Folio<span style={{ color: "var(--accent)" }}>Sense</span>
         </a>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div
+          className="dash-actions"
+          style={{ display: "flex", alignItems: "center", gap: 10 }}
+        >
           <a
             href="https://www.foliosenseapp.com/how-it-works"
+            className="dash-howto"
             style={{
               background: "transparent",
               border: "1.5px solid var(--paper-warm)",
@@ -212,8 +218,12 @@ export default function App() {
         ></script>
       </Header>
 
-      <Content style={{ padding: "32px", background: "var(--paper)" }}>
+      <Content
+        className="dash-content"
+        style={{ padding: "32px", background: "var(--paper)" }}
+      >
         <div
+          className="dash-grid"
           style={{
             display: "flex",
             gap: 24,
@@ -381,6 +391,7 @@ export default function App() {
             {/* STATS ROW */}
             {analysis && (
               <div
+                className="dash-stats"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(4, 1fr)",
@@ -556,7 +567,10 @@ export default function App() {
 
             {/* RADAR + SCATTER */}
             {analysis && positions.length > 0 && (
-              <div style={{ display: "flex", gap: 24, marginBottom: 24 }}>
+              <div
+                className="dash-charts-row"
+                style={{ display: "flex", gap: 24, marginBottom: 24 }}
+              >
                 <div
                   className="section-card"
                   style={{ flex: 1, marginBottom: 0 }}
@@ -590,6 +604,7 @@ export default function App() {
           {/* CHAT */}
           {chatOpen && (
             <div
+              className="dash-chat"
               style={{
                 flex: 1,
                 maxWidth: 380,

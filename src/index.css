@@ -130,3 +130,62 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ink-muted);
 }
+
+/* ────────────────  RESPONSIVE / MOBILE  ──────────────── */
+
+/* Tablet & below: stack the two-column layout (analysis + chat sidebar) */
+@media (max-width: 960px) {
+  .dash-grid {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .dash-chat {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    position: static !important;
+    height: 70vh !important;
+  }
+  /* Radar + scatter stop fighting for width and stack instead */
+  .dash-charts-row {
+    flex-direction: column !important;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .dash-header {
+    padding: 0 16px !important;
+  }
+  .dash-actions {
+    gap: 6px !important;
+  }
+  /* Free up the cramped top bar: drop the secondary link and back-label */
+  .dash-howto {
+    display: none !important;
+  }
+  .dash-back-text {
+    display: none;
+  }
+
+  .dash-content {
+    padding: 16px !important;
+  }
+
+  /* Four squished stat cells become a comfortable 2 x 2 grid */
+  .dash-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* Tighter card padding so content breathes on small screens */
+  .section-card {
+    padding: 18px 16px !important;
+  }
+  .stat-card {
+    padding: 14px 16px !important;
+  }
+  .stat-value {
+    font-size: 1.35rem;
+  }
+}
