@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Spin, Alert } from "antd";
 import {
   ArrowLeftOutlined,
@@ -19,6 +19,8 @@ import { Icon } from "./components/Icons";
 import SectorComparison from "./components/SectorComparison";
 import { analyzePortfolio } from "./api/chat";
 import { useLang } from "./hooks/useLang";
+import { usePersistedState } from "./hooks/usePersistedState";
+import DownloadPdfButton from "./components/DownloadPdfButton";
 
 const { Header, Content } = Layout;
 
@@ -44,8 +46,16 @@ function formatCurrency(v) {
 export default function App() {
   const { toggleLang, t, lang } = useLang();
 
-  const [positions, setPositions] = useState([]);
-  const [analysis, setAnalysis] = useState(null);
+  // Persisted to localStorage so the portfolio survives a page reload / revisit.
+  // Data lives only in the user's browser — it is never sent to a server.
+  const [positions, setPositions] = usePersistedState(
+    "foliosense_positions",
+    [],
+  );
+  const [analysis, setAnalysis] = usePersistedState(
+    "foliosense_analysis",
+    null,
+  );
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [analyzeError, setAnalyzeError] = useState(null);
   const [chatOpen, setChatOpen] = useState(true);
@@ -70,6 +80,22 @@ export default function App() {
       setLoadingAnalysis(false);
     }
   }
+
+  function handleClear() {
+    setPositions([]);
+    setAnalysis(null);
+    setAnalyzeError(null);
+  }
+
+  // Safety net: if the user reloaded while analysis was still computing, we'll
+  // have restored positions but no analysis. Re-run it once on mount so the
+  // dashboard always shows a complete, consistent state.
+  useEffect(() => {
+    if (positions.length > 0 && !analysis && !loadingAnalysis) {
+      handlePositionsLoaded(positions);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const notes = analysis?.noteKeys?.map((k) => t[k]).filter(Boolean) || [];
 
@@ -188,6 +214,12 @@ export default function App() {
           >
             {t.lang_toggle}
           </button>
+
+          <DownloadPdfButton
+            analysis={analysis}
+            positions={positions}
+            lang={lang}
+          />
 
           <button
             className="dash-chat-toggle"
@@ -365,10 +397,45 @@ export default function App() {
                         />
                         {t.portfolio_loaded} · {positions.length} {t.assets}
                       </span>
-                      <FileUploader
-                        onPortfolioParsed={handlePositionsLoaded}
-                        compact
-                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                        }}
+                      >
+                        <button
+                          onClick={handleClear}
+                          style={{
+                            background: "transparent",
+                            border: "1.5px solid var(--paper-warm)",
+                            borderRadius: 99,
+                            padding: "4px 14px",
+                            fontFamily: "var(--font-body)",
+                            fontWeight: 600,
+                            fontSize: "0.8rem",
+                            color: "var(--ink-muted)",
+                            cursor: "pointer",
+                            whiteSpace: "nowrap",
+                            transition: "color 0.2s, border-color 0.2s",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = "var(--danger)";
+                            e.currentTarget.style.color = "var(--danger)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor =
+                              "var(--paper-warm)";
+                            e.currentTarget.style.color = "var(--ink-muted)";
+                          }}
+                        >
+                          {lang === "es" ? "Borrar" : "Clear"}
+                        </button>
+                        <FileUploader
+                          onPortfolioParsed={handlePositionsLoaded}
+                          compact
+                        />
+                      </div>
                     </div>
                   )}
                   {loadingAnalysis && (

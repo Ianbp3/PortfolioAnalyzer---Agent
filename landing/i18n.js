@@ -38,6 +38,10 @@ var TRANSLATIONS = {
     feat4_desc:
       "No subscription. No account. No credit card. FolioSense is free forever for personal portfolio analysis.",
 
+    feat5_title: "Download a PDF snapshot",
+    feat5_desc:
+      "Save a clean, branded PDF of your full analysis. Risk score, sector breakdown, and every holding included. Keep it, print it, or share it.",
+
     steps_badge: "Simple process",
     steps_h2: "Ready in three steps.",
     steps_sub:
@@ -206,6 +210,10 @@ var TRANSLATIONS = {
     feat4_title: "Completamente gratis",
     feat4_desc:
       "Sin suscripción. Sin cuenta. Sin tarjeta de crédito. FolioSense es gratis para siempre para análisis personales.",
+
+    feat5_title: "Descarga un PDF de tu análisis",
+    feat5_desc:
+      "Guarda un PDF con tu marca y tu análisis completo. Incluye puntaje de riesgo, desglose por sector y cada posición. Guárdalo, imprímelo o compártelo.",
 
     steps_badge: "Proceso simple",
     steps_h2: "Listo en tres pasos.",

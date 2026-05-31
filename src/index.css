@@ -179,6 +179,16 @@ body {
     gap: 0 !important;
   }
 
+  .dash-pdf-text {
+    display: none;
+  }
+  .dash-pdf-btn {
+    padding: 0 !important;
+    width: 32px;
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+
   .dash-content {
     padding: 16px !important;
   }
