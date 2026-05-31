@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "slug": "portfolio-overlap-hidden-stock-exposure",
+      "slugEs": "overlapping-portafolio-exposicion-oculta-acciones",
+      "titleEn": "Portfolio Overlap: You Probably Own More of One Stock Than You Think",
+      "titleEs": "Overlapping: Probablemente Tienes Más de una Acción de lo que Crees",
+      "descEn": "You think you own 20% of one stock, but ETF overlap can push your real exposure far higher. Learn how portfolio overlap hides concentration risk.",
+      "descEs": "Crees que tienes 20% de una acción, pero el overlapping de los ETF puede elevar tu exposición real. Aprende a detectar este riesgo oculto.",
+      "published": "2026-05-30",
+      "tags": [
+        "portfolio overlap",
+        "ETF overlap",
+        "hidden stock exposure",
+        "concentration risk",
+        "S&P 500",
+        "diversification",
+        "look-through exposure",
+        "Magnificent 7",
+        "index funds",
+        "risk management",
+        "stock market",
+        "long term investing"
+      ],
+      "featured": true
+    },
+    {
       "slug": "investing-in-gta-6-entertainment-opportunity-beyond-tech",
       "slugEs": "invertir-en-gta-6-oportunidad-entretenimiento-fuera-tecnologia",
       "titleEn": "Investing in GTA 6: The Entertainment Opportunity Beyond Tech Stocks",
