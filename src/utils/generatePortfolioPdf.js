@@ -1,16 +1,20 @@
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import html2canvas from "html2canvas";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FolioSense — Portfolio Snapshot PDF generator
 //
-// Builds a branded, single-call PDF report from the analysis object returned by
-// analyzePortfolio() plus the raw positions array. Everything runs in the
-// browser: no server, no holdings ever leave the user's device.
+// Builds a branded PDF from the analysis object returned by analyzePortfolio()
+// plus the raw positions array. The header, summary stats, risk meter and
+// holdings table are drawn as crisp vector. The actual dashboard charts are
+// captured live from the DOM (any element tagged data-pdf-chart) and embedded
+// as images, so the report matches what the user sees on screen.
 //
-// Usage:
-//   import { generatePortfolioPdf } from "../utils/generatePortfolioPdf";
-//   generatePortfolioPdf(analysis, positions, "en");
+// Everything runs in the browser: no server, no holdings ever leave the device.
+//
+// Usage (async):
+//   await generatePortfolioPdf(analysis, positions, "en");
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Brand palette (RGB)
@@ -35,8 +39,8 @@ const L = {
     risk_high: "High",
     risk_mid: "Moderate",
     risk_low: "Low",
-    sector_alloc: "Sector allocation",
     insights: "Insights",
+    charts_heading: "Visual analysis",
     holdings: "Holdings",
     col_symbol: "Symbol",
     col_shares: "Shares",
@@ -70,8 +74,8 @@ const L = {
     risk_high: "Alto",
     risk_mid: "Moderado",
     risk_low: "Bajo",
-    sector_alloc: "Asignación por sector",
     insights: "Observaciones",
+    charts_heading: "Análisis visual",
     holdings: "Posiciones",
     col_symbol: "Símbolo",
     col_shares: "Cantidad",
@@ -121,12 +125,15 @@ function riskLabel(score, t) {
   return t.risk_low;
 }
 
-export function generatePortfolioPdf(analysis, positions, lang = "en") {
+export async function generatePortfolioPdf(analysis, positions, lang = "en") {
   const t = L[lang] || L.en;
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth(); // 210
+  const pageH = doc.internal.pageSize.getHeight(); // 297
   const M = 15; // margin
   const contentW = pageW - M * 2;
+  const FOOTER_SPACE = 18; // reserved bottom margin
+  const NEW_PAGE_TOP = 20; // top start for added pages
 
   // ── Header band ────────────────────────────────────────────────────────────
   doc.setFillColor(...GREEN);
@@ -163,10 +170,7 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
   const stats = [
     { label: t.total_value, value: fmtMoney(analysis.totalValue, lang) },
     { label: t.assets, value: String(analysis.diversification ?? 0) },
-    {
-      label: t.max_concentration,
-      value: fmtPct(analysis.concentration || 0),
-    },
+    { label: t.max_concentration, value: fmtPct(analysis.concentration || 0) },
     { label: t.risk_score, value: String(analysis.riskScore ?? 0) },
   ];
 
@@ -190,11 +194,7 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
   doc.setTextColor(...INK);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
-  doc.text(
-    `${t.risk_score}: ${score} (${riskLabel(score, t)})`,
-    M,
-    y,
-  );
+  doc.text(`${t.risk_score}: ${score} (${riskLabel(score, t)})`, M, y);
   y += 4;
   const barH = 5;
   doc.setFillColor(...LINE);
@@ -202,39 +202,6 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
   doc.setFillColor(...riskColor(score));
   doc.roundedRect(M, y, (contentW * score) / 100, barH, 1.5, 1.5, "F");
   y += barH + 12;
-
-  // ── Sector allocation bars ─────────────────────────────────────────────────
-  const sectors = Object.entries(analysis.sectors || {})
-    .map(([name, info]) => ({ name, value: info.value || 0 }))
-    .sort((a, b) => b.value - a.value);
-
-  if (sectors.length > 0) {
-    doc.setTextColor(...INK);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text(t.sector_alloc, M, y);
-    y += 6;
-
-    const labelW = 50;
-    const barMaxW = contentW - labelW - 22;
-    const maxVal = sectors[0].value || 1;
-    const total = analysis.totalValue || 1;
-
-    sectors.forEach((s, i) => {
-      const barLen = Math.max(1.5, (s.value / maxVal) * barMaxW);
-      doc.setTextColor(...INK);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8.5);
-      const name = s.name.length > 24 ? s.name.slice(0, 22) + "…" : s.name;
-      doc.text(name, M, y + 3);
-      doc.setFillColor(...(i === 0 ? GOLD : GREEN));
-      doc.roundedRect(M + labelW, y, barLen, 4, 1, 1, "F");
-      doc.setTextColor(...MUTED);
-      doc.text(fmtPct(s.value / total), M + labelW + barLen + 2, y + 3);
-      y += 7;
-    });
-    y += 6;
-  }
 
   // ── Insights ───────────────────────────────────────────────────────────────
   const notes = (analysis.noteKeys || [])
@@ -255,7 +222,65 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
       doc.text(lines, M, y);
       y += lines.length * 5 + 1;
     });
-    y += 6;
+    y += 8;
+  }
+
+  // ── Captured charts ────────────────────────────────────────────────────────
+  // Grabs every element tagged with data-pdf-chart in the live dashboard,
+  // rasterizes it, and lays it into the report. Wrapped per-chart so a single
+  // failure is skipped instead of breaking the whole export.
+  const nodes = Array.from(document.querySelectorAll("[data-pdf-chart]"));
+  if (nodes.length > 0) {
+    // Wait for web fonts so captured text isn't a fallback face
+    try {
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    } catch (e) {
+      /* ignore */
+    }
+
+    // Section heading
+    if (y + 14 > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = NEW_PAGE_TOP;
+    }
+    doc.setTextColor(...INK);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text(t.charts_heading, M, y);
+    y += 8;
+
+    const maxChartH = 110; // mm — keep any single chart from dominating a page
+
+    for (const node of nodes) {
+      let canvas;
+      try {
+        canvas = await html2canvas(node, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true,
+          logging: false,
+        });
+      } catch (e) {
+        console.warn("Chart capture skipped:", e);
+        continue;
+      }
+
+      const img = canvas.toDataURL("image/png");
+      let w = contentW;
+      let h = (canvas.height / canvas.width) * w;
+      if (h > maxChartH) {
+        h = maxChartH;
+        w = (canvas.width / canvas.height) * h;
+      }
+      const x = M + (contentW - w) / 2;
+
+      if (y + h > pageH - FOOTER_SPACE) {
+        doc.addPage();
+        y = NEW_PAGE_TOP;
+      }
+      doc.addImage(img, "PNG", x, y, w, h);
+      y += h + 8;
+    }
   }
 
   // ── Holdings table ───────────────────────────────────────────────────────
@@ -276,6 +301,16 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
       ];
     });
 
+  if (y + 24 > pageH - FOOTER_SPACE) {
+    doc.addPage();
+    y = NEW_PAGE_TOP;
+  }
+  doc.setTextColor(...INK);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text(t.holdings, M, y);
+  y += 4;
+
   autoTable(doc, {
     startY: y,
     head: [
@@ -292,7 +327,11 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
     body: rows,
     margin: { left: M, right: M },
     styles: { font: "helvetica", fontSize: 8.5, cellPadding: 2 },
-    headStyles: { fillColor: GREEN, textColor: [255, 255, 255], fontStyle: "bold" },
+    headStyles: {
+      fillColor: GREEN,
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+    },
     alternateRowStyles: { fillColor: [248, 250, 249] },
     columnStyles: {
       1: { halign: "right" },
@@ -301,7 +340,6 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
       4: { halign: "right" },
       6: { halign: "right" },
     },
-    // Color ROI column red/green based on sign
     didParseCell: (data) => {
       if (data.section === "body" && data.column.index === 6) {
         const txt = data.cell.raw;
@@ -316,7 +354,6 @@ export function generatePortfolioPdf(analysis, positions, lang = "en") {
 
   // ── Footer on every page ───────────────────────────────────────────────────
   const pageCount = doc.internal.getNumberOfPages();
-  const pageH = doc.internal.pageSize.getHeight();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setDrawColor(...LINE);

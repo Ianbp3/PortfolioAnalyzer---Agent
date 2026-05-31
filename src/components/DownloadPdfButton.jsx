@@ -11,7 +11,11 @@ import { generatePortfolioPdf } from "../utils/generatePortfolioPdf";
  * Usage:
  *   <DownloadPdfButton analysis={analysis} positions={positions} lang={lang} />
  */
-export default function DownloadPdfButton({ analysis, positions, lang = "en" }) {
+export default function DownloadPdfButton({
+  analysis,
+  positions,
+  lang = "en",
+}) {
   const [busy, setBusy] = useState(false);
   const disabled = !analysis || busy;
 
@@ -23,9 +27,9 @@ export default function DownloadPdfButton({ analysis, positions, lang = "en" }) 
     if (disabled) return;
     setBusy(true);
     try {
-      // Yield a frame so the spinner paints before the (sync) PDF build
-      await new Promise((r) => setTimeout(r, 30));
-      generatePortfolioPdf(analysis, positions, lang);
+      // Let the spinner paint before the capture work begins
+      await new Promise((r) => requestAnimationFrame(() => r()));
+      await generatePortfolioPdf(analysis, positions, lang);
     } catch (err) {
       console.error("PDF generation failed:", err);
       message.error(

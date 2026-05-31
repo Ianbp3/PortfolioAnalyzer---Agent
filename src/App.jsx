@@ -570,7 +570,7 @@ export default function App() {
 
             {/* SECTORS */}
             {analysis && (
-              <div className="section-card">
+              <div className="section-card" data-pdf-chart="sectors">
                 <h3 className="section-title">{t.sect_sectors}</h3>
                 <div
                   style={{
@@ -622,7 +622,7 @@ export default function App() {
 
             {/* DISTRIBUTION */}
             {positions.length > 0 && (
-              <div className="section-card">
+              <div className="section-card" data-pdf-chart="distribution">
                 <h3 className="section-title">{t.sect_distribution}</h3>
                 <PortfolioCharts data={positions} />
               </div>
@@ -644,12 +644,14 @@ export default function App() {
                 <div
                   className="section-card"
                   style={{ flex: 1, marginBottom: 0 }}
+                  data-pdf-chart="radar"
                 >
                   <PortfolioRadar analysis={analysis} />
                 </div>
                 <div
                   className="section-card"
                   style={{ flex: 1, marginBottom: 0 }}
+                  data-pdf-chart="scatter"
                 >
                   <ScatterRiskReturn positions={positions} />
                 </div>
@@ -658,14 +660,14 @@ export default function App() {
 
             {/* SECTOR RANKING */}
             {positions.length > 0 && (
-              <div className="section-card">
+              <div className="section-card" data-pdf-chart="sector-ranking">
                 <SectorRanking positions={positions} />
               </div>
             )}
 
             {/* ASSET RANKING */}
             {positions.length > 0 && (
-              <div className="section-card">
+              <div className="section-card" data-pdf-chart="asset-ranking">
                 <AssetRanking positions={positions} />
               </div>
             )}
