@@ -412,8 +412,46 @@ function toggleLang() {
   applyLang(c === "en" ? "es" : "en");
 }
 
+function injectMobileMenu() {
+  var nav = document.querySelector("nav");
+  var links = nav && nav.querySelector(".nav-links");
+  if (!nav || !links || nav.querySelector(".menu-toggle")) return;
+
+  var btn = document.createElement("button");
+  btn.className = "menu-toggle";
+  btn.setAttribute("aria-label", "Open menu");
+  btn.setAttribute("aria-expanded", "false");
+  btn.innerHTML = "<span></span>";
+  nav.appendChild(btn);
+
+  function close() {
+    links.classList.remove("show");
+    btn.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Open menu");
+  }
+
+  btn.addEventListener("click", function () {
+    var open = links.classList.toggle("show");
+    btn.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+
+  // Close after tapping a link (but not the language toggle)
+  links.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", close);
+  });
+
+  // Close when tapping outside the nav
+  document.addEventListener("click", function (e) {
+    if (!nav.contains(e.target)) close();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   injectFooterLinks();
+  injectMobileMenu();
   applyLang(detectLang());
   var btn = document.getElementById("lang-toggle");
   if (btn) btn.addEventListener("click", toggleLang);
