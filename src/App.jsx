@@ -190,6 +190,7 @@ export default function App() {
           </button>
 
           <button
+            className="dash-chat-toggle"
             onClick={() => setChatOpen((v) => !v)}
             style={{
               background: chatOpen ? "var(--ink)" : "var(--accent)",
@@ -208,7 +209,9 @@ export default function App() {
             }}
           >
             {chatOpen ? <CloseOutlined /> : <MessageOutlined />}
-            {chatOpen ? t.chat_close : t.chat_open}
+            <span className="dash-chat-toggle-text">
+              {chatOpen ? t.chat_close : t.chat_open}
+            </span>
           </button>
         </div>
         <script

@@ -160,25 +160,34 @@ body {
   .dash-actions {
     gap: 6px !important;
   }
-  /* Free up the cramped top bar: drop the secondary link and back-label */
+
   .dash-howto {
     display: none !important;
   }
-  .dash-back-text {
+
+  .dash-back {
+    display: none !important;
+  }
+
+  .dash-chat-toggle-text {
     display: none;
+  }
+  .dash-chat-toggle {
+    padding: 0 !important;
+    width: 32px;
+    justify-content: center !important;
+    gap: 0 !important;
   }
 
   .dash-content {
     padding: 16px !important;
   }
 
-  /* Four squished stat cells become a comfortable 2 x 2 grid */
   .dash-stats {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
   }
 
-  /* Tighter card padding so content breathes on small screens */
   .section-card {
     padding: 18px 16px !important;
   }
