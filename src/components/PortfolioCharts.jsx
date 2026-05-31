@@ -59,8 +59,8 @@ const SP500_ETFS = new Set([
 // as of early 2025). Used to compute "look-through" exposure: if you hold VOO,
 // your true exposure to e.g. MSFT = (your VOO weight) × (MSFT weight in the index).
 // The index is very top-heavy, so the top ~40 names capture nearly all overlap.
-// NOTE: GOOG/GOOGL are both credited the COMBINED Alphabet weight (~3.9%), since
-// owning either share class gives economic exposure to Alphabet via the ETF.
+// NOTE: multi-share-class companies (e.g. Alphabet's GOOG/GOOGL) are NOT listed
+// here — they're handled by DUAL_CLASS_GROUPS below so they count as one company.
 // Refresh these periodically (same as SP500_SECTOR_WEIGHTS in the backend).
 // ─────────────────────────────────────────────────────────────────────────────
 const SP500_CONSTITUENT_WEIGHTS = {
@@ -69,8 +69,6 @@ const SP500_CONSTITUENT_WEIGHTS = {
   NVDA: 0.065,
   AMZN: 0.039,
   META: 0.026,
-  GOOGL: 0.039,
-  GOOG: 0.039,
   AVGO: 0.02,
   TSLA: 0.018,
   "BRK.B": 0.017,
@@ -116,6 +114,21 @@ const SP500_CONSTITUENT_WEIGHTS = {
   PYPL: 0.003,
   LULU: 0.001,
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Companies that appear in the index under more than one share class.
+// `combined` = the company's total weight in the S&P 500 (what one economic
+// position is worth). `perClass` = each class's own weight, used ONLY to avoid
+// double-counting when you happen to hold more than one class at the same time.
+// To add another (e.g. Fox FOX/FOXA, News Corp NWS/NWSA), just append an entry.
+// ─────────────────────────────────────────────────────────────────────────────
+const DUAL_CLASS_GROUPS = [
+  {
+    classes: ["GOOG", "GOOGL"], // Alphabet
+    combined: 0.039,
+    perClass: { GOOG: 0.018, GOOGL: 0.021 },
+  },
+];
 
 function renderLabel({
   cx,
@@ -196,6 +209,22 @@ export default function PortfolioCharts({ data }) {
         )
       : 0;
 
+  // Symbols the portfolio actually holds — used to resolve dual-class companies.
+  const heldSymbols = new Set(data.map((p) => (p.symbol || "").toUpperCase()));
+
+  // Effective S&P 500 weight for a symbol, treating a multi-class company as one
+  // position — and splitting it only if you happen to hold more than one class.
+  function constituentWeightFor(sym) {
+    for (const g of DUAL_CLASS_GROUPS) {
+      if (g.classes.includes(sym)) {
+        const heldClasses = g.classes.filter((c) => heldSymbols.has(c));
+        if (heldClasses.length <= 1) return g.combined; // count as one company
+        return g.perClass[sym] ?? g.combined / g.classes.length; // split, no double-count
+      }
+    }
+    return SP500_CONSTITUENT_WEIGHTS[sym] || 0;
+  }
+
   const finalData = data.map((item) => {
     const sym = (item.symbol || "").toUpperCase();
     const isEtf = SP500_ETFS.has(sym);
@@ -204,7 +233,7 @@ export default function PortfolioCharts({ data }) {
 
     // Implied exposure this holding ALSO has hidden inside your S&P 500 ETFs.
     // ETFs themselves get no ghost (they are the wrapper, not a constituent).
-    const constituentWeight = SP500_CONSTITUENT_WEIGHTS[sym] || 0;
+    const constituentWeight = constituentWeightFor(sym);
     const implied = isEtf
       ? 0
       : Number((sp500Weight * constituentWeight * 100).toFixed(2));

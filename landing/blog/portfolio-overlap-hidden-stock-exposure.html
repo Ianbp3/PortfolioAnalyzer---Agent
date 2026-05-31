@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Portfolio Overlap: You Probably Own More of One Stock Than You Think |
+      FolioSense
+    </title>
+    <meta
+      name="description"
+      content="You think you own 20% of one stock, but ETF overlap can push your real exposure far higher. Learn how portfolio overlap hides concentration risk."
+    />
+    <meta
+      name="keywords"
+      content="portfolio overlap, ETF overlap, hidden stock exposure, concentration risk, S&P 500 overlap, diversification, look-through exposure, Magnificent 7, index funds, risk management, stock market"
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"
+    />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://foliosenseapp.com/blog/es/overlapping-portafolio-exposicion-oculta-acciones"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Portfolio Overlap: You Probably Own More of One Stock Than You Think"
+    />
+    <meta
+      property="og:description"
+      content="You think you own 20% of one stock, but ETF overlap can push your real exposure far higher. Learn how portfolio overlap hides concentration risk."
+    />
+    <meta
+      property="og:url"
+      content="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:image"
+      content="https://foliosenseapp.com/blog/images/portfolio-overlap-look-through-exposure-en.png"
+    />
+    <meta property="og:image:width" content="1680" />
+    <meta property="og:image:height" content="945" />
+    <meta
+      property="og:image:alt"
+      content="Weight-by-holding chart where each bar splits into a direct holding and a lighter segment showing hidden exposure that arrives through an S&P 500 ETF. A callout on NVDA shows 2.33% direct plus 3.30% via the ETF for 5.63% real exposure."
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Portfolio Overlap: You Probably Own More of One Stock Than You Think"
+    />
+    <meta
+      name="twitter:description"
+      content="ETF overlap can quietly double your exposure to a single stock or sector. Here is how to spot it before it hurts you."
+    />
+    <meta
+      name="twitter:image"
+      content="https://foliosenseapp.com/blog/images/portfolio-overlap-look-through-exposure-en.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Weight-by-holding chart with each bar split into direct holdings and hidden ETF exposure, highlighting NVDA at 5.63% real exposure"
+    />
+
+    <!-- Article schema with ImageObject (helps Google Images discoverability) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Portfolio Overlap: You Probably Own More of One Stock Than You Think",
+        "description": "You think you own 20% of one stock, but ETF overlap can push your real exposure far higher. Learn how portfolio overlap hides concentration risk.",
+        "url": "https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure",
+        "datePublished": "2026-05-30",
+        "dateModified": "2026-05-30",
+        "author": {
+          "@type": "Person",
+          "name": "Ian Beltrand",
+          "url": "https://foliosenseapp.com/about",
+          "sameAs": "https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "FolioSense",
+          "url": "https://foliosenseapp.com"
+        },
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://foliosenseapp.com/blog/images/portfolio-overlap-look-through-exposure-en.png",
+          "width": 1680,
+          "height": 945,
+          "caption": "Example weight-by-holding view: each bar splits into your direct position and a lighter segment for the hidden exposure arriving through an S&P 500 ETF, with NVDA shown at 5.63% real exposure."
+        },
+        "inLanguage": "en",
+        "about": [
+          "portfolio overlap",
+          "ETF overlap",
+          "concentration risk",
+          "diversification",
+          "index funds"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      .article-hero {
+        background: var(--ink);
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+      }
+      .article-byline {
+        font-size: 0.8rem;
+        color: rgba(247, 246, 242, 0.5);
+      }
+      .article-byline a {
+        color: rgba(247, 246, 242, 0.85);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(247, 246, 242, 0.3);
+      }
+      .article-byline a:hover {
+        color: var(--paper);
+      }
+      .article-meta-date {
+        font-size: 0.8rem;
+        color: rgba(247, 246, 242, 0.5);
+      }
+      .article-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(247, 246, 242, 0.6);
+      }
+      .article-body {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+      }
+      .article-body h2 {
+        font-family: var(--font-display);
+        font-size: clamp(1.25rem, 3vw, 1.55rem);
+        font-weight: 700;
+        color: var(--ink);
+        margin: 3rem 0 0.85rem;
+        line-height: 1.25;
+      }
+      .article-body h3 {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--ink);
+        margin: 2rem 0 0.6rem;
+      }
+      .article-body p {
+        color: var(--ink-soft);
+        line-height: 1.8;
+        margin-bottom: 1.1rem;
+        font-size: 1.05rem;
+      }
+      .article-body ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1.1rem;
+      }
+      .article-body li {
+        color: var(--ink-soft);
+        margin-bottom: 0.5rem;
+        line-height: 1.75;
+        font-size: 1.05rem;
+      }
+      .article-body strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .article-body hr {
+        border: none;
+        border-top: 1px solid var(--paper-warm);
+        margin: 2.5rem 0;
+      }
+      blockquote {
+        border-left: 3px solid var(--accent);
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background: var(--white);
+        border-radius: 0 var(--radius) var(--radius) 0;
+      }
+      blockquote p {
+        font-style: italic;
+        color: var(--ink) !important;
+        margin-bottom: 0.25rem !important;
+        font-size: 1rem !important;
+      }
+      blockquote cite {
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+        font-style: normal;
+      }
+      .takeaway-box {
+        background: var(--accent-light);
+        border: 1px solid var(--accent);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem 2rem;
+        margin: 2.5rem 0;
+      }
+      .takeaway-box p {
+        color: var(--ink) !important;
+        margin-bottom: 0 !important;
+        font-size: 1rem !important;
+      }
+      .takeaway-box strong {
+        color: var(--accent) !important;
+      }
+      .inline-cta {
+        background: var(--ink);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        margin: 3rem 0;
+      }
+      .inline-cta h3 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--paper);
+        margin: 0 0 0.5rem;
+      }
+      .inline-cta p {
+        color: rgba(247, 246, 242, 0.6);
+        font-size: 0.9rem;
+        margin: 0 0 1.25rem;
+      }
+      /* ── Article figure (chart, image, diagram) ── */
+      .article-figure {
+        margin: 2.5rem 0;
+        text-align: center;
+      }
+      .article-figure img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--paper-warm);
+        box-shadow: var(--shadow);
+        background: var(--paper);
+      }
+      .article-figcaption {
+        margin-top: 0.9rem;
+        font-size: 0.85rem;
+        color: var(--ink-muted);
+        font-style: italic;
+        line-height: 1.55;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      details {
+        border: 1px solid var(--paper-warm);
+        border-radius: var(--radius);
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+      }
+      summary {
+        padding: 1rem 1.25rem;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--ink);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      summary::after {
+        content: "+";
+        font-size: 1.1rem;
+        color: var(--accent);
+      }
+      details[open] summary::after {
+        content: "−";
+      }
+      details > div {
+        padding: 0 1.25rem 1rem;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+    </style>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5965745153374411"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- ── NAV ── -->
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+        <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+        <a href="/blog" data-i18n="nav_blog" style="color: var(--accent)"
+          >Blog</a
+        >
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta"
+          >Launch app →</a
+        >
+        <button
+          id="lang-toggle"
+          style="
+            background: transparent;
+            border: 1.5px solid var(--paper-warm);
+            border-radius: 99px;
+            padding: 5px 13px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink);
+            cursor: pointer;
+          "
+        >
+          ES
+        </button>
+      </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="article-hero">
+      <div style="max-width: 720px; margin: 0 auto">
+        <div class="article-meta">
+          <span class="article-tag">Risk</span>
+          <span class="article-tag">ETFs</span>
+          <span class="article-tag">Diversification</span>
+          <span class="article-meta-date">May 30, 2026</span>
+          <span class="article-byline"
+            >Written by <a href="/about">Ian Beltrand</a></span
+          >
+        </div>
+        <h1
+          style="
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--paper);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+          "
+        >
+          Portfolio Overlap: You Probably Own More of One Stock Than You Think
+        </h1>
+        <p
+          style="
+            color: rgba(247, 246, 242, 0.65);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 600px;
+          "
+        >
+          You think you own 20% of one stock. With ETF overlap, your real
+          exposure can be far higher. Here is how concentration hides in plain
+          sight, and how to find it.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── ARTICLE BODY ── -->
+    <article class="article-body">
+      <p>
+        Imagine opening your brokerage account and feeling calm. You own a
+        little of everything. A broad S&P 500 ETF for safety. A few favorite
+        companies you believe in. Some international funds. On paper, it looks
+        diversified.
+      </p>
+      <p>Then the market drops, and everything falls at once.</p>
+      <p>
+        Not just your tech stocks. Your "safe" index fund too. Your
+        "diversified" mix behaves like a single bet. That sinking feeling has a
+        name, and most investors never see it coming.
+      </p>
+      <p>It is called portfolio overlap.</p>
+      <p>
+        Overlap is the quiet reason a portfolio that looks spread out can be
+        dangerously concentrated underneath. You can own the same company three
+        times without realizing it. You can think you have 20 percent in one
+        stock when your true exposure is closer to 40 percent. And the gap
+        between what you think you own and what you really own is exactly where
+        risk lives.
+      </p>
+
+      <h2>Owning Too Much of One Stock Is a Quiet Risk</h2>
+      <p>
+        Concentration is seductive. When a stock keeps rising, holding a large
+        position feels less like risk and more like conviction. The problem is
+        that conviction does not protect you from reality.
+      </p>
+      <p>
+        A single company carries company specific risk: a bad earnings report,
+        a regulatory investigation, a product that fails, a founder who leaves,
+        an accounting scandal. None of these are predictable, and any one of
+        them can erase years of gains in a single session.
+      </p>
+      <p>
+        When one position grows too large, your financial future stops
+        depending on the market and starts depending on the decisions of one
+        management team. That is a fragile place to stand. Warren Buffett put
+        the idea in plain terms:
+      </p>
+      <blockquote>
+        <p>"Risk comes from not knowing what you're doing."</p>
+        <cite>— Warren Buffett</cite>
+      </blockquote>
+      <p>
+        The danger with overlap is precisely this. It is not that
+        concentration is always wrong. It is that most people are concentrated
+        without knowing it, which means they cannot manage a risk they cannot
+        even see.
+      </p>
+
+      <h2>How ETFs Actually Work (The Part Nobody Reads)</h2>
+      <p>
+        To understand overlap, you first need to understand what an ETF really
+        is.
+      </p>
+      <p>
+        An ETF (an exchange traded fund) is a single ticker that holds a basket
+        of many individual assets. When you buy one share of an S&P 500 ETF,
+        you are not buying one thing. You are buying a tiny slice of roughly 500
+        companies at once. That convenience is the whole appeal. One purchase,
+        instant diversification.
+      </p>
+      <p>But here is the part that gets glossed over.</p>
+      <p>
+        Most popular index ETFs are weighted by market capitalization. That
+        means the biggest companies take up the biggest share of the fund. The
+        S&P 500 is not 500 equal slices of 0.2 percent each. The largest
+        handful of companies can make up a third of the entire index by
+        themselves.
+      </p>
+      <p>
+        So when you buy a broad market ETF, you are not buying 500 companies
+        equally. You are buying a heavy dose of the same few giants that
+        dominate every other fund, every other index, and probably your
+        individual stock picks too.
+      </p>
+      <p>
+        This is where diversification starts to quietly leak away. The free
+        protection you thought you bought is not as free as it looks. As Nobel
+        laureate Harry Markowitz reminded investors:
+      </p>
+      <blockquote>
+        <p>"Diversification is the only free lunch in investing."</p>
+        <cite>— Harry Markowitz</cite>
+      </blockquote>
+      <p>
+        Overlap is what happens when you stop getting the free lunch and do not
+        notice the bill arriving.
+      </p>
+
+      <h2>The Math That Surprises Almost Everyone</h2>
+      <p>
+        Let us walk through the exact scenario most modern investors fall into.
+      </p>
+      <p>Imagine your portfolio looks like this:</p>
+      <ul>
+        <li>20 percent in Alphabet (Google), held directly</li>
+        <li>50 percent in a broad S&P 500 ETF</li>
+        <li>30 percent in other diversified holdings</li>
+      </ul>
+      <p>
+        Ask most people how exposed they are to Alphabet, and they will say 20
+        percent. Clean and simple.
+      </p>
+      <p>But the S&P 500 ETF already holds Alphabet inside it.</p>
+      <p>
+        Alphabet is roughly 4 percent of the S&P 500. So your 50 percent ETF
+        position is quietly adding another 2 percent of Alphabet on top of your
+        direct holding. Your true Alphabet exposure is not 20 percent. It is
+        about 22 percent.
+      </p>
+      <p>
+        That difference is small for one stock. The real shock appears when you
+        stop looking at a single position and let a tool look through every fund
+        you own, asset by asset. The chart below is the kind of view you get.
+      </p>
+
+      <!-- ── CHART: WEIGHT BY HOLDING, DIRECT + HIDDEN ETF EXPOSURE ── -->
+      <figure class="article-figure">
+        <img
+          src="/blog/images/portfolio-overlap-look-through-exposure-en.png"
+          alt="Weight-by-holding chart for a sample portfolio. Each bar splits into a solid lower segment for the directly held position and a lighter upper segment for the hidden exposure arriving through an S&P 500 ETF. A callout on NVDA shows 2.33 percent held directly plus 3.30 percent through the ETF, for 5.63 percent real exposure. NVDA, MSFT, AMZN, META, GOOG and PYPL all carry hidden ETF segments, while single names like LULU and NU and the VOO ETF itself do not."
+          width="1680"
+          height="945"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="article-figcaption">
+          Example look-through view. Each bar's lighter segment is exposure you
+          never bought on purpose, arriving through your S&P 500 ETF. NVDA looks
+          like a 2.33% position but is really 5.63% once the ETF is included.
+          Figures are illustrative and are not financial advice.
+        </figcaption>
+      </figure>
+
+      <p>
+        Notice what the lighter segments reveal. You may hold Nvidia, Microsoft,
+        Amazon, and Meta in tiny direct amounts, or not at all on purpose, yet
+        each one still stacks up meaningful exposure through your index fund. The
+        single-name positions you actually chose, like LULU and NU, carry almost
+        no hidden segment, and the VOO ETF itself is the engine quietly feeding
+        every other bar.
+      </p>
+      <p>
+        The S&P 500 is heavily weighted toward a small group of mega-cap
+        technology companies, often called the Magnificent 7. Together they can
+        represent roughly a third of the entire index. So your S&P 500 ETF
+        position is pouring another large chunk of Big Tech into your portfolio,
+        on top of the names you bought on purpose.
+      </p>
+      <p>
+        Add it up and your effective exposure to Big Tech as a group can climb
+        far higher than the numbers on your trade confirmations suggest. You also
+        own meaningful slices of Apple, Microsoft, and Nvidia that you never
+        deliberately bought. You feel diversified. You are actually doubling
+        down.
+      </p>
+      <div class="takeaway-box">
+        <p>
+          <strong>Key takeaway:</strong> Owning a stock directly and owning it
+          again inside your index funds stacks on top of each other. The number
+          on your trade confirmation is not your real exposure.
+        </p>
+      </div>
+
+      <h2>Overlap Is Not Just About Single Stocks. It Is About Sectors.</h2>
+      <p>
+        Here is where overlap becomes truly dangerous. It does not stop at
+        individual companies. It compounds across entire sectors.
+      </p>
+      <p>
+        Suppose you try to diversify by buying three different funds: a total
+        market ETF, a technology sector ETF, and a fund of "innovative growth"
+        companies. On the surface, three funds sound like three different bets.
+      </p>
+      <p>
+        In reality, all three are likely stuffed with the same mega-cap
+        technology names. The total market fund holds them because they are
+        enormous. The tech ETF holds them because they are tech. The growth fund
+        holds them because they grow. You bought three tickets to what you
+        thought were three different shows, and they all turned out to be the
+        same concert.
+      </p>
+      <p>
+        This is sector overlap, and it is how a portfolio can end up 50 or 60
+        percent exposed to a single theme while the investor believes they are
+        spread across the market. When that theme corrects, and themes always
+        correct eventually, the entire portfolio moves as one.
+      </p>
+      <p>
+        True diversification is not about owning many funds. It is about owning
+        things that do not all fall at the same time for the same reason.
+      </p>
+
+      <h2>Why This Matters More in 2026 Than It Used To</h2>
+      <p>
+        Index concentration is not a constant. It changes over time, and right
+        now it sits near historic extremes. A handful of companies drive a
+        larger share of major indexes than they did a decade ago.
+      </p>
+      <p>
+        That means the "safe and boring" index fund of today carries a very
+        different risk profile than the index fund your parents bought. Buying
+        the market increasingly means buying a concentrated bet on a few giants,
+        whether you intend to or not.
+      </p>
+      <p>
+        None of this means index funds are bad. They remain one of the best
+        tools available for most investors. It simply means you cannot assume a
+        broad fund equals broad diversification anymore. You have to look
+        through the label and check what is actually inside.
+      </p>
+
+      <!-- ── INLINE CTA ── -->
+      <div class="inline-cta">
+        <h3>See your real exposure in seconds</h3>
+        <p>
+          Upload your portfolio and FolioSense looks through your ETFs to reveal
+          your true exposure to each stock and sector, so you can spot hidden
+          overlap before the market does. Free, no account needed.
+        </p>
+        <a href="/dashboard" class="btn btn-primary">Analyze my portfolio →</a>
+      </div>
+
+      <h2>How to Find Your Real Exposure</h2>
+      <p>
+        You cannot fix a risk you cannot measure. The first step is always
+        visibility.
+      </p>
+      <p>
+        Calculating overlap by hand is painful. You would need every fund's full
+        list of holdings, each weighting, and then a way to combine them with
+        your individual positions. By the time you finished the spreadsheet, the
+        weightings would have changed.
+      </p>
+      <p>
+        This is exactly the problem the FolioSense dashboard was built to solve.
+        Instead of treating each ETF as a single mystery box, it looks through
+        your funds to the companies inside them, then combines that with your
+        direct holdings. The result is your real, consolidated exposure to every
+        stock and every sector in one clear view.
+      </p>
+      <p>
+        Suddenly the invisible becomes obvious. You see that the stock you
+        thought was a rounding error is really several percent of everything you
+        own. You see that three funds were secretly one bet. You see the overlap,
+        and once you can see it, you can finally decide what to do about it.
+      </p>
+
+      <hr />
+
+      <h2>Conclusion: The Risk You Cannot See Is the One That Hurts</h2>
+      <p>
+        Most investors do not blow up their portfolios with reckless bets. They
+        blow them up with hidden ones. Overlap is dangerous precisely because it
+        feels safe. It hides behind the words "ETF" and "diversified" and
+        "broad market," and it waits patiently until a downturn reveals that
+        everything you owned was really the same handful of companies.
+      </p>
+      <p>
+        The good news is that overlap is completely manageable once you can see
+        it. You do not need to abandon index funds. You do not need to sell
+        everything. You simply need to know your true exposure, so that your
+        diversification is real and not just a comforting story you tell
+        yourself.
+      </p>
+      <p>
+        Look through your funds. Measure what you actually own. Then build a
+        portfolio that is diversified in fact, not just in feeling.
+      </p>
+      <p>
+        <strong
+          >Because the most expensive risk in investing is the one you did not
+          know you were taking.</strong
+        >
+      </p>
+
+      <!-- ── FAQ ── -->
+      <h2>FAQ</h2>
+      <details>
+        <summary>What is portfolio overlap?</summary>
+        <div>
+          Portfolio overlap happens when the same companies appear across
+          several of your holdings at once, for example a stock you own directly
+          that is also held inside your ETFs. It makes your true exposure to
+          that stock or sector larger than it appears.
+        </div>
+      </details>
+      <details>
+        <summary>Can two different ETFs really hold the same stocks?</summary>
+        <div>
+          Yes, very often. A total market fund, a technology fund, and a growth
+          fund can all hold the same mega-cap companies. Owning several funds
+          does not guarantee diversification if they share the same large
+          holdings.
+        </div>
+      </details>
+      <details>
+        <summary>
+          Is it bad to own a stock both directly and inside an ETF?
+        </summary>
+        <div>
+          Not automatically. The risk is doing it without realizing it. When you
+          stack a direct position on top of the same company held inside your
+          funds, your real exposure can be much higher than the number you
+          think you have.
+        </div>
+      </details>
+      <details>
+        <summary>How do I calculate my true look-through exposure?</summary>
+        <div>
+          You combine your direct holdings with each company's weight inside
+          every fund you own. Doing this by hand is tedious, so tools like the
+          FolioSense dashboard look through your ETFs automatically and show your
+          consolidated exposure.
+        </div>
+      </details>
+      <details>
+        <summary>Does this mean I should avoid index funds?</summary>
+        <div>
+          No. Index funds remain excellent tools for most investors. The point
+          is to understand what is inside them so you can avoid unintentional
+          concentration when you combine them with your other positions.
+        </div>
+      </details>
+
+      <hr />
+      <p style="color: var(--ink-muted); font-size: 0.9rem; font-style: italic">
+        This article is for educational purposes only and does not constitute
+        financial advice. Always do your own research before investing.
+      </p>
+    </article>
+
+    <!-- ── BLOG WIDGETS ── -->
+    <section
+      style="background: var(--white); padding: 0 clamp(1.5rem, 5vw, 4rem) 4rem"
+    >
+      <div style="max-width: 900px; margin: 0 auto">
+        <div
+          id="blog-related"
+          data-tags="diversification,concentration risk,risk management,index funds,stock market,long term investing"
+          data-current-slug="portfolio-overlap-hidden-stock-exposure"
+        ></div>
+        <div id="blog-newest"></div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">How it works</a>
+          <a href="/why-invest" data-i18n="nav_why">Why invest</a>
+          <a href="/glossary" data-i18n="nav_glossary">Glossary</a>
+          <a href="/blog" data-i18n="nav_blog">Blog</a>
+          <a href="/privacy" data-i18n="footer_privacy">Privacy policy</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">
+          © 2026 FolioSense. Not financial advice.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/i18n.js"></script>
+    <script src="/blog/blog-widget.js"></script>
+    <script src="/blog/affiliate-cta.js" defer></script>
+    <script>
+      (function () {
+        var btn = document.getElementById("lang-toggle");
+        if (!btn) return;
+        btn.addEventListener(
+          "click",
+          function (e) {
+            e.stopImmediatePropagation();
+            var current = localStorage.getItem("foliosense_lang") || "en";
+            if (current === "en") {
+              localStorage.setItem("foliosense_lang", "es");
+              window.location.href =
+                "/blog/es/overlapping-portafolio-exposicion-oculta-acciones";
+            } else {
+              localStorage.setItem("foliosense_lang", "en");
+            }
+          },
+          true,
+        );
+      })();
+    </script>
+  </body>
+</html>

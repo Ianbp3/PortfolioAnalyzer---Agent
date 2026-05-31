@@ -84,7 +84,7 @@
   <!-- ── BLOG INDEX ── -->
   <url>
     <loc>https://foliosenseapp.com/blog</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog"/>
@@ -92,6 +92,36 @@
   </url>
 
   <!-- ── BLOG ARTICLES ── -->
+
+  <!-- Article: portfolio-overlap-hidden-stock-exposure -->
+  <url>
+    <loc>https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/overlapping-portafolio-exposicion-oculta-acciones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/portfolio-overlap-look-through-exposure-en.png</image:loc>
+      <image:title>Weight by Holding: Direct vs. Hidden ETF Exposure</image:title>
+      <image:caption>Example look-through view where each bar splits into a direct position and a lighter hidden-exposure segment from an S&amp;P 500 ETF, with NVDA shown at 5.63% real exposure</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://foliosenseapp.com/blog/es/overlapping-portafolio-exposicion-oculta-acciones</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/overlapping-portafolio-exposicion-oculta-acciones"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/portfolio-overlap-hidden-stock-exposure"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/portfolio-overlap-look-through-exposure-es.png</image:loc>
+      <image:title>Peso por activo: exposición directa frente a exposición oculta vía ETF</image:title>
+      <image:caption>Vista de ejemplo donde cada barra se divide en la posición directa y un segmento más claro de exposición oculta por un ETF del S&amp;P 500, con NVDA mostrada en 5.63% de exposición real</image:caption>
+    </image:image>
+  </url>
 
   <!-- Article: investing-in-gta-6-entertainment-opportunity-beyond-tech -->
   <url>
