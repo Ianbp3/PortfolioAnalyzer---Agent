@@ -15,18 +15,24 @@ export default function PortfolioRadar({ analysis }) {
 
   if (!analysis) return null;
 
-  // Technology: prefer blended exposure (direct + ETF implied) from sectorVsSP500
+  // Technology: prefer TRUE sector exposure (looks through every index fund),
+  // falling back to the S&P-500-only blend, then raw direct sectors.
   const techWeight =
+    analysis.sectorExposure?.Technology?.userPct ??
     analysis.sectorVsSP500?.Technology?.userPct ??
     (analysis.sectors?.Technology
       ? (analysis.sectors.Technology.value / analysis.totalValue) * 100
       : 0);
 
-  // Diversification: count sectors with >2% blended exposure out of 11 GICS sectors.
+  // Diversification: count sectors with >2% TRUE exposure out of 11 GICS sectors.
   // This is far more meaningful than raw symbol count — 10 tech stocks ≠ diversified.
-  // S&P 500 ETFs with >10% weight automatically push this to 11 via the analyzer.
-  const sectorsCovered = analysis.sectorVsSP500
-    ? Object.values(analysis.sectorVsSP500).filter((s) => s.userPct > 2).length
+  // Broad index ETFs spread this across many sectors automatically.
+  const sectorSource =
+    analysis.sectorExposure && Object.keys(analysis.sectorExposure).length
+      ? analysis.sectorExposure
+      : analysis.sectorVsSP500;
+  const sectorsCovered = sectorSource
+    ? Object.values(sectorSource).filter((s) => s.userPct > 2).length
     : Math.min(analysis.diversification, 11);
   const diversificationValue = Math.round((sectorsCovered / 11) * 100);
 

@@ -35,100 +35,197 @@ const TOOLTIP_STYLE = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// S&P 500 trackers — same set the backend analyzer uses. Holding these means
-// you also own a slice of every constituent below.
+// Index funds we "look through" for hidden overlap.
+//
+// Holding one of these means you also own a slice of each constituent below,
+// so the per-asset chart shows that hidden exposure on top of what you hold
+// directly. Each fund groups every ticker that tracks the same index, plus an
+// approximate constituent table (the % each company is of that index).
+//
+// `dualClass` lists companies that appear under more than one share class
+// (e.g. Alphabet GOOG/GOOGL). `combined` is the company's full index weight;
+// `perClass` is used only to avoid double-counting if you hold both classes.
+//
+// Constituent weights are approximations (mid-2026) and should be refreshed
+// periodically together with the sector weights in portfolioAnalyzer.js.
+// To add a new index fund: add an entry here (and a matching sector profile
+// on the backend) — nothing else needs to change.
 // ─────────────────────────────────────────────────────────────────────────────
-const SP500_ETFS = new Set([
-  "SPY",
-  "VOO",
-  "IVV",
-  "SPLG",
-  "FXAIX",
-  "VFIAX",
-  "SWPPX",
-  "CSPX",
-  "WFSPX",
-  "BSPIX",
-  "SNXFX",
-  "MEISX",
-  "PREIX",
-]);
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Approximate weight of each company INSIDE the S&P 500 (fraction of the index,
-// as of early 2025). Used to compute "look-through" exposure: if you hold VOO,
-// your true exposure to e.g. MSFT = (your VOO weight) × (MSFT weight in the index).
-// The index is very top-heavy, so the top ~40 names capture nearly all overlap.
-// NOTE: multi-share-class companies (e.g. Alphabet's GOOG/GOOGL) are NOT listed
-// here — they're handled by DUAL_CLASS_GROUPS below so they count as one company.
-// Refresh these periodically (same as SP500_SECTOR_WEIGHTS in the backend).
-// ─────────────────────────────────────────────────────────────────────────────
-const SP500_CONSTITUENT_WEIGHTS = {
-  AAPL: 0.07,
-  MSFT: 0.063,
-  NVDA: 0.065,
-  AMZN: 0.039,
-  META: 0.026,
-  AVGO: 0.02,
-  TSLA: 0.018,
-  "BRK.B": 0.017,
-  LLY: 0.014,
-  JPM: 0.014,
-  UNH: 0.01,
-  XOM: 0.01,
-  V: 0.009,
-  MA: 0.008,
-  COST: 0.008,
-  HD: 0.008,
-  WMT: 0.008,
-  NFLX: 0.008,
-  PG: 0.007,
-  JNJ: 0.007,
-  ABBV: 0.007,
-  BAC: 0.007,
-  CRM: 0.006,
-  ORCL: 0.006,
-  CVX: 0.006,
-  KO: 0.005,
-  MRK: 0.005,
-  AMD: 0.005,
-  PEP: 0.005,
-  ADBE: 0.005,
-  LIN: 0.005,
-  WFC: 0.005,
-  ACN: 0.005,
-  MCD: 0.005,
-  CSCO: 0.005,
-  TMO: 0.004,
-  ABT: 0.004,
-  DIS: 0.004,
-  INTU: 0.004,
-  QCOM: 0.004,
-  TXN: 0.004,
-  IBM: 0.004,
-  GE: 0.004,
-  NOW: 0.004,
-  VZ: 0.004,
-  CMCSA: 0.004,
-  PFE: 0.003,
-  PYPL: 0.003,
-  LULU: 0.001,
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Companies that appear in the index under more than one share class.
-// `combined` = the company's total weight in the S&P 500 (what one economic
-// position is worth). `perClass` = each class's own weight, used ONLY to avoid
-// double-counting when you happen to hold more than one class at the same time.
-// To add another (e.g. Fox FOX/FOXA, News Corp NWS/NWSA), just append an entry.
-// ─────────────────────────────────────────────────────────────────────────────
-const DUAL_CLASS_GROUPS = [
+const LOOKTHROUGH_FUNDS = [
   {
-    classes: ["GOOG", "GOOGL"], // Alphabet
-    combined: 0.039,
-    perClass: { GOOG: 0.018, GOOGL: 0.021 },
+    key: "SP500",
+    tickers: [
+      "SPY",
+      "VOO",
+      "IVV",
+      "SPLG",
+      "FXAIX",
+      "VFIAX",
+      "SWPPX",
+      "CSPX",
+      "WFSPX",
+      "BSPIX",
+      "SNXFX",
+      "MEISX",
+      "PREIX",
+    ],
+    dualClass: [
+      {
+        classes: ["GOOG", "GOOGL"],
+        combined: 0.039,
+        perClass: { GOOG: 0.018, GOOGL: 0.021 },
+      },
+    ],
+    constituents: {
+      AAPL: 0.07,
+      MSFT: 0.063,
+      NVDA: 0.065,
+      AMZN: 0.039,
+      META: 0.026,
+      AVGO: 0.02,
+      TSLA: 0.018,
+      "BRK.B": 0.017,
+      LLY: 0.014,
+      JPM: 0.014,
+      UNH: 0.01,
+      XOM: 0.01,
+      V: 0.009,
+      MA: 0.008,
+      COST: 0.008,
+      HD: 0.008,
+      WMT: 0.008,
+      NFLX: 0.008,
+      PG: 0.007,
+      JNJ: 0.007,
+      ABBV: 0.007,
+      BAC: 0.007,
+      CRM: 0.006,
+      ORCL: 0.006,
+      CVX: 0.006,
+      KO: 0.005,
+      MRK: 0.005,
+      AMD: 0.005,
+      PEP: 0.005,
+      ADBE: 0.005,
+      LIN: 0.005,
+      WFC: 0.005,
+      ACN: 0.005,
+      MCD: 0.005,
+      CSCO: 0.005,
+      TMO: 0.004,
+      ABT: 0.004,
+      DIS: 0.004,
+      INTU: 0.004,
+      QCOM: 0.004,
+      TXN: 0.004,
+      IBM: 0.004,
+      GE: 0.004,
+      NOW: 0.004,
+      VZ: 0.004,
+      CMCSA: 0.004,
+      PFE: 0.003,
+      PYPL: 0.003,
+      LULU: 0.001,
+    },
+  },
+  {
+    key: "SP500_GROWTH",
+    tickers: ["SPYG", "VOOG", "IVW"],
+    dualClass: [
+      {
+        classes: ["GOOG", "GOOGL"],
+        combined: 0.067,
+        perClass: { GOOG: 0.027, GOOGL: 0.04 },
+      },
+    ],
+    constituents: {
+      NVDA: 0.147,
+      MSFT: 0.089,
+      AAPL: 0.061,
+      AVGO: 0.058,
+      META: 0.045,
+      AMZN: 0.04,
+      TSLA: 0.028,
+      LLY: 0.02,
+      NFLX: 0.014,
+      COST: 0.014,
+      ORCL: 0.013,
+      V: 0.012,
+      PLTR: 0.012,
+      CRM: 0.011,
+      MA: 0.01,
+      HD: 0.01,
+      AMD: 0.01,
+      WMT: 0.01,
+      ABBV: 0.008,
+      PG: 0.008,
+      INTU: 0.008,
+      NOW: 0.007,
+      GE: 0.007,
+      ISRG: 0.006,
+      BKNG: 0.006,
+      ADBE: 0.006,
+      AXP: 0.006,
+      UBER: 0.006,
+      QCOM: 0.005,
+    },
+  },
+  {
+    key: "NASDAQ100",
+    tickers: ["QQQ", "QQQM"],
+    dualClass: [
+      {
+        classes: ["GOOG", "GOOGL"],
+        combined: 0.049,
+        perClass: { GOOG: 0.024, GOOGL: 0.025 },
+      },
+    ],
+    constituents: {
+      NVDA: 0.084,
+      AAPL: 0.075,
+      MSFT: 0.075,
+      AMZN: 0.055,
+      AVGO: 0.045,
+      META: 0.038,
+      TSLA: 0.025,
+      NFLX: 0.025,
+      COST: 0.025,
+      PLTR: 0.013,
+      TMUS: 0.013,
+      AMD: 0.012,
+      PEP: 0.012,
+      CSCO: 0.011,
+      ADBE: 0.01,
+      INTU: 0.01,
+      AMGN: 0.009,
+      ISRG: 0.009,
+      BKNG: 0.009,
+      QCOM: 0.008,
+      TXN: 0.008,
+      MU: 0.008,
+      INTC: 0.007,
+      AMAT: 0.007,
+      HON: 0.007,
+      CMCSA: 0.006,
+      LRCX: 0.006,
+      KLAC: 0.006,
+      PANW: 0.006,
+      GILD: 0.006,
+      ADP: 0.006,
+      SBUX: 0.006,
+      MELI: 0.006,
+      ADI: 0.005,
+      VRTX: 0.005,
+      MDLZ: 0.005,
+      MAR: 0.004,
+      REGN: 0.004,
+    },
   },
 ];
+
+// Every ticker that is itself an index fund wrapper — these never get a "ghost"
+// of their own (they ARE the basket, not a hidden constituent of it).
+const ALL_FUND_TICKERS = new Set(LOOKTHROUGH_FUNDS.flatMap((f) => f.tickers));
 
 function renderLabel({
   cx,
@@ -197,46 +294,57 @@ export default function PortfolioCharts({ data }) {
 
   const totalValue = data.reduce((s, p) => s + (p.value || 0), 0);
 
-  // Fraction of the whole portfolio sitting in S&P 500 ETFs (0–1).
-  const sp500Weight =
-    totalValue > 0
-      ? data.reduce(
-          (s, p) =>
-            SP500_ETFS.has((p.symbol || "").toUpperCase())
-              ? s + (p.value || 0) / totalValue
-              : s,
-          0,
-        )
-      : 0;
-
   // Symbols the portfolio actually holds — used to resolve dual-class companies.
   const heldSymbols = new Set(data.map((p) => (p.symbol || "").toUpperCase()));
 
-  // Effective S&P 500 weight for a symbol, treating a multi-class company as one
+  // Fraction of the whole portfolio (0–1) sitting in each index fund family.
+  function familyWeight(fund) {
+    if (totalValue <= 0) return 0;
+    return data.reduce(
+      (s, p) =>
+        fund.tickers.includes((p.symbol || "").toUpperCase())
+          ? s + (p.value || 0) / totalValue
+          : s,
+      0,
+    );
+  }
+  const fundWeights = LOOKTHROUGH_FUNDS.map((fund) => ({
+    fund,
+    weight: familyWeight(fund),
+  })).filter((f) => f.weight > 0);
+
+  // A symbol's weight inside ONE index, treating a multi-class company as one
   // position — and splitting it only if you happen to hold more than one class.
-  function constituentWeightFor(sym) {
-    for (const g of DUAL_CLASS_GROUPS) {
+  function constituentWeightFor(sym, fund) {
+    for (const g of fund.dualClass || []) {
       if (g.classes.includes(sym)) {
         const heldClasses = g.classes.filter((c) => heldSymbols.has(c));
         if (heldClasses.length <= 1) return g.combined; // count as one company
         return g.perClass[sym] ?? g.combined / g.classes.length; // split, no double-count
       }
     }
-    return SP500_CONSTITUENT_WEIGHTS[sym] || 0;
+    return fund.constituents[sym] || 0;
+  }
+
+  // Total hidden exposure to a symbol across EVERY index fund you hold.
+  function impliedExposureFor(sym) {
+    return fundWeights.reduce(
+      (s, { fund, weight }) => s + weight * constituentWeightFor(sym, fund),
+      0,
+    );
   }
 
   const finalData = data.map((item) => {
     const sym = (item.symbol || "").toUpperCase();
-    const isEtf = SP500_ETFS.has(sym);
+    const isFund = ALL_FUND_TICKERS.has(sym);
     const direct =
       totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0;
 
-    // Implied exposure this holding ALSO has hidden inside your S&P 500 ETFs.
-    // ETFs themselves get no ghost (they are the wrapper, not a constituent).
-    const constituentWeight = constituentWeightFor(sym);
-    const implied = isEtf
+    // Implied exposure this holding ALSO has hidden inside your index ETFs.
+    // The ETFs themselves get no ghost (they are the wrapper, not a constituent).
+    const implied = isFund
       ? 0
-      : Number((sp500Weight * constituentWeight * 100).toFixed(2));
+      : Number((impliedExposureFor(sym) * 100).toFixed(2));
 
     return {
       name: item.symbol,
@@ -340,7 +448,7 @@ export default function PortfolioCharts({ data }) {
                 <Cell key={`d-${i}`} fill={COLORS[i % COLORS.length]} />
               ))}
             </Bar>
-            {/* Ghost: extra exposure hidden inside your S&P 500 ETFs */}
+            {/* Ghost: extra exposure hidden inside your index ETFs */}
             <Bar
               dataKey="implied"
               stackId="exposure"

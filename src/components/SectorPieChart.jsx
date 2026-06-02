@@ -67,14 +67,20 @@ export default function SectorPieChart({ analysis }) {
   const { lang } = useLang();
   if (!analysis) return null;
 
-  // Use the SAME blended exposure the breakdown below uses (direct + implied
-  // S&P 500 ETF look-through), so the chart and the breakdown always agree.
-  // The slice value is each sector's total exposure as % of the portfolio,
-  // without splitting it into direct vs ETF.
+  // Show your TRUE sector exposure: direct holdings looked through EVERY index
+  // fund you hold (S&P 500, S&P 500 Growth, Nasdaq-100, ...). Falls back to the
+  // S&P-500-only blend, then to raw direct sectors, for older analysis payloads.
+  // The slice value is each sector's total exposure as % of the portfolio.
   let data;
+  const exposure = analysis.sectorExposure;
   const blended = analysis.sectorVsSP500;
 
-  if (blended && Object.keys(blended).length) {
+  if (exposure && Object.keys(exposure).length) {
+    data = Object.entries(exposure)
+      .filter(([, s]) => s.userPct > 0)
+      .sort(([, a], [, b]) => b.userPct - a.userPct)
+      .map(([name, s]) => ({ name, value: s.userPct }));
+  } else if (blended && Object.keys(blended).length) {
     data = Object.entries(blended)
       .filter(([, s]) => s.userPct > 0)
       .sort(([, a], [, b]) => b.userPct - a.userPct)
