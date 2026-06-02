@@ -5,11 +5,10 @@ import html2canvas from "html2canvas";
 // ─────────────────────────────────────────────────────────────────────────────
 // FolioSense — Portfolio Snapshot PDF generator
 //
-// Builds a branded PDF from the analysis object returned by analyzePortfolio()
-// plus the raw positions array. The header, summary stats, risk meter and
-// holdings table are drawn as crisp vector. The actual dashboard charts are
-// captured live from the DOM (any element tagged data-pdf-chart) and embedded
-// as images, so the report matches what the user sees on screen.
+// Header, summary stats, risk meter, the sector comparison, and the holdings
+// table are drawn as crisp vector. The remaining dashboard charts (distribution,
+// radar, scatter, rankings) are captured live from the DOM (elements tagged
+// data-pdf-chart) and embedded as images.
 //
 // Everything runs in the browser: no server, no holdings ever leave the device.
 //
@@ -41,6 +40,12 @@ const L = {
     risk_low: "Low",
     insights: "Insights",
     charts_heading: "Visual analysis",
+    sectors_heading: "Sector exposure vs S&P 500",
+    you_label: "You",
+    sp_label: "S&P 500",
+    overweight: "Overweight",
+    underweight: "Underweight",
+    inline_label: "In line",
     holdings: "Holdings",
     col_symbol: "Symbol",
     col_shares: "Shares",
@@ -76,6 +81,12 @@ const L = {
     risk_low: "Bajo",
     insights: "Observaciones",
     charts_heading: "Análisis visual",
+    sectors_heading: "Exposición por sector vs S&P 500",
+    you_label: "Tú",
+    sp_label: "S&P 500",
+    overweight: "Sobreponderado",
+    underweight: "Infraponderado",
+    inline_label: "En línea",
     holdings: "Posiciones",
     col_symbol: "Símbolo",
     col_shares: "Cantidad",
@@ -225,20 +236,15 @@ export async function generatePortfolioPdf(analysis, positions, lang = "en") {
     y += 8;
   }
 
-  // ── Captured charts ────────────────────────────────────────────────────────
-  // Grabs every element tagged with data-pdf-chart in the live dashboard,
-  // rasterizes it, and lays it into the report. Wrapped per-chart so a single
-  // failure is skipped instead of breaking the whole export.
-  const nodes = Array.from(document.querySelectorAll("[data-pdf-chart]"));
-  if (nodes.length > 0) {
-    // Wait for web fonts so captured text isn't a fallback face
-    try {
-      if (document.fonts && document.fonts.ready) await document.fonts.ready;
-    } catch (e) {
-      /* ignore */
-    }
+  // ── Visual analysis heading ─────────────────────────────────────────────────
+  const sectorRows = Object.entries(analysis.sectorVsSP500 || {})
+    .map(([name, d]) => ({ name, ...d }))
+    .filter((d) => (d.userPct || 0) > 0 || (d.sp500Pct || 0) > 0)
+    .sort((a, b) => (b.userPct || 0) - (a.userPct || 0));
 
-    // Section heading
+  const nodes = Array.from(document.querySelectorAll("[data-pdf-chart]"));
+
+  if (sectorRows.length > 0 || nodes.length > 0) {
     if (y + 14 > pageH - FOOTER_SPACE) {
       doc.addPage();
       y = NEW_PAGE_TOP;
@@ -248,6 +254,113 @@ export async function generatePortfolioPdf(analysis, positions, lang = "en") {
     doc.setFontSize(13);
     doc.text(t.charts_heading, M, y);
     y += 8;
+  }
+
+  // ── Sector exposure vs S&P 500 (native vector) ─────────────────────────────
+  if (sectorRows.length > 0) {
+    if (y + 12 > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = NEW_PAGE_TOP;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...INK);
+    doc.text(t.sectors_heading, M, y);
+    y += 7;
+
+    const maxPct = Math.max(
+      ...sectorRows.map((d) => Math.max(d.userPct || 0, d.sp500Pct || 0)),
+      1,
+    );
+    const barX = M + 16;
+    const barMaxW = contentW - 16 - 12; // leave room for right-aligned % labels
+    const sBarH = 3;
+
+    sectorRows.forEach((d) => {
+      const rowH = 18;
+      if (y + rowH > pageH - FOOTER_SPACE) {
+        doc.addPage();
+        y = NEW_PAGE_TOP;
+      }
+
+      // Sector name (left) + delta label (right)
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.setTextColor(...INK);
+      doc.text(d.name, M, y);
+
+      const delta = d.delta || 0;
+      let word;
+      let col;
+      if (delta >= 1) {
+        word = `+${delta}% ${t.overweight}`;
+        col = GREEN;
+      } else if (delta <= -1) {
+        word = `${delta}% ${t.underweight}`;
+        col = RED;
+      } else {
+        word = t.inline_label;
+        col = MUTED;
+      }
+      doc.setFontSize(8);
+      doc.setTextColor(...col);
+      doc.text(word, M + contentW, y, { align: "right" });
+      y += 3.5;
+
+      // "You" bar
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.5);
+      doc.setTextColor(...MUTED);
+      doc.text(t.you_label, M, y + sBarH - 0.6);
+      doc.setFillColor(...LINE);
+      doc.roundedRect(barX, y, barMaxW, sBarH, 0.8, 0.8, "F");
+      doc.setFillColor(...GREEN);
+      doc.roundedRect(
+        barX,
+        y,
+        Math.max(0.5, ((d.userPct || 0) / maxPct) * barMaxW),
+        sBarH,
+        0.8,
+        0.8,
+        "F",
+      );
+      doc.setTextColor(...INK);
+      doc.text(`${d.userPct || 0}%`, M + contentW, y + sBarH - 0.6, {
+        align: "right",
+      });
+      y += sBarH + 2;
+
+      // "S&P 500" bar
+      doc.setTextColor(...MUTED);
+      doc.text(t.sp_label, M, y + sBarH - 0.6);
+      doc.setFillColor(...LINE);
+      doc.roundedRect(barX, y, barMaxW, sBarH, 0.8, 0.8, "F");
+      doc.setFillColor(...GOLD);
+      doc.roundedRect(
+        barX,
+        y,
+        Math.max(0.5, ((d.sp500Pct || 0) / maxPct) * barMaxW),
+        sBarH,
+        0.8,
+        0.8,
+        "F",
+      );
+      doc.setTextColor(...INK);
+      doc.text(`${d.sp500Pct || 0}%`, M + contentW, y + sBarH - 0.6, {
+        align: "right",
+      });
+      y += sBarH + 6;
+    });
+    y += 2;
+  }
+
+  // ── Captured charts (distribution, radar, scatter, rankings) ───────────────
+  if (nodes.length > 0) {
+    try {
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    } catch (e) {
+      /* ignore */
+    }
 
     const maxChartH = 110; // mm — keep any single chart from dominating a page
 
@@ -353,6 +466,8 @@ export async function generatePortfolioPdf(analysis, positions, lang = "en") {
   });
 
   // ── Footer on every page ───────────────────────────────────────────────────
+  // Disclaimer on the left, site + page number combined on the right, so the
+  // page number never collides with the disclaimer text.
   const pageCount = doc.internal.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
@@ -362,8 +477,14 @@ export async function generatePortfolioPdf(analysis, positions, lang = "en") {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.text(t.disclaimer, M, pageH - 9);
-    doc.text("foliosenseapp.com", pageW - M, pageH - 9, { align: "right" });
-    doc.text(`${i} / ${pageCount}`, pageW / 2, pageH - 9, { align: "center" });
+    doc.text(
+      `foliosenseapp.com  ·  ${i} / ${pageCount}`,
+      pageW - M,
+      pageH - 9,
+      {
+        align: "right",
+      },
+    );
   }
 
   const today = new Date().toISOString().slice(0, 10);

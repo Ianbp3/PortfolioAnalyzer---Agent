@@ -570,7 +570,7 @@ export default function App() {
 
             {/* SECTORS */}
             {analysis && (
-              <div className="section-card" data-pdf-chart="sectors">
+              <div className="section-card">
                 <h3 className="section-title">{t.sect_sectors}</h3>
                 <div
                   style={{
