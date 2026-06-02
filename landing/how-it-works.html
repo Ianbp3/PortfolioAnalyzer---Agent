@@ -301,12 +301,12 @@
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      12
+                      22
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      185.32
+                      227.00
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
@@ -318,22 +318,66 @@
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      MSFT
+                      NVDA
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      8
+                      28
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      421.14
+                      178.00
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
                       Technology
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      QQQ
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      14
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      555.00
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      ETF
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      SPYG
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      50
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      120.00
+                    </td>
+                    <td
+                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
+                    >
+                      ETF
                     </td>
                   </tr>
                   <tr>
@@ -345,39 +389,17 @@
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      10
+                      16
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      201.66
+                      250.00
                     </td>
                     <td
                       style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
                     >
-                      Finance
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
-                    >
-                      VOO
-                    </td>
-                    <td
-                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
-                    >
-                      5
-                    </td>
-                    <td
-                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
-                    >
-                      478.20
-                    </td>
-                    <td
-                      style="color: rgba(247, 246, 242, 0.7); padding: 6px 8px"
-                    >
-                      ETF
+                      Financials
                     </td>
                   </tr>
                 </tbody>
@@ -954,7 +976,7 @@ A partir de esta captura de mi portafolio de inversiones, arma un CSV con exacta
                   color: var(--accent);
                   font-weight: 600;
                 "
-                >✓ 62 / 100</span
+                >✓ 43 / 100</span
               >
             </div>
             <div
@@ -977,10 +999,10 @@ A partir de esta captura de mi portafolio de inversiones, arma un CSV con exacta
               <span
                 style="
                   font-size: 0.8rem;
-                  color: var(--accent);
+                  color: #c0392b;
                   font-weight: 600;
                 "
-                >✓ 4 sectors</span
+                >⚠ 49% Technology</span
               >
             </div>
             <div
@@ -1000,8 +1022,8 @@ A partir de esta captura de mi portafolio de inversiones, arma un CSV con exacta
               <span style="font-size: 0.9rem; font-weight: 500" data-lang="es"
                 >Análisis de concentración</span
               >
-              <span style="font-size: 0.8rem; color: #c0392b; font-weight: 600"
-                >⚠ 24% in MSFT</span
+              <span style="font-size: 0.8rem; color: var(--accent); font-weight: 600"
+                >✓ Top holding 10%</span
               >
             </div>
             <div
@@ -1207,10 +1229,12 @@ A partir de esta captura de mi portafolio de inversiones, arma un CSV con exacta
                 "
                 data-lang="en"
               >
-                Yes. Technology makes up 46% of your portfolio. MSFT alone is
-                24.7%, which is well above the recommended 10% limit for any
-                single position. I'd suggest trimming MSFT and adding a broad
-                ETF to reduce sector concentration.
+                Yes. Once we look through your funds, Technology is about 49% of
+                your portfolio, far above the S&P 500's 31%. QQQ and SPYG are
+                themselves tech-heavy, so even with 12 holdings nearly half your
+                money tracks the same sector. No single stock is over 10%, so the
+                risk here is the sector tilt, not one position. A broad market or
+                value fund would help balance it.
               </div>
               <div
                 style="
@@ -1225,10 +1249,13 @@ A partir de esta captura de mi portafolio de inversiones, arma un CSV con exacta
                 "
                 data-lang="es"
               >
-                Sí. Tecnología representa el 46% de tu portafolio. MSFT sola es
-                el 24.7%, muy por encima del límite recomendado del 10% para una
-                sola posición. Te sugiero reducir MSFT y agregar un ETF amplio
-                para bajar la concentración sectorial.
+                Sí. Al mirar dentro de tus fondos, Tecnología representa cerca
+                del 49% de tu portafolio, muy por encima del 31% del S&P 500. QQQ
+                y SPYG ya están cargados a tecnología, así que aunque tengas 12
+                posiciones, casi la mitad de tu dinero sigue al mismo sector.
+                Ninguna acción individual supera el 10%, por lo que el riesgo
+                está en la inclinación sectorial, no en una sola posición. Un
+                fondo de mercado amplio o de valor ayudaría a equilibrarlo.
               </div>
             </div>
           </div>

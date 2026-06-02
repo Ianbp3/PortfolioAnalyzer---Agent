@@ -163,20 +163,25 @@ function parseCsvText(rawText, onPortfolioParsed, lang) {
 
 // ── Sample portfolio ─────────────────────────────────────────────────────────
 // Loaded automatically when the dashboard is opened with ?sample=1 (the
-// "Try our sample file" link on the How it works page). Diversified but
-// tech-heavy on purpose, with a couple of losers, so every feature has
-// something to show: concentration warning, sector mix, winners and losers.
+// "Try our sample file" link on the How it works page). Looks diversified on
+// the surface (12 holdings, several sectors, two index ETFs) but is tech-heavy
+// on purpose: QQQ and SPYG are themselves tech-concentrated, so once you look
+// through them, Technology is ~49% of the portfolio. This showcases the
+// look-through overlap and the "you're overweight tech" lesson, while also
+// having a loser with real weight (TSLA) for the dead-weight feature.
 const SAMPLE_CSV = `symbol,shares,price,sector,roi
-AAPL,15,185.32,Technology,0.14
-MSFT,10,402.10,Technology,0.21
-NVDA,8,520.40,Technology,0.38
-AMZN,5,178.30,Consumer Discretionary,0.18
-TSLA,6,242.60,Consumer Discretionary,-0.11
-JPM,12,178.25,Financials,0.09
-V,7,272.40,Financials,0.15
-JNJ,9,156.80,Healthcare,-0.04
-KO,20,61.50,Consumer Staples,0.06
-XOM,14,108.75,Energy,0.12`;
+AAPL,22,227.00,Technology,0.16
+NVDA,28,178.00,Technology,0.44
+MSFT,9,500.00,Technology,0.23
+AVGO,18,196.00,Technology,0.31
+QQQ,14,555.00,ETF,0.27
+SPYG,50,120.00,ETF,0.20
+AMZN,15,233.00,Consumer Discretionary,0.11
+TSLA,13,346.00,Consumer Discretionary,-0.15
+JPM,16,250.00,Financials,0.07
+JNJ,16,156.00,Healthcare,-0.08
+KO,32,62.50,Consumer Staples,0.04
+XOM,18,111.00,Energy,-0.06`;
 
 // Module-level guard so the sample loads at most once per page load, even
 // though FileUploader is mounted twice (full empty-state + compact header).
