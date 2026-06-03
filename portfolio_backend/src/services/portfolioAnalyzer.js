@@ -192,32 +192,11 @@ export function analyzePortfolio(positions = []) {
       (blendedSectors[sector].implied || 0) + impliedValue;
   });
 
-  // ── Sector vs S&P 500 benchmark comparison — unchanged ────────────────────
-  // Compares YOUR blend (direct + S&P 500 ETF look-through) against the index.
-  // Growth / Nasdaq-100 funds deliberately do not enter this calculation.
-  const sectorVsSP500 = {};
-  const allSectorNames = new Set([
-    ...Object.keys(blendedSectors),
-    ...Object.keys(SP500_SECTOR_WEIGHTS),
-  ]);
-  allSectorNames.forEach((sector) => {
-    const directVal = blendedSectors[sector]?.value || 0;
-    const impliedVal = blendedSectors[sector]?.implied || 0;
-    const userPct = ((directVal + impliedVal) / totalValue) * 100;
-    const sp500Pct = (SP500_SECTOR_WEIGHTS[sector] || 0) * 100;
-    sectorVsSP500[sector] = {
-      userPct: Number(userPct.toFixed(1)),
-      sp500Pct: Number(sp500Pct.toFixed(1)),
-      delta: Number((userPct - sp500Pct).toFixed(1)),
-      directPct: Number(((directVal / totalValue) * 100).toFixed(1)),
-      impliedPct: Number(((impliedVal / totalValue) * 100).toFixed(1)),
-    };
-  });
-
-  // ── TRUE sector exposure (NEW) ────────────────────────────────────────────
+  // ── TRUE sector exposure ──────────────────────────────────────────────────
   // Your real sector mix, looking through EVERY index fund you hold (S&P 500,
-  // S&P 500 Growth, Nasdaq-100, ...). This is what the sector-exposure pie and
-  // the sector-concentration part of the risk score now use.
+  // S&P 500 Growth, Nasdaq-100, ...). This single source drives the sector pie,
+  // the "you vs S&P 500" comparison, and the sector-concentration part of the
+  // risk score, so all three always agree.
   //
   // Direct part: individual assets only (every index fund is excluded here so
   // it is not counted twice — it is added back below via its sector mix).
@@ -255,6 +234,33 @@ export function analyzePortfolio(positions = []) {
       userPct: Number(userPct.toFixed(1)),
       directPct: Number(((directVal / totalValue) * 100).toFixed(1)),
       impliedPct: Number(((impliedVal / totalValue) * 100).toFixed(1)),
+    };
+  });
+
+  // ── Sector vs S&P 500 benchmark comparison ────────────────────────────────
+  // Uses the SAME true exposure as the pie above (so the two never disagree),
+  // measured against the S&P 500's own sector weights. The benchmark stays the
+  // S&P 500; only YOUR side reflects every index fund you hold. `impliedPct` is
+  // the slice of each sector that is hidden inside your ETFs (any index fund),
+  // `directPct` is what you hold as individual stocks.
+  const sectorVsSP500 = {};
+  const allSectorNames = new Set([
+    ...Object.keys(sectorExposure),
+    ...Object.keys(SP500_SECTOR_WEIGHTS),
+  ]);
+  allSectorNames.forEach((sector) => {
+    const exp = sectorExposure[sector] || {
+      userPct: 0,
+      directPct: 0,
+      impliedPct: 0,
+    };
+    const sp500Pct = (SP500_SECTOR_WEIGHTS[sector] || 0) * 100;
+    sectorVsSP500[sector] = {
+      userPct: exp.userPct,
+      sp500Pct: Number(sp500Pct.toFixed(1)),
+      delta: Number((exp.userPct - sp500Pct).toFixed(1)),
+      directPct: exp.directPct,
+      impliedPct: exp.impliedPct,
     };
   });
 

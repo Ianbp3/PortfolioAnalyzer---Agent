@@ -32,10 +32,10 @@ const T = {
     chart_by_asset: "Weight by asset",
     chart_weight: "Weight",
     chart_direct: "Direct",
-    chart_via_etf: "Via S&P 500 ETF",
+    chart_via_etf: "Via ETF",
     chart_true_exposure: "True exposure",
     chart_ghost_hint:
-      "Lighter segment = hidden exposure through your S&P 500 ETFs.",
+      "Lighter segment = hidden exposure through your index ETFs.",
 
     radar_title: "Portfolio Profile",
     radar_risk: "Risk",
@@ -114,10 +114,10 @@ const T = {
     chart_by_asset: "Peso por activo",
     chart_weight: "Peso",
     chart_direct: "Directo",
-    chart_via_etf: "Vía ETF S&P 500",
+    chart_via_etf: "Vía ETF",
     chart_true_exposure: "Exposición real",
     chart_ghost_hint:
-      "El segmento claro = exposición oculta a través de tus ETFs del S&P 500.",
+      "El segmento claro = exposición oculta a través de tus ETFs índice.",
 
     radar_title: "Perfil del Portafolio",
     radar_risk: "Riesgo",

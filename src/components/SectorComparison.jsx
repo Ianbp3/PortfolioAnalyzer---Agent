@@ -16,7 +16,8 @@ const LABELS = {
     inline: "In line",
     direct: "direct",
     via_etf: "via ETF",
-    sp500_note: "Includes implied exposure from your S&P 500 ETF holdings.",
+    sp500_note:
+      "Includes the exposure hidden inside your index ETFs (S&P 500, Nasdaq-100, etc.).",
     dead_weight_title: "Dead Weight",
     dead_weight_sub:
       "These positions are losing money and represent a significant share of your portfolio.",
@@ -34,7 +35,8 @@ const LABELS = {
     inline: "En línea",
     direct: "directo",
     via_etf: "vía ETF",
-    sp500_note: "Incluye exposición implícita de tus ETFs del S&P 500.",
+    sp500_note:
+      "Incluye la exposición oculta dentro de tus ETFs índice (S&P 500, Nasdaq-100, etc.).",
     dead_weight_title: "Peso Muerto",
     dead_weight_sub:
       "Estas posiciones están en pérdida y representan una porción significativa de tu portafolio.",
@@ -84,7 +86,10 @@ export default function SectorComparison({ analysis }) {
     ...rows.map(([, s]) => Math.max(s.userPct, s.sp500Pct)),
     1,
   );
-  const hasSP500 = analysis.sp500Weight > 0.05;
+  // True when any of your sectors has exposure hidden inside an index fund
+  // (S&P 500, S&P 500 Growth, Nasdaq-100, ...) — drives the direct/via-ETF
+  // breakdown and the explanatory note below.
+  const hasEtfExposure = rows.some(([, s]) => (s.impliedPct || 0) > 0);
 
   return (
     <div style={{ marginTop: 8 }}>
@@ -97,7 +102,7 @@ export default function SectorComparison({ analysis }) {
         }}
       >
         {l.subtitle}
-        {hasSP500 && (
+        {hasEtfExposure && (
           <span style={{ display: "block", marginTop: 4, fontStyle: "italic" }}>
             {l.sp500_note}
           </span>
@@ -181,7 +186,7 @@ export default function SectorComparison({ analysis }) {
                       }}
                     >
                       {/* Show direct vs ETF breakdown inside the bar if both exist */}
-                      {hasSP500 &&
+                      {hasEtfExposure &&
                         data.impliedPct > 0 &&
                         data.directPct > 0 && (
                           <div
@@ -212,7 +217,7 @@ export default function SectorComparison({ analysis }) {
                 </div>
 
                 {/* Breakdown hint if ETF exposure exists */}
-                {hasSP500 && data.impliedPct > 0 && (
+                {hasEtfExposure && data.impliedPct > 0 && (
                   <div
                     style={{
                       paddingLeft: 56,
