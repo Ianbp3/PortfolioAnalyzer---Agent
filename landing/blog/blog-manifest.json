@@ -1,6 +1,30 @@
 {
   "articles": [
     {
+      "slug": "pe-ratio-explained-why-short-term-investing-doesnt-work",
+      "slugEs": "que-es-el-pe-ratio-por-que-el-corto-plazo-no-funciona",
+      "titleEn": "Stop Trying to Win Fast: What the P/E Ratio Reveals About How Stocks Are Really Priced",
+      "titleEs": "Deja de Intentar Ganar Rápido: Lo Que el P/E Ratio Revela Sobre Cómo se Valoran Realmente las Acciones",
+      "descEn": "The market wasn't built for impatience. Learn how the P/E ratio reveals why every stock price is really a bet on years, not days, of future earnings.",
+      "descEs": "El mercado no fue diseñado para la impaciencia. Descubre cómo el P/E ratio revela que cada precio de una acción es una apuesta a años, no a días.",
+      "published": "2026-09-07",
+      "tags": [
+        "P/E ratio",
+        "price to earnings ratio",
+        "long term investing",
+        "stock valuation",
+        "investing basics",
+        "growth stocks",
+        "tech stock valuation",
+        "patience investing",
+        "stock market fundamentals",
+        "valuation multiples",
+        "how stocks are priced",
+        "fundamental analysis"
+      ],
+      "featured": true
+    },
+    {
       "slug": "portfolio-overlap-hidden-stock-exposure",
       "slugEs": "overlapping-portafolio-exposicion-oculta-acciones",
       "titleEn": "Portfolio Overlap: You Probably Own More of One Stock Than You Think",
