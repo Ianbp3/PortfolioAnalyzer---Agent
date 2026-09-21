@@ -96,6 +96,11 @@
   <!-- Article: pe-ratio-explained-why-short-term-investing-doesnt-work -->
   <url>
     <loc>https://foliosenseapp.com/blog/pe-ratio-explained-why-short-term-investing-doesnt-work</loc>
+        <image:image>
+  <image:loc>https://foliosenseapp.com/blog/images/pe-ratio-implied-payback-horizon-en.png</image:loc>
+  <image:title>What Your P/E Ratio Is Really Pricing In</image:title>
+  <image:caption>Bar chart translating typical P/E ratios into an implied payback horizon by sector: utility, S&P 500 average, and growth tech.</image:caption>
+</image:image>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -105,6 +110,11 @@
   </url>
   <url>
     <loc>https://foliosenseapp.com/blog/es/que-es-el-pe-ratio-por-que-el-corto-plazo-no-funciona</loc>
+    <image:image>
+  <image:loc>https://foliosenseapp.com/blog/images/pe-ratio-implied-payback-horizon-es.png</image:loc>
+  <image:title>Lo que realmente está descontando tu ratio P/E</image:title>
+  <image:caption>Gráfico de barras que traduce los ratios P/E típicos en un horizonte de recuperación implícito por sector: servicios públicos, promedio del S&amp;P 500 y tecnología de crecimiento.</image:caption>
+</image:image>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
