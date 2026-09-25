@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del
+      Trade | FolioSense
+    </title>
+    <meta
+      name="description"
+      content="SpaceX se disparó tras su IPO y luego cayó bajo $135. ¿Habría funcionado ponerse en corto? Analizamos la matemática, ETFs y riesgo real."
+    />
+    <meta
+      name="keywords"
+      content="IPO SpaceX, acciones SpaceX, SPCX, venta en corto, invertir en IPOs, inversión en ETFs, Nasdaq-100, bolsa de valores, Elon Musk, Starlink, xAI, valoración, short squeeze, inversión pasiva, inversión"
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto"
+    />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del Trade"
+    />
+    <meta
+      property="og:description"
+      content="SpaceX se disparó tras su IPO y luego cayó bajo $135. ¿Habría funcionado ponerse en corto? Analizamos la matemática, ETFs y riesgo real."
+    />
+    <meta
+      property="og:url"
+      content="https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="es_ES" />
+    <meta
+      property="og:image"
+      content="https://foliosenseapp.com/blog/images/spacex-short-selling-scenarios-es.png"
+    />
+    <meta property="og:image:width" content="1680" />
+    <meta property="og:image:height" content="945" />
+    <meta
+      property="og:image:alt"
+      content="Gráfico de líneas del precio de SpaceX (SPCX) del 12 de junio al 21 de septiembre de 2026 con tres entradas hipotéticas en corto. El inversor A pierde 1.63%, el inversor B gana 30.11% solo en papel tras sobrevivir un squeeze de 50.4%, y el inversor C es el único ganador limpio con 32.44%."
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del Trade"
+    />
+    <meta
+      name="twitter:description"
+      content="SpaceX se disparó tras su IPO y luego cayó bajo $135. ¿Habría funcionado ponerse en corto? Analizamos la matemática, ETFs y riesgo real."
+    />
+    <meta
+      name="twitter:image"
+      content="https://foliosenseapp.com/blog/images/spacex-short-selling-scenarios-es.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Gráfico del precio de SpaceX SPCX con tres entradas hipotéticas en corto: una pérdida, una ganancia solo en papel y un ganador limpio"
+    />
+
+    <!-- Article schema with ImageObject -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del Trade",
+        "description": "SpaceX se disparó tras su IPO y luego cayó bajo $135. ¿Habría funcionado ponerse en corto? Analizamos la matemática, ETFs y riesgo real.",
+        "url": "https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto",
+        "datePublished": "2026-09-21",
+        "dateModified": "2026-09-21",
+        "author": {
+          "@type": "Person",
+          "name": "Ian Beltrand",
+          "url": "https://foliosenseapp.com/about",
+          "sameAs": "https://www.linkedin.com/in/ian-roman-beltrand-padilla-82b04b30a/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "FolioSense",
+          "url": "https://foliosenseapp.com"
+        },
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://foliosenseapp.com/blog/images/spacex-short-selling-scenarios-es.png",
+          "width": 1680,
+          "height": 945,
+          "caption": "Trayectoria ilustrativa del precio de SpaceX (SPCX) del 12 de junio al 21 de septiembre de 2026 con tres entradas hipotéticas en corto: el inversor A pierde 1.63%, el inversor B gana 30.11% solo en papel y el inversor C es el único ganador limpio con 32.44%."
+        },
+        "inLanguage": "es",
+        "about": [
+          "IPO de SpaceX",
+          "acciones SpaceX",
+          "venta en corto",
+          "Nasdaq-100",
+          "inversión en ETFs"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      .article-hero { background: var(--ink); padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); }
+      .article-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+      .article-byline { font-size: 0.8rem; color: rgba(247, 246, 242, 0.5); }
+      .article-byline a { color: rgba(247, 246, 242, 0.85); text-decoration: none; border-bottom: 1px solid rgba(247, 246, 242, 0.3); }
+      .article-byline a:hover { color: var(--paper); }
+      .article-meta-date { font-size: 0.8rem; color: rgba(247, 246, 242, 0.5); }
+      .article-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 10px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); color: rgba(247, 246, 242, 0.6); }
+      .article-body { max-width: 720px; margin: 0 auto; padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); }
+      .article-body h2 { font-family: var(--font-display); font-size: clamp(1.25rem, 3vw, 1.55rem); font-weight: 700; color: var(--ink); margin: 3rem 0 0.85rem; line-height: 1.25; }
+      .article-body h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 2rem 0 0.6rem; }
+      .article-body p { color: var(--ink-soft); line-height: 1.8; margin-bottom: 1.1rem; font-size: 1.05rem; }
+      .article-body ul { padding-left: 1.5rem; margin-bottom: 1.1rem; }
+      .article-body li { color: var(--ink-soft); margin-bottom: 0.5rem; line-height: 1.75; font-size: 1.05rem; }
+      .article-body strong { color: var(--ink); font-weight: 600; }
+      .article-body hr { border: none; border-top: 1px solid var(--paper-warm); margin: 2.5rem 0; }
+      blockquote { border-left: 3px solid var(--accent); margin: 2rem 0; padding: 1rem 1.5rem; background: var(--white); border-radius: 0 var(--radius) var(--radius) 0; }
+      blockquote p { font-style: italic; color: var(--ink) !important; margin-bottom: 0.25rem !important; font-size: 1rem !important; }
+      blockquote cite { font-size: 0.82rem; color: var(--ink-muted); font-style: normal; }
+      .takeaway-box { background: var(--accent-light); border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: 1.75rem 2rem; margin: 2.5rem 0; }
+      .takeaway-box p { color: var(--ink) !important; margin-bottom: 0 !important; font-size: 1rem !important; }
+      .takeaway-box strong { color: var(--accent) !important; }
+      .inline-cta { background: var(--ink); border-radius: var(--radius-lg); padding: 2.5rem 2rem; text-align: center; margin: 3rem 0; }
+      .inline-cta h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--paper); margin: 0 0 0.5rem; }
+      .inline-cta p { color: rgba(247, 246, 242, 0.6); font-size: 0.9rem; margin: 0 0 1.25rem; }
+      /* Article figure (chart, image, diagram) */
+      .article-figure { margin: 2.5rem 0; text-align: center; }
+      .article-figure img { max-width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--paper-warm); box-shadow: var(--shadow); background: var(--paper); }
+      .article-figcaption { margin-top: 0.9rem; font-size: 0.85rem; color: var(--ink-muted); font-style: italic; line-height: 1.55; max-width: 600px; margin-left: auto; margin-right: auto; }
+      details { border: 1px solid var(--paper-warm); border-radius: var(--radius); margin-bottom: 0.75rem; overflow: hidden; }
+      summary { padding: 1rem 1.25rem; font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; color: var(--ink); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+      summary::after { content: "+"; font-size: 1.1rem; color: var(--accent); }
+      details[open] summary::after { content: "−"; }
+      details > div { padding: 0 1.25rem 1rem; color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7; }
+    </style>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5965745153374411"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="/" class="nav-logo">Folio<span class="dot">Sense</span></a>
+      <div class="nav-links">
+        <a href="/how-it-works" data-i18n="nav_how">Cómo funciona</a>
+        <a href="/why-invest" data-i18n="nav_why">Por qué invertir</a>
+        <a href="/glossary" data-i18n="nav_glossary">Glosario</a>
+        <a href="/blog" data-i18n="nav_blog" style="color: var(--accent)">Blog</a>
+        <a href="/dashboard" class="nav-cta" data-i18n="nav_cta">Abrir app →</a>
+        <button
+          id="lang-toggle"
+          style="
+            background: transparent;
+            border: 1.5px solid var(--paper-warm);
+            border-radius: 99px;
+            padding: 5px 13px;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink);
+            cursor: pointer;
+          "
+        >
+          EN
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="article-hero">
+      <div style="max-width: 720px; margin: 0 auto">
+        <div class="article-meta">
+          <span class="article-tag">IPOs</span>
+          <span class="article-tag">Venta en corto</span>
+          <span class="article-tag">ETFs</span>
+          <span class="article-meta-date">21 de septiembre de 2026</span>
+          <span class="article-byline">Escrito por <a href="/about">Ian Beltrand</a></span>
+        </div>
+        <h1
+          style="
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--paper);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+          "
+        >
+          IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del
+          Trade
+        </h1>
+        <p
+          style="
+            color: rgba(247, 246, 242, 0.65);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 600px;
+          "
+        >
+          SpaceX se disparó tras su IPO y luego cayó bajo $135. Analizamos la
+          matemática, el efecto de los ETFs, el riesgo del préstamo y el
+          resultado real.
+        </p>
+      </div>
+    </div>
+
+    <!-- ARTICLE BODY -->
+    <article class="article-body">
+      <p>SpaceX finalmente salió a bolsa en junio de 2026 y el mercado produjo inmediatamente una de las aperturas de IPO más extremas de los últimos años.</p>
+      <p>La compañía fijó el precio de su oferta pública inicial en $135 por acción. Cuando comenzó la negociación el 12 de junio, las acciones abrieron en $150, un 11.1% por encima del precio de la IPO. Durante la sesión, SPCX llegó a alcanzar un máximo intradía de $176.52 antes de cerrar en $160.95. Para el 16 de junio, la acción ya había alcanzado un máximo intradía de $225.64.</p>
+      <p>Después, la historia cambió.</p>
+      <p>Durante las semanas siguientes, SpaceX cayó con fuerza, llegando a cotizar por debajo de los $135 de la IPO y alcanzando un mínimo intradía de $104.83 el 3 de agosto. El 21 de septiembre, las acciones cotizaban alrededor de $152.44, apenas por encima de los $150 de apertura.</p>
+      <p>Esto plantea una pregunta fascinante para cualquier inversor:</p>
+      <p><strong>Si hubieras intentado ponerte en corto con SpaceX cuando comenzó a cotizar, ¿realmente habrías ganado dinero?</strong></p>
+      <p>La respuesta es mucho más complicada que decir "SpaceX bajó, así que el corto funcionó".</p>
+      <p>La respuesta real depende del precio de entrada, del precio de salida, de la capacidad para conseguir acciones prestadas, de los requisitos de margen, del momento de inclusión en índices y de la extrema volatilidad que apareció antes de la caída.</p>
+
+      <h2>SpaceX no era simplemente una empresa de cohetes</h2>
+      <p>Uno de los mayores errores que un inversor podía cometer al analizar SpaceX era pensar en ella simplemente como un fabricante de cohetes.</p>
+      <p>La empresa que salió a bolsa en 2026 era una combinación de varios negocios.</p>
+      <p>Sus documentos ante la SEC describen tres grandes segmentos operativos: Space, Connectivity y AI.</p>
+      <p>El negocio Space incluye Falcon 9, Falcon Heavy, Starship y los servicios de lanzamiento y desarrollo asociados. En 2025, el segmento Space generó $4.086 mil millones de ingresos.</p>
+      <p>Connectivity está impulsado principalmente por Starlink. Incluye banda ancha para consumidores, conectividad empresarial, soluciones gubernamentales y servicios móviles. En 2025, Connectivity generó $11.387 mil millones de ingresos y $4.423 mil millones de beneficio operativo.</p>
+      <p>Después está AI.</p>
+      <p>El segmento de inteligencia artificial de SpaceX incluye infraestructura, publicidad, suscripciones y negocios vinculados a la combinación con xAI. La compañía reveló que xAI fue adquirida por SpaceX en febrero de 2026, mientras que X ya había sido adquirida por xAI. Eso significa que los inversores ya no estaban valorando una empresa puramente aeroespacial. En realidad estaban evaluando una estructura integrada de infraestructura espacial, comunicaciones satelitales e inteligencia artificial.</p>
+      <p>Esto importa muchísimo para una tesis bajista.</p>
+      <p>Un análisis tradicional podría decir que una empresa con enormes expectativas de crecimiento pero beneficios débiles merece una valoración más conservadora.</p>
+      <p>El problema es que SpaceX no era un solo negocio con un solo perfil económico.</p>
+      <p>Su negocio Connectivity ya generaba miles de millones de dólares en beneficio operativo. Al mismo tiempo, el segmento AI estaba gastando enormes cantidades para construir crecimiento futuro. En 2025, AI produjo $3.201 mil millones de ingresos, pero registró una pérdida operativa de $6.355 mil millones.</p>
+      <p>En otras palabras, SpaceX combinaba un negocio de conectividad rentable y de rápido crecimiento con otros negocios futuros mucho más intensivos en capital.</p>
+      <p>Eso hace que la valoración sea mucho más difícil de analizar que simplemente aplicar un múltiplo a la cantidad de lanzamientos.</p>
+
+      <h2>La valoración era gigantesca</h2>
+      <p>Al precio de IPO de $135, SpaceX recaudó aproximadamente $75 mil millones en su oferta base mediante la venta de 555,555,555 acciones. Los bancos colocadores también tenían una opción greenshoe para adquirir otras 83,333,333 acciones. Finalmente, la compañía emitió aproximadamente 638.9 millones de acciones a través de la oferta y recibió aproximadamente $85.675 mil millones de ingresos netos.</p>
+      <p>Reuters informó que el precio de la IPO implicaba una valoración de aproximadamente $1.77 billones. Posteriormente, las acciones abrieron en $150 y la capitalización llegó a superar los $2 billones, alcanzando más de $2.25 billones durante la primera sesión.</p>
+      <p>Ahora compáralo con los $18.674 mil millones de ingresos que SpaceX generó en 2025.</p>
+      <p>Con una valoración de $1.77 billones:</p>
+      <p>$1.77 billones / $18.674 mil millones = aproximadamente 94.8 veces ventas.</p>
+      <p>Con una valoración de $2.25 billones:</p>
+      <p>$2.25 billones / $18.674 mil millones = aproximadamente 120.5 veces ventas.</p>
+      <p>Estas cifras no demuestran automáticamente que una acción esté sobrevalorada. Una empresa puede justificar un múltiplo de ingresos muy elevado si los inversores esperan un crecimiento extraordinario en los próximos años.</p>
+      <p>Pero sí explican por qué muchos inversores vieron a SpaceX como una posible oportunidad para una tesis bajista.</p>
+      <p>Warren Buffett resumió uno de los principios centrales de la inversión con una frase sencilla:</p>
+      <blockquote>
+        <p>"Price is what you pay; value is what you get."</p>
+        Warren Buffett
+      </blockquote>
+      <p>En SpaceX, la cuestión interesante era precisamente la enorme distancia entre lo que el mercado estaba dispuesto a pagar y lo que los estados financieros históricos podían justificar mediante métodos tradicionales de valoración.</p>
+      <p>Esa diferencia constituía la base de la tesis de los bajistas.</p>
+      <p>Pero una buena tesis para ponerse en corto no es suficiente.</p>
+
+      <h2>El primer problema: el precio de IPO no es el precio de mercado</h2>
+      <p>Aquí es donde el corto teórico empieza a complicarse.</p>
+      <p>El precio de la IPO era $135.</p>
+      <p>Pero un inversor normal no recibía simplemente la posibilidad de vender SpaceX en corto a $135.</p>
+      <p>Las acciones comenzaron a cotizar públicamente a $150.</p>
+      <p>Esa diferencia importa.</p>
+      <p>Supongamos que un inversor hubiera conseguido ponerse en corto exactamente a $150 en la apertura.</p>
+      <p>La fórmula básica de una venta en corto es:</p>
+      <p><strong>Ganancia = precio de entrada del corto menos precio de recompra</strong></p>
+      <p>Si cerrara la posición a $152.44 el 21 de septiembre:</p>
+      <p>$150.00 menos $152.44 = menos $2.44 por acción.</p>
+      <p>Eso equivale a:</p>
+      <p>$2.44 / $150 = 1.63%</p>
+      <p>Por lo tanto, una posición hipotética de $10,000 iniciada en $150 habría generado una pérdida aproximada de $163 antes de intereses, costos de préstamo y comisiones.</p>
+      <p>No parece precisamente una gran operación.</p>
+      <p>Pero ese no es el problema principal.</p>
+      <p>La acción llegó a $225.64 apenas dos sesiones después del debut.</p>
+      <p>A ese precio, un corto iniciado en $150 tendría una pérdida no realizada de:</p>
+      <p>($225.64 menos $150) / $150 = 50.43%</p>
+      <p>Sobre un corto de $10,000, eso representa una pérdida no realizada de aproximadamente $5,043.</p>
+      <p>Y aquí es donde vender en corto se vuelve muy diferente de comprar una acción.</p>
+      <p>Un inversor que compra a $150 puede, al menos en teoría, esperar años a que la empresa se recupere.</p>
+      <p>El vendedor en corto no tiene necesariamente esa libertad.</p>
+      <p>El broker puede exigir más margen, aumentar requisitos internos o cerrar posiciones si el operador deja de tener suficiente garantía. La SEC explica que las ventas en corto están sujetas a reglas de margen, costos de préstamo y otros cargos. Los brokers también pueden establecer requisitos internos más estrictos que los mínimos regulatorios.</p>
+
+      <h2>La matemática se vuelve interesante en los extremos</h2>
+      <p>Imaginemos tres inversores diferentes.</p>
+      <p>El <strong>inversor A</strong> vende en corto a $150 y recompra a $152.44.</p>
+      <p>Resultado: aproximadamente menos 1.63%.</p>
+      <p>El <strong>inversor B</strong> vende en corto a $150 y, de alguna manera, sobrevive a toda la subida hasta cubrir en el mínimo intradía de $104.83 del 3 de agosto.</p>
+      <p>Resultado:</p>
+      <p>($150 menos $104.83) / $150 = 30.11%</p>
+      <p>Un corto de $10,000 produciría aproximadamente $3,011 de beneficio bruto.</p>
+      <p>El <strong>inversor C</strong> espera hasta el máximo posterior a la IPO de $225.64 y entonces abre el corto, para posteriormente cubrir en $152.44.</p>
+      <p>Resultado:</p>
+      <p>($225.64 menos $152.44) / $225.64 = 32.44%</p>
+      <p>El problema del inversor C es evidente.</p>
+      <p>Ese punto de entrada solo resulta obvio mirando hacia atrás.</p>
+      <p>En tiempo real nadie sabe exactamente cuál será el máximo.</p>
+      <p>El concepto de "Mr. Market" de Benjamin Graham resume muy bien el problema. El mercado puede ofrecer temporalmente precios determinados por emociones, expectativas y cambios en el sentimiento en lugar de una estimación estable del valor intrínseco. Las ideas de Graham suelen resumirse con la metáfora del mercado como una máquina de votar en el corto plazo y una máquina de pesar en el largo plazo.</p>
+      <p>SpaceX mostró casi perfectamente la primera parte.</p>
+      <p>La acción no se desplazó lentamente hacia un valor fundamental.</p>
+      <p>Pasó de $135 en la IPO a $225.64 en cuestión de días y luego cayó hasta $104.83.</p>
+      <p>Para una posición apalancada, la trayectoria podía importar mucho más que el destino final.</p>
+      <p>El siguiente gráfico pone las tres operaciones sobre la misma trayectoria de precio, para ver cuál acertó realmente.</p>
+
+      <!-- GRÁFICO: TRES ENTRADAS EN CORTO SOBRE EL PRECIO DE SPCX -->
+      <figure class="article-figure">
+        <img
+          src="/blog/images/spacex-short-selling-scenarios-es.png"
+          alt="Gráfico de líneas del precio de SpaceX (SPCX) del 12 de junio al 21 de septiembre de 2026 con tres entradas hipotéticas en corto. El inversor A vende en corto a $150 y recompra a $152.44 con una pérdida de 1.63%. El inversor B vende en corto a $150 y recompra en el mínimo de $104.83 con una ganancia de 30.11%, pero solo si sobrevive a un squeeze de 50.4% en el máximo de $225.64. El inversor C vende en corto el máximo de $225.64 y recompra a $152.44 con una ganancia de 32.44%, el único ganador limpio."
+          width="1680"
+          height="945"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="article-figcaption">
+          Trayectoria ilustrativa del precio basada en niveles clave
+          reportados. El inversor A pierde 1.63%, el inversor B gana solo en
+          papel porque antes llegó un squeeze de 50.4%, y el inversor C es el
+          único ganador limpio, mirando hacia atrás. Los rendimientos son antes
+          de costos de préstamo y comisiones. Solo con fines educativos y no
+          constituye asesoría financiera.
+        </figcaption>
+      </figure>
+
+      <h2>Entonces, ¿habría funcionado el corto?</h2>
+      <p>En realidad hay dos preguntas diferentes.</p>
+      <p>¿Haber terminado cotizando por debajo de $135 habría permitido ganar dinero con una posición bajista?</p>
+      <p>Sí, potencialmente.</p>
+      <p>¿Habría sido sencillo ponerse en corto en la apertura de la IPO?</p>
+      <p>No.</p>
+      <p>La diferencia es fundamental.</p>
+      <p>Un corto iniciado cerca de $150 podría haberse vuelto muy rentable posteriormente, pero primero habría tenido que sobrevivir una subida de más del 50%.</p>
+      <p>La idea de "yo sabía que la IPO estaba sobrevalorada, por lo tanto habría podido venderla en corto" ignora completamente la trayectoria del precio.</p>
+      <p>Puedes tener razón sobre la caída de largo plazo y aun así perder dinero.</p>
+
+      <h2>El efecto de los ETFs: una pieza que muchos inversores pasan por alto</h2>
+      <p>Aquí aparece otra fuerza importante alrededor de SpaceX.</p>
+      <p>La inclusión en índices.</p>
+      <p>SpaceX no fue añadido al Nasdaq-100 el día de la IPO.</p>
+      <p>Ese detalle es extremadamente importante.</p>
+      <p>La compañía salió a bolsa el 12 de junio.</p>
+      <p>Nasdaq anunció el 26 de junio que SpaceX se convertiría en componente del Nasdaq-100 antes de la apertura del 7 de julio. Nasdaq señaló que el Nasdaq-100 era seguido por más de 200 productos de inversión que representaban más de $800 mil millones en activos a nivel mundial.</p>
+      <p>Aquí es donde la inversión pasiva crea una fuente estructural de demanda.</p>
+      <p>Un fondo indexado está diseñado para seguir un índice. Un fondo como Invesco QQQ sigue el Nasdaq-100, mientras que QQQM también está basado en el mismo índice. En general, estos fondos deben mantener las posiciones necesarias para reproducir la exposición del índice según su metodología.</p>
+      <p>Cuando SpaceX entró al Nasdaq-100, los fondos que seguían ese índice necesitaban aumentar su exposición a SPCX.</p>
+      <p>Esto no significa que todos los ETFs del mercado estuvieran obligados legalmente a comprar SpaceX.</p>
+      <p>Significa que los fondos diseñados para replicar ese índice tenían una razón mecánica de construcción de cartera para incorporar las acciones.</p>
+      <p>Reuters informó que J.P. Morgan estimó que las entradas pasivas relacionadas con la inclusión podrían llegar hasta $4.3 mil millones.</p>
+      <p>El efecto no era puramente teórico.</p>
+      <p>Nasdaq informó que cuando SpaceX fue incorporada el 7 de julio tenía un peso cercano al 1.3%. El propio análisis de mercado de Nasdaq también señaló que la demanda pasiva no evitó que SPCX cayera más de 6.5% ese mismo día.</p>
+      <p>Esta es una lección muy útil.</p>
+      <p>La compra mecánica de fondos indexados puede crear demanda, pero no garantiza que el precio suba.</p>
+      <p>Un comprador enorme puede encontrarse con un vendedor todavía mayor.</p>
+
+      <h2>El rebalanceo de septiembre hace la historia todavía más interesante</h2>
+      <p>El efecto del índice no terminó en julio.</p>
+      <p>El 21 de septiembre de 2026, el peso de SpaceX dentro del Nasdaq-100 aumentó de aproximadamente 1.28% a 2.82%, según datos de Bloomberg reportados por Barron's.</p>
+      <p>Eso representa un incremento de:</p>
+      <p>2.82% menos 1.28% = 1.54 puntos porcentuales.</p>
+      <p>A primera vista, 1.54 puntos porcentuales no parece una cifra gigantesca.</p>
+      <p>Ahora aplícala a fondos pasivos enormes.</p>
+      <p>QQQ tenía aproximadamente $484.28 mil millones en activos bajo gestión el 18 de septiembre, mientras QQQM tenía aproximadamente $105.70 mil millones.</p>
+      <p>Juntos:</p>
+      <p>$484.28B + $105.70B = aproximadamente $589.98B.</p>
+      <p>Aplicando el cambio de 1.54 puntos porcentuales:</p>
+      <p>$589.98B × 1.54% = aproximadamente $9.09B.</p>
+      <p>Eso no significa que QQQ y QQQM tuvieran que comprar exactamente $9.09 mil millones de SpaceX.</p>
+      <p>Es una estimación ilustrativa del aumento de exposición que implicaría aplicar el cambio de peso de manera mecánica a esos dos fondos.</p>
+      <p>Las operaciones reales pueden ser diferentes debido a flujos de entrada y salida, muestreo, momento de ejecución, creación y redención de participaciones y otras variables.</p>
+      <p>Pero sirve para mostrar la escala del mecanismo.</p>
+      <p>Un cambio relativamente pequeño en el peso de un índice puede representar miles de millones de dólares de exposición adicional.</p>
+      <p>Por eso a veces se habla de los fondos indexados como compradores mecánicos.</p>
+      <p>No es demanda emocional.</p>
+      <p>Es demanda derivada de la construcción de cartera.</p>
+
+      <!-- INLINE CTA -->
+      <div class="inline-cta">
+        <h3>Mira cuánto tienes realmente de una sola acción</h3>
+        <p>
+          Sube tu portafolio y FolioSense mira dentro de tus ETFs para mostrarte
+          tu exposición real a cada acción y cada sector, incluyendo nombres
+          como SpaceX que pueden llegar a través de un fondo indexado. Gratis,
+          sin necesidad de crear cuenta.
+        </p>
+        <a href="/dashboard" class="btn btn-primary">Analizar mi portafolio →</a>
+      </div>
+
+      <h2>El problema del préstamo: ¿realmente podías vender SpaceX en corto?</h2>
+      <p>Aquí hay que corregir una idea importante.</p>
+      <p>No es correcto afirmar que SpaceX nunca pudo venderse en corto porque los brokers simplemente lo prohibían.</p>
+      <p>La venta en corto de una empresa pública es legal en Estados Unidos.</p>
+      <p>Pero hay algo imprescindible:</p>
+      <p><strong>acciones disponibles para préstamo.</strong></p>
+      <p>El vendedor en corto necesita vender acciones prestadas o tener un acuerdo válido para tomarlas prestadas. La SEC explica que los brokers suelen obtener esos títulos de su propio inventario, de cuentas de margen de otros clientes o de otros prestamistas.</p>
+      <p>Interactive Brokers, por ejemplo, establece expresamente un sistema de disponibilidad de valores para ventas en corto y señala que las operaciones en corto están sujetas a aprobación. Su sistema muestra la cantidad disponible, el número de prestamistas y las tasas indicativas de préstamo.</p>
+      <p>Para una empresa recién listada con un free float limitado, conseguir acciones prestadas puede resultar muy difícil al principio.</p>
+      <p>Eso fue precisamente parte de la historia de SpaceX.</p>
+      <p>La distinción importante es el momento.</p>
+      <p>Alrededor de la IPO, un inversor minorista no podía asumir que el nuevo ticker SPCX tendría un suministro ilimitado de acciones disponibles para short.</p>
+      <p>El free float era limitado, muchas acciones estaban sujetas a restricciones y la demanda por el papel era extraordinaria.</p>
+      <p>El prospecto de la IPO también describía un tipo completamente diferente de venta en corto realizada por los bancos colocadores.</p>
+      <p>Los bancos podían crear una posición corta vendiendo más acciones de las que estaban obligados inicialmente a comprar y después cubrirla potencialmente utilizando la opción greenshoe de 83.33 millones de acciones. Esto formaba parte del mecanismo de estabilización de la IPO y no equivalía a que un inversor minorista pudiera simplemente abrir un corto especulativo.</p>
+      <p>Esa diferencia es fundamental.</p>
+      <p>Los bancos tenían un mecanismo contractual específico.</p>
+      <p>Un inversor normal no.</p>
+
+      <h2>Pero vender SpaceX en corto sí se volvió posible</h2>
+      <p>Aquí es donde el resultado real se vuelve especialmente interesante.</p>
+      <p>El 23 de junio, solo once días después de la IPO, Reuters informó que aproximadamente entre 5% y 7% del free float de SpaceX, unas 40 millones de acciones, ya estaba vendido en corto según S3 Partners.</p>
+      <p>En ese momento, las acciones eran cada vez más fáciles de tomar prestadas y los vendedores en corto pagaban aproximadamente 60 puntos básicos por el préstamo.</p>
+      <p>Por lo tanto, decir "nadie podía vender SpaceX en corto" no era correcto durante todo el periodo posterior a la IPO.</p>
+      <p>La actividad short sí se volvió real.</p>
+      <p>Y eventualmente se volvió enorme.</p>
+      <p>Reuters informó el 1 de julio que casi un tercio de las acciones negociables de SpaceX estaban vendidas en corto y que esas posiciones ya acumulaban aproximadamente $750 millones en pérdidas no realizadas.</p>
+      <p>Ese dato muestra perfectamente el peligro.</p>
+      <p>La tesis bajista podía parecer cada vez más convincente para ciertos operadores, pero la acción ya se había movido violentamente en su contra.</p>
+      <p>Después el trade cambió otra vez.</p>
+      <p>Para el 23 de julio, Reuters informó que los vendedores en corto de SpaceX acumulaban aproximadamente $15.5 mil millones en beneficios no realizados desde la IPO, según Ortex, mientras la acción había caído por debajo de los $135 de la oferta inicial.</p>
+      <p>Esto convierte la historia de SpaceX en un caso práctico extraordinario para entender la venta en corto.</p>
+      <p>El mercado puede pasar de:</p>
+      <ul>
+        <li>Parece imposible vender en corto.</li>
+        <li>Se puede vender en corto, pero es doloroso.</li>
+        <li>Los vendedores en corto están acumulando miles de millones en beneficios sobre el papel.</li>
+      </ul>
+      <p>Todo en cuestión de semanas.</p>
+
+      <h2>El costo del préstamo importa más de lo que muchos piensan</h2>
+      <p>Una posición corta tiene un costo que normalmente no existe de la misma manera en una posición larga.</p>
+      <p>Puedes perder dinero porque la acción suba.</p>
+      <p>Pero incluso si la acción cae y tu tesis es correcta, la operación está afectada por el costo de pedir prestadas las acciones.</p>
+      <p>Supongamos que alguien vende en corto $10,000 de SpaceX con una tasa anual de préstamo de 0.60%.</p>
+      <p>Un costo simplificado de 30 días sería:</p>
+      <p>$10,000 × 0.006 × 30 / 360 = aproximadamente $5.</p>
+      <p>No parece mucho.</p>
+      <p>Pero las tasas cambian.</p>
+      <p>EquiLend informó que la demanda de préstamo de SpaceX aumentó drásticamente después de la IPO. La cantidad disponible para préstamo pasó de 18.6 millones de acciones inmediatamente después de la IPO a 211.6 millones el 10 de julio. Los datos también mostraron una utilización superior al 77% y un costo de préstamo cercano a 150 puntos básicos a mediados de julio.</p>
+      <p>La cifra exacta podía variar según el broker y el momento.</p>
+      <p>Pero la dirección del fenómeno es lo importante.</p>
+      <p>Cuando muchos operadores quieren vender en corto la misma acción escasa, el préstamo se vuelve más caro.</p>
+      <p>Eso crea una especie de ciclo.</p>
+      <p>Más volatilidad significa más riesgo de margen.</p>
+      <p>Más posiciones cortas significan más demanda de acciones prestables.</p>
+      <p>Más demanda de préstamo puede aumentar el costo financiero.</p>
+      <p>Y una subida rápida puede obligar a los vendedores en corto a recomprar.</p>
+      <p>Eso es el riesgo de short squeeze.</p>
+
+      <h2>¿Podría haber sido una catástrofe ponerse completamente en corto?</h2>
+      <p>Sí.</p>
+      <p>Imagina que el 12 de junio alguien decide:</p>
+      <p>"SpaceX está demasiado cara. Voy a venderla en corto y esperar."</p>
+      <p>Vende $10,000 a $150.</p>
+      <p>Dos sesiones después, el mercado toca $225.64.</p>
+      <p>La posición necesitaría aproximadamente:</p>
+      <p>$225.64 × 66.67 acciones = $15,043 para recomprarse.</p>
+      <p>La pérdida no realizada sería de aproximadamente $5,043.</p>
+      <p>Es una pérdida del 50.4% respecto al tamaño original del corto.</p>
+      <p>Si el operador no tuviera suficiente garantía, el broker podría obligarlo a aportar capital adicional o cerrar parte de la posición.</p>
+      <p>El inversor podría tener razón sobre la valoración de largo plazo y aun así nunca llegar al momento en que aparece la caída.</p>
+      <p>Esa es la asimetría central de la venta en corto.</p>
+      <p>Una posición larga tiene una pérdida máxima teórica de 100% porque una acción normalmente no puede caer por debajo de cero.</p>
+      <p>Una posición corta tiene una pérdida teórica ilimitada porque una acción puede seguir subiendo.</p>
+      <p>SpaceX mostró esa asimetría de una manera espectacular.</p>
+
+      <h2>¿Y qué pasa con el mínimo de $104.83?</h2>
+      <p>Aquí es donde el hindsight puede hacer que el trade parezca demasiado sencillo.</p>
+      <p>Si hubieras vendido SpaceX a $150 y cubierto a $104.83, el rendimiento bruto habría sido 30.11%.</p>
+      <p>Pero observa el recorrido necesario:</p>
+      <p>$150 → $176.52 → $225.64 → $104.83.</p>
+      <p>La dirección final era correcta.</p>
+      <p>El camino fue brutal.</p>
+      <p>Por eso decir "el corto habría funcionado" es una afirmación incompleta.</p>
+      <p>La formulación más precisa sería:</p>
+      <p>Una posición corta podría haber sido rentable si se hubiera abierto y mantenido durante el tramo adecuado de la caída posterior a la IPO.</p>
+      <p>Pero un corto abierto a $150 y mantenido hasta el 21 de septiembre de 2026 no habría generado beneficios, porque SPCX cotizaba alrededor de $152.44 antes de considerar costos.</p>
+      <p>La operación dependía completamente del recorrido.</p>
+      <p>Y esa es precisamente la razón por la cual vender en corto no es simplemente el espejo de comprar.</p>
+
+      <h2>Una lección útil de Howard Marks</h2>
+      <p>Howard Marks ha insistido repetidamente en el peligro de asumir que una circunstancia extraordinaria justifica automáticamente una valoración extraordinaria.</p>
+      <p>Un principio relacionado, atribuido célebremente a John Templeton, dice:</p>
+      <blockquote>
+        <p>"The four most dangerous words in investing are: this time it's different."</p>
+        John Templeton
+      </blockquote>
+      <p>La frase encaja particularmente bien con SpaceX porque la empresa realmente tenía características diferentes.</p>
+      <p>Tenía negocios en varias industrias.</p>
+      <p>Starlink estaba creciendo rápidamente.</p>
+      <p>El mercado potencial era enorme.</p>
+      <p>La marca asociada a Elon Musk era extremadamente poderosa.</p>
+      <p>La compañía combinaba infraestructura espacial e inteligencia artificial.</p>
+      <p>También necesitaba grandes inversiones de capital y tenía una valoración que parecía extrema bajo métricas tradicionales.</p>
+      <p>El problema es que "es diferente" no dice si la acción va a subir o bajar mañana.</p>
+      <p>Eso es una pregunta completamente diferente.</p>
+      <p>Y esa distinción es crucial cuando se evalúa una posición corta.</p>
+
+      <h2>El efecto de los ETFs no hizo automáticamente falsa la valoración de la IPO</h2>
+      <p>Hay otro detalle importante.</p>
+      <p>Sería tentador explicar toda la subida inicial de SpaceX mediante las compras de ETFs.</p>
+      <p>Pero la cronología no respalda esa explicación.</p>
+      <p>La IPO ocurrió el 12 de junio.</p>
+      <p>La inclusión en el Nasdaq-100 ocurrió el 7 de julio.</p>
+      <p>Por lo tanto, las compras mecánicas relacionadas con el Nasdaq-100 no fueron la causa directa del salto inicial de la IPO.</p>
+      <p>Las acciones abrieron en $150 y cerraron en $160.95 durante el primer día.</p>
+      <p>La oferta inicial, la demanda institucional, la demanda minorista, el free float limitado, las expectativas y el mecanismo de apertura del mercado fueron relevantes.</p>
+      <p>La inclusión posterior en el índice añadió otra fuente de demanda.</p>
+      <p>Esa diferencia es importante porque los inversores suelen confundir:</p>
+      <p>"La inclusión en un índice creó demanda adicional"</p>
+      <p>con:</p>
+      <p>"La inclusión en el índice provocó la subida inicial."</p>
+      <p>No son la misma afirmación.</p>
+
+      <h2>¿Qué pasó realmente con los vendedores en corto?</h2>
+      <p>La respuesta es fascinante porque distintos vendedores en corto tuvieron resultados completamente diferentes.</p>
+      <p>Quienes hubieran vendido cerca de $150 tuvieron que sobrevivir a una subida gigantesca.</p>
+      <p>Quienes vendieron después de la subida hacia $200 y más enfrentaron otra estructura completamente distinta.</p>
+      <p>Quienes esperaron hasta que la disponibilidad de acciones para préstamo mejoró tuvieron acceso a un mercado de préstamo más desarrollado.</p>
+      <p>Y quienes cerraron durante la caída pudieron obtener beneficios brutos enormes.</p>
+      <p>Reuters documentó aproximadamente $15.5 mil millones de beneficios no realizados estimados entre los vendedores en corto de SpaceX para el 23 de julio.</p>
+      <p>Pero esa cifra agregada no significa que todos los vendedores en corto ganaran dinero.</p>
+      <p>Representa un conjunto de posiciones con diferentes entradas, tamaños y periodos de tenencia.</p>
+      <p>Algunos operadores perdían mientras otros ganaban.</p>
+      <p>Precisamente por eso los beneficios agregados de los cortos nunca deben interpretarse como prueba de que un inversor individual habría podido replicar la misma operación.</p>
+
+      <h2>La conclusión real sobre el trade</h2>
+      <p>La tesis bajista sobre SpaceX tenía tres ingredientes que la hacían intelectualmente atractiva.</p>
+      <p>Primero, la valoración era extraordinaria.</p>
+      <p>Segundo, la acción mostraba una volatilidad extrema.</p>
+      <p>Tercero, existían varias áreas importantes en las que los inversores podían discrepar razonablemente sobre rentabilidad futura, necesidades de capital y crecimiento.</p>
+      <p>Sin embargo, la realidad operativa era mucho más difícil que el análisis de valoración.</p>
+      <p>Un corto abierto a $150 habría sufrido una presión enorme porque la acción llegó a $225.64 casi inmediatamente.</p>
+      <p>Un corto que sobreviviera al rally y capturara la posterior caída podría haber generado rendimientos muy altos.</p>
+      <p>Y el 21 de septiembre la acción estaba alrededor de $152.44, lo que significa que un corto simple abierto a $150 y mantenido hasta esa fecha habría terminado ligeramente en pérdidas antes de costos.</p>
+      <p>El gran error no estaba tanto en analizar la valoración de SpaceX.</p>
+      <p>Estaba en asumir que acertar sobre la valoración equivale a acertar sobre el trade.</p>
+      <p>El momento es la clave.</p>
+      <p>Para que un corto funcione debes acertar sobre cuándo entrar, sobrevivir al movimiento en contra, mantener el préstamo y cumplir los requisitos de margen.</p>
+      <p>En el caso de SpaceX, esa diferencia tuvo un valor potencial de miles de millones de dólares.</p>
+
+      <!-- FAQ -->
+      <h2>Preguntas frecuentes: IPO de SpaceX y venta en corto</h2>
+      <details>
+        <summary>¿Se puede vender SpaceX en corto?</summary>
+        <div>Sí. SpaceX cotiza públicamente bajo el ticker SPCX y la venta en corto se convirtió en una actividad real poco después de la IPO. Reuters informó que aproximadamente entre 5% y 7% del free float ya estaba vendido en corto el 23 de junio de 2026.</div>
+      </details>
+      <details>
+        <summary>¿Se podía vender SpaceX en corto el primer día?</summary>
+        <div>No se podía asumir simplemente que cualquier inversor minorista tendría acceso inmediato a un suministro ilimitado de acciones prestables. Una venta en corto requiere acciones disponibles para préstamo y la aprobación del broker. En una IPO reciente, el problema práctico puede ser la disponibilidad del préstamo. Eso es diferente de decir que la venta en corto estuviera prohibida permanentemente.</div>
+      </details>
+      <details>
+        <summary>¿Los ETFs estaban obligados a comprar SpaceX?</summary>
+        <div>Los fondos diseñados para replicar el Nasdaq-100 necesitaban aumentar su exposición cuando SpaceX entró en el índice, de acuerdo con su metodología de seguimiento. Nasdaq anunció la inclusión para el 7 de julio de 2026 y Reuters informó que J.P. Morgan estimaba hasta $4.3 mil millones de flujos pasivos.</div>
+      </details>
+      <details>
+        <summary>¿Los ETFs provocaron la subida de la IPO de SpaceX?</summary>
+        <div>La cronología indica que la inclusión en el Nasdaq-100 no fue la causa directa del salto inicial del 12 de junio porque la inclusión ocurrió el 7 de julio. La acción abrió a $150 y cerró el primer día en $160.95.</div>
+      </details>
+      <details>
+        <summary>¿Cuánto podría haber ganado un corto sobre SpaceX?</summary>
+        <div>Depende completamente de la entrada y la salida. Un corto hipotético abierto a $150 y cerrado a $104.83 habría producido una ganancia bruta de 30.11%. Un corto abierto a $150 y cerrado a $152.44 habría perdido 1.63% antes de costos. Una operación abierta cerca del máximo de $225.64 habría producido un resultado completamente diferente.</div>
+      </details>
+      <details>
+        <summary>¿Por qué vender en corto es más difícil que comprar?</summary>
+        <div>Porque el vendedor en corto toma prestadas acciones, paga costos de préstamo, debe mantener margen y enfrenta pérdidas potencialmente ilimitadas si la acción sube. La SEC destaca específicamente los requisitos de margen y los costos de préstamo como elementos fundamentales de una venta en corto.</div>
+      </details>
+      <details>
+        <summary>¿Por qué SpaceX era tan difícil de valorar?</summary>
+        <div>Porque dejó de ser simplemente una empresa de lanzamientos. SpaceX combinaba servicios de lanzamiento, conectividad Starlink y actividades relacionadas con inteligencia artificial, incluyendo negocios vinculados a xAI y X. Sus estados financieros de 2025 mostraban al mismo tiempo un segmento Connectivity muy rentable y un segmento AI con fuertes pérdidas operativas.</div>
+      </details>
+
+      <hr />
+
+      <h2>Conclusión</h2>
+      <p>La lección más interesante de la IPO de SpaceX no es simplemente determinar si la compañía estaba "sobrevalorada".</p>
+      <p>La verdadera lección es que valoración y trading son dos problemas diferentes.</p>
+      <p>Una acción puede parecer extremadamente cara y aun así subir otro 50%.</p>
+      <p>Una empresa puede terminar cayendo y aun así destruir a un vendedor en corto antes de que aparezca la caída.</p>
+      <p>SpaceX pasó de un precio de IPO de $135 a una apertura de $150, después a un máximo posterior de $225.64, luego cayó hasta $104.83 y finalmente volvió a alrededor de $152.44 el 21 de septiembre.</p>
+      <p>En una sola secuencia aparecen prácticamente todos los riesgos principales de la venta en corto.</p>
+      <ul>
+        <li>Momentum.</li>
+        <li>Free float limitado.</li>
+        <li>Demanda de índices.</li>
+        <li>Disponibilidad de préstamo.</li>
+        <li>Interés en corto.</li>
+        <li>Margen.</li>
+        <li>Short squeezes.</li>
+        <li>Y, finalmente, valoración.</li>
+      </ul>
+      <p>Por eso el hipotético corto sobre SpaceX no tiene una respuesta simple de "sí" o "no".</p>
+      <p>El resultado matemático dependía del precio de entrada y salida.</p>
+      <p>El resultado práctico dependía de si el inversor podía conseguir las acciones prestadas.</p>
+      <p>Y el resultado histórico demuestra que los vendedores en corto sí pudieron abrir posiciones después de la IPO y que, mientras la acción caía, llegaron a acumular miles de millones de dólares en beneficios estimados sobre el papel.</p>
+      <p>Para cualquier inversor que estudie IPOs, esta podría ser la conclusión más importante:</p>
+      <div class="takeaway-box">
+        <p><strong>El mercado no te recompensa simplemente por tener razón. Te recompensa por la posición que realmente pudiste abrir, financiar y mantener.</strong></p>
+      </div>
+
+      <hr />
+      <p style="color: var(--ink-muted); font-size: 0.9rem; font-style: italic">
+        Este artículo tiene fines únicamente educativos y no constituye asesoría
+        financiera. La venta en corto implica riesgos sustanciales, incluyendo
+        pérdidas que pueden superar tu inversión inicial. Haz siempre tu propia
+        investigación antes de invertir.
+      </p>
+    </article>
+
+    <!-- BLOG WIDGETS -->
+    <section style="background: var(--white); padding: 0 clamp(1.5rem, 5vw, 4rem) 4rem">
+      <div style="max-width: 900px; margin: 0 auto">
+        <div
+          id="blog-related"
+          data-tags="SpaceX IPO,SpaceX stock,SPCX,short selling,IPO investing,ETF investing,Nasdaq-100,stock market,Elon Musk,Starlink,xAI,valuation,short squeeze,passive investing,investing"
+          data-current-slug="ipo-spacex-habria-funcionado-ponerse-en-corto"
+        ></div>
+        <div id="blog-newest"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">FolioSense</a>
+        <div class="footer-links">
+          <a href="/how-it-works" data-i18n="nav_how">Cómo funciona</a>
+          <a href="/why-invest" data-i18n="nav_why">Por qué invertir</a>
+          <a href="/glossary" data-i18n="nav_glossary">Glosario</a>
+          <a href="/blog" data-i18n="nav_blog">Blog</a>
+          <a href="/privacy" data-i18n="footer_privacy">Política de privacidad</a>
+        </div>
+        <div class="footer-copy" data-i18n="footer_copy">
+          © 2026 FolioSense. No es asesoría financiera.
+        </div>
+      </div>
+    </footer>
+
+    <script src="/i18n.js"></script>
+    <script src="/blog/blog-widget.js"></script>
+    <script src="/blog/affiliate-cta.js" defer></script>
+    <script>
+      (function () {
+        localStorage.setItem("foliosense_lang", "es");
+        var btn = document.getElementById("lang-toggle");
+        if (!btn) return;
+        btn.addEventListener(
+          "click",
+          function (e) {
+            e.stopImmediatePropagation();
+            localStorage.setItem("foliosense_lang", "en");
+            window.location.href =
+              "/blog/spacex-ipo-would-shorting-have-worked";
+          },
+          true,
+        );
+      })();
+    </script>
+  </body>
+</html>

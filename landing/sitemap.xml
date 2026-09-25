@@ -93,6 +93,36 @@
 
   <!-- ── BLOG ARTICLES ── -->
 
+  <!-- Article: spacex-ipo-would-shorting-have-worked -->
+  <url>
+    <loc>https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/spacex-short-selling-scenarios-en.png</image:loc>
+      <image:title>SpaceX (SPCX): Three Short Entries, One Clean Winner</image:title>
+      <image:caption>Illustrative SpaceX price path from June 12 to September 21, 2026 with three hypothetical short entries: one loss, one paper win and one clean winner</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://foliosenseapp.com/blog/es/ipo-spacex-habria-funcionado-ponerse-en-corto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foliosenseapp.com/blog/spacex-ipo-would-shorting-have-worked"/>
+    <image:image>
+      <image:loc>https://foliosenseapp.com/blog/images/spacex-short-selling-scenarios-es.png</image:loc>
+      <image:title>SpaceX (SPCX): Tres entradas en corto, un solo ganador limpio</image:title>
+      <image:caption>Trayectoria ilustrativa del precio de SpaceX del 12 de junio al 21 de septiembre de 2026 con tres entradas hipotéticas en corto: una pérdida, una ganancia solo en papel y un ganador limpio</image:caption>
+    </image:image>
+  </url>
+  
   <!-- Article: pe-ratio-explained-why-short-term-investing-doesnt-work -->
   <url>
     <loc>https://foliosenseapp.com/blog/pe-ratio-explained-why-short-term-investing-doesnt-work</loc>

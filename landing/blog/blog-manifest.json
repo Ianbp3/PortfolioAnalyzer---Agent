@@ -1,6 +1,33 @@
 {
   "articles": [
     {
+      "slug": "spacex-ipo-would-shorting-have-worked",
+      "slugEs": "ipo-spacex-habria-funcionado-ponerse-en-corto",
+      "titleEn": "SpaceX IPO: Would Shorting It Have Worked? The Math Behind the Trade",
+      "titleEs": "IPO de SpaceX: ¿Habría Funcionado Ponerse en Corto? La Matemática del Trade",
+      "descEn": "SpaceX surged after its IPO, then crashed below $135. Would shorting it have worked? Here is the math, ETF effect, borrow risk and real result.",
+      "descEs": "SpaceX se disparó tras su IPO y luego cayó bajo $135. ¿Habría funcionado ponerse en corto? Analizamos la matemática, ETFs y riesgo real.",
+      "published": "2026-09-21",
+      "tags": [
+        "SpaceX IPO",
+        "SpaceX stock",
+        "SPCX",
+        "short selling",
+        "IPO investing",
+        "ETF investing",
+        "Nasdaq-100",
+        "stock market",
+        "Elon Musk",
+        "Starlink",
+        "xAI",
+        "valuation",
+        "short squeeze",
+        "passive investing",
+        "investing"
+      ],
+      "featured": true
+    },
+    {
       "slug": "pe-ratio-explained-why-short-term-investing-doesnt-work",
       "slugEs": "que-es-el-pe-ratio-por-que-el-corto-plazo-no-funciona",
       "titleEn": "Stop Trying to Win Fast: What the P/E Ratio Reveals About How Stocks Are Really Priced",
