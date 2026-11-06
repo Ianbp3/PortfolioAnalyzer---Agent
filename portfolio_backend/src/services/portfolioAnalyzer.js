@@ -1,25 +1,15 @@
-// ─────────────────────────────────────────────────────────────────────────────
 // Index-tracking funds.
-//
 // Holding any of these is NOT a single-stock bet, it is a basket of many
 // companies, so the analyzer treats it as diversification, not concentration,
 // and "looks through" it into its real sector mix.
-//
-// Each entry groups every ticker (ETF + mutual fund) that tracks the SAME
-// underlying index, so SPY / VOO / IVV all behave identically, and so do
-// SPYG / VOOG / IVW, and QQQ / QQQM. To support a new index later, just add
-// one more object here (tickers + holdings count + sector weights) and, if you
-// want it reflected in the per-asset overlap chart, add its constituent weights
-// in PortfolioCharts.jsx.
-//
+// To support a new index later, add one more object here (tickers + holdings
+// count + sector weights) and its constituent weights in PortfolioCharts.jsx.
 // Sector weights are cap-weighted approximations (mid-2026) and should be
-// refreshed periodically alongside the constituent tables on the frontend.
-// They do not need to sum to exactly 1, any remainder is shown as "Other".
-// ─────────────────────────────────────────────────────────────────────────────
+// refreshed periodically. They do not need to sum to exactly 1.
 const INDEX_FUNDS = [
   {
     key: "SP500",
-    benchmark: true, // the one we compare every portfolio against
+    benchmark: true,
     holdings: 500,
     tickers: [
       "SPY",
@@ -52,7 +42,7 @@ const INDEX_FUNDS = [
   },
   {
     key: "SP500_GROWTH",
-    holdings: 150, // S&P 500 Growth holds ~150 of the index's growth names
+    holdings: 150,
     tickers: ["SPYG", "VOOG", "IVW"],
     sectorWeights: {
       Technology: 0.46,
@@ -70,7 +60,7 @@ const INDEX_FUNDS = [
   },
   {
     key: "NASDAQ100",
-    holdings: 100, // Nasdaq-100: 100 largest non-financial Nasdaq companies
+    holdings: 100,
     tickers: ["QQQ", "QQQM"],
     sectorWeights: {
       Technology: 0.51,
@@ -87,22 +77,16 @@ const INDEX_FUNDS = [
   },
 ];
 
-// ticker (uppercase) → its index fund object
+// ticker (uppercase) -> its index fund object
 const FUND_BY_TICKER = new Map();
 INDEX_FUNDS.forEach((fund) => {
   fund.tickers.forEach((ticker) => FUND_BY_TICKER.set(ticker, fund));
 });
 
-// ── Backward-compatible exports of the S&P 500 benchmark ─────────────────────
-// These keep the "blended exposure vs S&P 500" comparison untouched: it still
-// looks ONLY at S&P 500 trackers, never at the Growth or Nasdaq-100 funds.
+// Backward-compatible exports of the S&P 500 benchmark
 const SP500_FUND = INDEX_FUNDS.find((f) => f.benchmark);
-const SP500_ETFS = new Set(SP500_FUND.tickers);
 const SP500_SECTOR_WEIGHTS = SP500_FUND.sectorWeights;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helper: standard deviation of an array of numbers
-// ─────────────────────────────────────────────────────────────────────────────
 function stdDev(values) {
   if (values.length === 0) return 0;
   const avg = values.reduce((s, v) => s + v, 0) / values.length;
@@ -111,13 +95,13 @@ function stdDev(values) {
   return Math.sqrt(variance);
 }
 
-// Empty / zero-value result shape (kept in one place so it stays consistent)
 function emptyResult() {
   return {
     totalValue: 0,
     diversification: 0,
     concentration: 0,
     riskScore: 0,
+    riskBreakdown: {},
     sectors: {},
     blendedSectors: {},
     sectorVsSP500: {},
@@ -128,9 +112,6 @@ function emptyResult() {
   };
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Main analyzer
-// ─────────────────────────────────────────────────────────────────────────────
 export function analyzePortfolio(positions = []) {
   if (!Array.isArray(positions) || positions.length === 0) {
     return emptyResult();
@@ -141,9 +122,7 @@ export function analyzePortfolio(positions = []) {
     return emptyResult();
   }
 
-  // ── Tag each position ────────────────────────────────────────────────────
-  // `fund`   → the index fund it tracks (or null if it is an individual asset)
-  // `isSP500`→ kept for backward compat: true ONLY for S&P 500 trackers
+  // Tag each position
   const tagged = positions.map((p) => {
     const sym = (p.symbol || "").toUpperCase();
     const fund = FUND_BY_TICKER.get(sym) || null;
@@ -155,19 +134,15 @@ export function analyzePortfolio(positions = []) {
     };
   });
 
-  // Fraction of the portfolio sitting in S&P 500 trackers (drives the vs-S&P 500
-  // comparison and notes — intentionally NOT affected by Growth / Nasdaq funds).
   const sp500Weight = tagged
     .filter((p) => p.isSP500)
     .reduce((s, p) => s + p.weight, 0);
 
-  // Fraction of the portfolio in ANY index fund (S&P 500 + Growth + Nasdaq-100).
   const indexFundWeight = tagged
     .filter((p) => p.fund)
     .reduce((s, p) => s + p.weight, 0);
 
-  // ── Direct sectors (excludes S&P 500 ETFs only — unchanged) ──────────────
-  // Feeds the "blended exposure vs S&P 500" view, which must stay as it was.
+  // Direct sectors (excludes S&P 500 ETFs only)
   const sectors = {};
   tagged
     .filter((p) => !p.isSP500)
@@ -178,7 +153,7 @@ export function analyzePortfolio(positions = []) {
       sectors[sector].positions++;
     });
 
-  // ── Blended sectors (direct + implied via S&P 500 ETFs) — unchanged ──────
+  // Blended sectors (direct + implied via S&P 500 ETFs)
   const blendedSectors = {};
   Object.entries(sectors).forEach(([k, v]) => {
     blendedSectors[k] = { ...v, implied: 0 };
@@ -192,14 +167,7 @@ export function analyzePortfolio(positions = []) {
       (blendedSectors[sector].implied || 0) + impliedValue;
   });
 
-  // ── TRUE sector exposure ──────────────────────────────────────────────────
-  // Your real sector mix, looking through EVERY index fund you hold (S&P 500,
-  // S&P 500 Growth, Nasdaq-100, ...). This single source drives the sector pie,
-  // the "you vs S&P 500" comparison, and the sector-concentration part of the
-  // risk score, so all three always agree.
-  //
-  // Direct part: individual assets only (every index fund is excluded here so
-  // it is not counted twice — it is added back below via its sector mix).
+  // TRUE sector exposure, looking through EVERY index fund
   const directExposure = {};
   tagged
     .filter((p) => !p.fund)
@@ -208,7 +176,6 @@ export function analyzePortfolio(positions = []) {
       directExposure[sector] = (directExposure[sector] || 0) + (p.value || 0);
     });
 
-  // Implied part: each index fund spread across its real sectors.
   const impliedExposure = {};
   INDEX_FUNDS.forEach((fund) => {
     const famWeight = tagged
@@ -237,12 +204,7 @@ export function analyzePortfolio(positions = []) {
     };
   });
 
-  // ── Sector vs S&P 500 benchmark comparison ────────────────────────────────
-  // Uses the SAME true exposure as the pie above (so the two never disagree),
-  // measured against the S&P 500's own sector weights. The benchmark stays the
-  // S&P 500; only YOUR side reflects every index fund you hold. `impliedPct` is
-  // the slice of each sector that is hidden inside your ETFs (any index fund),
-  // `directPct` is what you hold as individual stocks.
+  // Sector vs S&P 500 benchmark comparison
   const sectorVsSP500 = {};
   const allSectorNames = new Set([
     ...Object.keys(sectorExposure),
@@ -264,11 +226,9 @@ export function analyzePortfolio(positions = []) {
     };
   });
 
-  // ── Risk Score (continuous 0–100) ────────────────────────────────────────
+  // Risk Score (continuous 0-100)
 
-  // Component 1 — Concentration via modified HHI (40%)
-  // Index funds count as their many underlying holdings, not as one position:
-  // S&P 500 ≈ 1/500, Nasdaq-100 ≈ 1/100, S&P 500 Growth ≈ 1/150.
+  // Component 1: concentration via modified HHI (40%)
   let hhi = 0;
   tagged.forEach((p) => {
     const effectiveHoldings = p.fund ? p.fund.holdings : 1;
@@ -276,17 +236,12 @@ export function analyzePortfolio(positions = []) {
   });
   const concentrationScore = Math.min(100, hhi * 100);
 
-  // Component 2 — Top-sector concentration (30%)
-  // Now based on TRUE sector exposure, so a heavy Nasdaq-100 or Growth position
-  // correctly registers as sector concentration (mostly Technology).
+  // Component 2: top-sector concentration (30%)
   const exposurePcts = Object.values(sectorExposure).map((s) => s.userPct);
   const topSectorPct = exposurePcts.length ? Math.max(...exposurePcts) : 0;
-  // S&P 500's own top sector (Tech) is ~31%; above 40% is high.
   const sectorScore = Math.min(100, (topSectorPct / 40) * 100);
 
-  // Component 3 — Breadth: how many GICS sectors covered (20%)
-  // When index funds are a meaningful slice, count sectors with >2% true
-  // exposure (S&P 500 spreads across all 11; Nasdaq-100 covers far fewer).
+  // Component 3: breadth, how many GICS sectors covered (20%)
   const directSectorCount = Object.keys(sectors).length;
   let effectiveSectorCount;
   if (indexFundWeight > 0.1) {
@@ -299,7 +254,7 @@ export function analyzePortfolio(positions = []) {
   }
   const breadthScore = Math.max(0, ((11 - effectiveSectorCount) / 11) * 100);
 
-  // Component 4 — ROI volatility across individual positions (10%)
+  // Component 4: ROI volatility across individual positions (10%)
   const rois = positions
     .filter((p) => p.roi !== null && p.roi !== undefined)
     .map((p) => p.roi);
@@ -313,9 +268,15 @@ export function analyzePortfolio(positions = []) {
       volatilityScore * 0.1,
   );
 
-  // ── Legacy fields (backward compat with existing components) ────────────
-  // Headline single-asset concentration ignores ALL index funds (each is a
-  // basket, not a single bet).
+  // Breakdown of the score: points contributed by each component vs its max.
+  const riskBreakdown = {
+    concentration: { points: +(concentrationScore * 0.4).toFixed(1), max: 40 },
+    sector: { points: +(sectorScore * 0.3).toFixed(1), max: 30 },
+    breadth: { points: +(breadthScore * 0.2).toFixed(1), max: 20 },
+    volatility: { points: +(volatilityScore * 0.1).toFixed(1), max: 10 },
+  };
+
+  // Legacy fields
   const nonIndexPositions = tagged.filter((p) => !p.fund);
   const maxNonIndexValue = nonIndexPositions.length
     ? Math.max(...nonIndexPositions.map((p) => p.value || 0))
@@ -323,8 +284,7 @@ export function analyzePortfolio(positions = []) {
   const concentration = maxNonIndexValue / totalValue;
   const diversification = new Set(positions.map((p) => p.symbol)).size;
 
-  // ── Dead weight: losing individual assets with significant weight ─────────
-  // Index funds are excluded (a losing broad index is not a bad single pick).
+  // Dead weight: losing individual assets with significant weight
   const deadWeight = tagged
     .filter(
       (p) =>
@@ -332,7 +292,7 @@ export function analyzePortfolio(positions = []) {
         p.roi !== null &&
         p.roi !== undefined &&
         p.roi < 0 &&
-        p.weight > 0.08, // >8% of portfolio and losing money
+        p.weight > 0.08,
     )
     .map((p) => ({
       symbol: p.symbol,
@@ -340,7 +300,7 @@ export function analyzePortfolio(positions = []) {
       weight: Number((p.weight * 100).toFixed(1)),
     }));
 
-  // ── Notes ─────────────────────────────────────────────────────────────────
+  // Notes
   const noteKeys = [];
   if (concentration > 0.4 && sp500Weight < 0.5)
     noteKeys.push("note_high_concentration");
@@ -355,12 +315,13 @@ export function analyzePortfolio(positions = []) {
     diversification,
     concentration,
     riskScore,
-    sectors, // direct sectors only (excludes S&P 500 ETFs) — unchanged
-    blendedSectors, // direct + implied via S&P 500 ETFs — unchanged
-    sectorVsSP500, // comparison: your blend vs S&P 500 — unchanged
-    sectorExposure, // NEW: true sector mix through ALL index funds
-    sp500Weight, // 0–1 fraction in S&P 500 trackers
-    deadWeight, // array of { symbol, roi, weight }
+    riskBreakdown,
+    sectors,
+    blendedSectors,
+    sectorVsSP500,
+    sectorExposure,
+    sp500Weight,
+    deadWeight,
     noteKeys,
   };
 }

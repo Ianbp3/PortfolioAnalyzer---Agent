@@ -1,30 +1,21 @@
 import React from "react";
 import {
-  PieChart,
-  Pie,
-  Cell,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
 import { useLang } from "../hooks/useLang";
 
-const COLORS = [
-  "#1a6b4a",
-  "#2a9b6a",
-  "#c9993a",
-  "#3d4450",
-  "#7a8394",
-  "#c0392b",
-  "#8e44ad",
-  "#2980b9",
-  "#16a085",
-  "#d35400",
-];
+const GREEN = "#1a6b4a";
+const RED = "#c0392b";
+const GRAY = "#7a8394";
+const LIMIT = 10; // % guideline for a single stock
 
 const TOOLTIP_STYLE = {
   background: "#fff",
@@ -34,23 +25,8 @@ const TOOLTIP_STYLE = {
   fontSize: 12,
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Index funds we "look through" for hidden overlap.
-//
-// Holding one of these means you also own a slice of each constituent below,
-// so the per-asset chart shows that hidden exposure on top of what you hold
-// directly. Each fund groups every ticker that tracks the same index, plus an
-// approximate constituent table (the % each company is of that index).
-//
-// `dualClass` lists companies that appear under more than one share class
-// (e.g. Alphabet GOOG/GOOGL). `combined` is the company's full index weight;
-// `perClass` is used only to avoid double-counting if you hold both classes.
-//
-// Constituent weights are approximations (mid-2026) and should be refreshed
-// periodically together with the sector weights in portfolioAnalyzer.js.
-// To add a new index fund: add an entry here (and a matching sector profile
-// on the backend) — nothing else needs to change.
-// ─────────────────────────────────────────────────────────────────────────────
+// Index funds we "look through" for hidden overlap. Weights are approximations
+// (mid-2026), refresh periodically together with portfolioAnalyzer.js.
 const LOOKTHROUGH_FUNDS = [
   {
     key: "SP500",
@@ -223,43 +199,25 @@ const LOOKTHROUGH_FUNDS = [
   },
 ];
 
-// Every ticker that is itself an index fund wrapper — these never get a "ghost"
-// of their own (they ARE the basket, not a hidden constituent of it).
 const ALL_FUND_TICKERS = new Set(LOOKTHROUGH_FUNDS.flatMap((f) => f.tickers));
 
-function renderLabel({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  name,
-}) {
-  if (percent < 0.05) return null;
-  const RADIAN = Math.PI / 180;
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor="middle"
-      dominantBaseline="central"
-      style={{
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: "0.7rem",
-        fontWeight: 700,
-      }}
-    >
-      {name}
-    </text>
-  );
-}
+const LABELS = {
+  en: {
+    top3: "Top 3 holdings",
+    ofPortfolio: "of your portfolio",
+    limit: "Dashed line = 10% guideline for a single stock",
+    over: "Above the guideline",
+    fund: "Index fund (basket, not flagged)",
+  },
+  es: {
+    top3: "Top 3 posiciones",
+    ofPortfolio: "de tu portafolio",
+    limit: "Línea punteada = guía del 10% para una sola acción",
+    over: "Sobre la guía",
+    fund: "Fondo índice (canasta, sin alerta)",
+  },
+};
 
-// Custom tooltip for the bar chart: shows direct, via-ETF and true exposure.
 function makeBarTooltip(t) {
   return function BarTooltip({ active, payload }) {
     if (!active || !payload || !payload.length) return null;
@@ -277,7 +235,7 @@ function makeBarTooltip(t) {
             <div style={{ color: "#7a8394" }}>
               {t.chart_via_etf}: +{row.implied}%
             </div>
-            <div style={{ fontWeight: 700, color: "#1a6b4a", marginTop: 2 }}>
+            <div style={{ fontWeight: 700, color: GREEN, marginTop: 2 }}>
               {t.chart_true_exposure}: {row.trueExposure}%
             </div>
           </>
@@ -288,16 +246,14 @@ function makeBarTooltip(t) {
 }
 
 export default function PortfolioCharts({ data }) {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const l = LABELS[lang] || LABELS.en;
 
   if (!data || data.length === 0) return null;
 
   const totalValue = data.reduce((s, p) => s + (p.value || 0), 0);
-
-  // Symbols the portfolio actually holds — used to resolve dual-class companies.
   const heldSymbols = new Set(data.map((p) => (p.symbol || "").toUpperCase()));
 
-  // Fraction of the whole portfolio (0–1) sitting in each index fund family.
   function familyWeight(fund) {
     if (totalValue <= 0) return 0;
     return data.reduce(
@@ -313,20 +269,17 @@ export default function PortfolioCharts({ data }) {
     weight: familyWeight(fund),
   })).filter((f) => f.weight > 0);
 
-  // A symbol's weight inside ONE index, treating a multi-class company as one
-  // position — and splitting it only if you happen to hold more than one class.
   function constituentWeightFor(sym, fund) {
     for (const g of fund.dualClass || []) {
       if (g.classes.includes(sym)) {
         const heldClasses = g.classes.filter((c) => heldSymbols.has(c));
-        if (heldClasses.length <= 1) return g.combined; // count as one company
-        return g.perClass[sym] ?? g.combined / g.classes.length; // split, no double-count
+        if (heldClasses.length <= 1) return g.combined;
+        return g.perClass[sym] ?? g.combined / g.classes.length;
       }
     }
     return fund.constituents[sym] || 0;
   }
 
-  // Total hidden exposure to a symbol across EVERY index fund you hold.
   function impliedExposureFor(sym) {
     return fundWeights.reduce(
       (s, { fund, weight }) => s + weight * constituentWeightFor(sym, fund),
@@ -334,160 +287,198 @@ export default function PortfolioCharts({ data }) {
     );
   }
 
-  const finalData = data.map((item) => {
-    const sym = (item.symbol || "").toUpperCase();
-    const isFund = ALL_FUND_TICKERS.has(sym);
-    const direct =
-      totalValue > 0 ? Number(((item.value / totalValue) * 100).toFixed(2)) : 0;
+  const rows = data
+    .map((item) => {
+      const sym = (item.symbol || "").toUpperCase();
+      const isFund = ALL_FUND_TICKERS.has(sym);
+      const direct =
+        totalValue > 0
+          ? Number(((item.value / totalValue) * 100).toFixed(2))
+          : 0;
+      const implied = isFund
+        ? 0
+        : Number((impliedExposureFor(sym) * 100).toFixed(2));
+      const trueExposure = Number((direct + implied).toFixed(2));
+      return {
+        name: item.symbol,
+        direct,
+        implied,
+        trueExposure,
+        isFund,
+        over: !isFund && trueExposure > LIMIT,
+      };
+    })
+    .sort((a, b) => b.trueExposure - a.trueExposure);
 
-    // Implied exposure this holding ALSO has hidden inside your index ETFs.
-    // The ETFs themselves get no ghost (they are the wrapper, not a constituent).
-    const implied = isFund
-      ? 0
-      : Number((impliedExposureFor(sym) * 100).toFixed(2));
+  const hasGhost = rows.some((d) => d.implied > 0);
+  const hasOver = rows.some((d) => d.over);
+  const hasFund = rows.some((d) => d.isFund);
 
-    return {
-      name: item.symbol,
-      percentage: direct, // used by the pie (what you actually hold)
-      direct, // solid segment of the bar
-      implied, // translucent "ghost" segment stacked on top
-      trueExposure: Number((direct + implied).toFixed(2)),
-    };
-  });
+  // Concentration summary: share of the portfolio held in the 3 biggest positions
+  const top3 = [...rows]
+    .sort((a, b) => b.direct - a.direct)
+    .slice(0, 3)
+    .reduce((s, r) => s + r.direct, 0);
 
-  const hasGhost = finalData.some((d) => d.implied > 0);
+  const colorFor = (r) => (r.over ? RED : r.isFund ? GRAY : GREEN);
+  const maxTrue = Math.max(...rows.map((r) => r.trueExposure));
+  const xMax = Math.max(LIMIT + 2, Math.ceil(maxTrue + 1));
+  const chartHeight = Math.max(260, rows.length * 30 + 40);
 
   return (
-    <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-      {/* PIE — direct holdings only */}
-      <div style={{ flex: "1 1 260px", minWidth: 220 }}>
-        <h4
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            color: "var(--ink)",
-            marginBottom: 16,
-            fontSize: "0.9rem",
-          }}
-        >
-          {t.chart_distribution}
-        </h4>
-        <ResponsiveContainer width="100%" height={260}>
-          <PieChart>
-            <Pie
-              data={finalData}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              innerRadius={44}
-              dataKey="percentage"
-              labelLine={false}
-              label={renderLabel}
-            >
-              {finalData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={TOOLTIP_STYLE}
-              formatter={(v) => [`${v}%`, t.chart_weight]}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+    <div style={{ width: "100%" }}>
+      <h4
+        style={{
+          textAlign: "center",
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          color: "var(--ink)",
+          marginBottom: 6,
+          fontSize: "0.9rem",
+        }}
+      >
+        {t.chart_by_asset}
+      </h4>
+      <p
+        style={{
+          textAlign: "center",
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.8rem",
+          color: "var(--ink-muted)",
+          marginBottom: 12,
+        }}
+      >
+        {l.top3}:{" "}
+        <strong style={{ color: "var(--ink)" }}>{top3.toFixed(1)}%</strong>{" "}
+        {l.ofPortfolio}
+      </p>
 
-      {/* BAR — direct holding (solid) + true look-through exposure (ghost) */}
-      <div style={{ flex: "2 1 300px", minWidth: 260 }}>
-        <h4
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            color: "var(--ink)",
-            marginBottom: 16,
-            fontSize: "0.9rem",
-          }}
+      <ResponsiveContainer width="100%" height={chartHeight}>
+        <BarChart
+          data={rows}
+          layout="vertical"
+          margin={{ top: 10, right: 24, left: 0, bottom: 5 }}
         >
-          {t.chart_by_asset}
-        </h4>
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart
-            data={finalData}
-            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#edecea"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="name"
-              tick={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 11,
-                fill: "#7a8394",
-              }}
-              axisLine={false}
-              tickLine={false}
-            />
-            <YAxis
-              tick={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 11,
-                fill: "#7a8394",
-              }}
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(v) => `${v}%`}
-            />
-            <Tooltip content={makeBarTooltip(t)} cursor={{ fill: "#f7f6f2" }} />
-            {/* Solid: what you actually own */}
-            <Bar dataKey="direct" stackId="exposure" radius={[0, 0, 0, 0]}>
-              {finalData.map((_, i) => (
-                <Cell key={`d-${i}`} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Bar>
-            {/* Ghost: extra exposure hidden inside your index ETFs */}
-            <Bar
-              dataKey="implied"
-              stackId="exposure"
-              fillOpacity={0.32}
-              radius={[6, 6, 0, 0]}
-            >
-              {finalData.map((_, i) => (
-                <Cell key={`i-${i}`} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-
-        {/* Hint — only shown when there's hidden exposure to explain */}
-        {hasGhost && (
-          <p
-            style={{
-              textAlign: "center",
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#edecea"
+            horizontal={false}
+          />
+          <XAxis
+            type="number"
+            domain={[0, xMax]}
+            tick={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.72rem",
-              color: "#7a8394",
-              marginTop: 8,
-              lineHeight: 1.4,
+              fontSize: 11,
+              fill: "#7a8394",
             }}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(v) => `${v}%`}
+          />
+          <YAxis
+            type="category"
+            dataKey="name"
+            width={56}
+            tick={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: 11,
+              fill: "#3d4450",
+            }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <Tooltip content={makeBarTooltip(t)} cursor={{ fill: "#f7f6f2" }} />
+          <ReferenceLine
+            x={LIMIT}
+            stroke={RED}
+            strokeDasharray="5 4"
+            label={{
+              value: `${LIMIT}%`,
+              position: "top",
+              fontSize: 10,
+              fill: RED,
+            }}
+          />
+          {/* Solid: what you actually own */}
+          <Bar dataKey="direct" stackId="exposure">
+            {rows.map((r, i) => (
+              <Cell key={`d-${i}`} fill={colorFor(r)} />
+            ))}
+          </Bar>
+          {/* Ghost: extra exposure hidden inside your index ETFs */}
+          <Bar
+            dataKey="implied"
+            stackId="exposure"
+            fillOpacity={0.32}
+            radius={[0, 6, 6, 0]}
           >
+            {rows.map((r, i) => (
+              <Cell key={`i-${i}`} fill={colorFor(r)} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div
+        style={{
+          textAlign: "center",
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.72rem",
+          color: "#7a8394",
+          marginTop: 8,
+          lineHeight: 1.6,
+        }}
+      >
+        <div>{l.limit}</div>
+        {hasGhost && (
+          <div>
             <span
               style={{
                 display: "inline-block",
                 width: 10,
                 height: 10,
                 borderRadius: 2,
-                background: "#1a6b4a",
+                background: GREEN,
                 opacity: 0.32,
                 verticalAlign: "middle",
                 marginRight: 6,
               }}
             />
             {t.chart_ghost_hint}
-          </p>
+          </div>
+        )}
+        {hasOver && (
+          <div>
+            <span
+              style={{
+                display: "inline-block",
+                width: 10,
+                height: 10,
+                borderRadius: 2,
+                background: RED,
+                verticalAlign: "middle",
+                marginRight: 6,
+              }}
+            />
+            {l.over}
+          </div>
+        )}
+        {hasFund && (
+          <div>
+            <span
+              style={{
+                display: "inline-block",
+                width: 10,
+                height: 10,
+                borderRadius: 2,
+                background: GRAY,
+                verticalAlign: "middle",
+                marginRight: 6,
+              }}
+            />
+            {l.fund}
+          </div>
         )}
       </div>
     </div>

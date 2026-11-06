@@ -10,7 +10,7 @@ import FileUploader from "./components/FileUploader";
 import Chat from "./components/chat";
 import PortfolioCharts from "./components/PortfolioCharts";
 import SectorPieChart from "./components/SectorPieChart";
-import PortfolioRadar from "./components/PortfolioRadar";
+import RiskBreakdown from "./components/RiskBreakdown";
 import SectorRanking from "./components/SectorRanking";
 import AssetRanking from "./components/AssetRanking";
 import ScatterRiskReturn from "./components/ScatterRiskReturn";
@@ -91,7 +91,11 @@ export default function App() {
   // have restored positions but no analysis. Re-run it once on mount so the
   // dashboard always shows a complete, consistent state.
   useEffect(() => {
-    if (positions.length > 0 && !analysis && !loadingAnalysis) {
+    if (
+      positions.length > 0 &&
+      (!analysis || !analysis.riskBreakdown) &&
+      !loadingAnalysis
+    ) {
       handlePositionsLoaded(positions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -635,7 +639,7 @@ export default function App() {
               />
             )}
 
-            {/* RADAR + SCATTER */}
+            {/* RISK BREAKDOWN + SCATTER */}
             {analysis && positions.length > 0 && (
               <div
                 className="dash-charts-row"
@@ -644,9 +648,9 @@ export default function App() {
                 <div
                   className="section-card"
                   style={{ flex: 1, marginBottom: 0 }}
-                  data-pdf-chart="radar"
+                  data-pdf-chart="risk-breakdown"
                 >
-                  <PortfolioRadar analysis={analysis} />
+                  <RiskBreakdown analysis={analysis} />
                 </div>
                 <div
                   className="section-card"
